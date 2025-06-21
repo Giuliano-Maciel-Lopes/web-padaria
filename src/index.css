@@ -1,34 +1,31 @@
 
 @import "tailwindcss";
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  overflow-x: hidden; /* remove a rolagem horizontal */
-  overflow-y: auto;   /* mantém a rolagem vertical */
-}
+
+
 :root{
   --bg-teste:#F9F4E7;
-   --bg-header: #FFF4E6;   /* creme claro para header */
+   --bg-header: #DDB892;   /* creme claro para header */
   --bg-button: #B08968;   /* caramelo suave para botão */
   --bg-footer: #6F4E37;   /* chocolate claro para footer */
 }
   
 
-@utility bg-beige{
-  background-color: var(--bg-teste);
-}
-@utility bg-header {
-  background-color: var(--bg-header);
+@layer utilities {
+  .bg-beige {
+    background-color: var(--bg-teste);
+  }
+
+  .bg-header {
+    background-color: var(--bg-header);
+  }
+
+  .bg-button {
+    background-color: var(--bg-button);
+  }
+
+  .bg-footer {
+    background-color: var(--bg-footer);
+  }
 }
 
-@utility bg-button {
-  background-color: var(--bg-button);
-}
-
-@utility bg-footer {
-  background-color: var(--bg-footer);
-}

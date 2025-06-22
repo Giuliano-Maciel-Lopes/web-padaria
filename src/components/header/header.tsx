@@ -1,7 +1,8 @@
 import { Logo } from "../logo";
-import { Menu } from "./menu";
+import { IconButton } from "./menu";
 import cart from "../../assets/carrinho.png";
 import loguin from "../../assets/LOGUIN.png"
+import menu from "../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 
@@ -17,7 +18,9 @@ export function Header({ onAside }: Props) {
 
         <div className=" flex  items-center justify-between gap-10">
          
-          <Menu onClick={onAside} />
+          <IconButton onClick={onAside} > 
+          <img src={menu} alt="icone menu" />
+          </IconButton>
           <Logo />
           
 
@@ -29,12 +32,12 @@ export function Header({ onAside }: Props) {
             <img
               src={loguin}
               alt="loguin icon"
-              className="w-6 h-6 object-contain"
+              className="w-6 h-6 object-contain hover:opacity-60"
             />
             <img
               src={cart}
               alt="Cart icon"
-              className="w-6 h-6 object-contain"
+              className="w-6 h-6 object-contain hover:opacity-60"
             />
           </div>
         </div>

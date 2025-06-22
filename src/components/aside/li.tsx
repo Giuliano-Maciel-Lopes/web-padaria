@@ -9,8 +9,8 @@ type Props = {
 export function Li({  href, children }:Props) {
   return (
     
-        <li className="border-t-2 border-gray-600 "  >
-            <a href={href}>{children}</a>
+        <li className="border border-gray-600 font-bold text-2xl  text-amber-950"  >
+            <a  className=" block h-full w-full"href={href}>{children}</a>
         </li>
     
   );

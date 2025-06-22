@@ -9,7 +9,7 @@ type Props = ComponentProps<"button"> & {
 
 export function Button({ type , children , ...rest}: Props) {
   return (
-    <button {...rest} className="flex items-center w-10 justify-center bg-button h-full " type={type}>
+    <button {...rest} className="flex items-center w-10 justify-center bg-button h-full hover:cursor-pointer" type={type}>
         {children}
 
     </button>

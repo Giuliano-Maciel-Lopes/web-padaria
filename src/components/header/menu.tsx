@@ -6,14 +6,14 @@ type Props = ComponentProps<"button"> & {
     isOpen?: boolean
 }
 
-export function Menu({  children, isOpen, ...rest  }: Props) {
+export function IconButton({  children, isOpen, ...rest  }: Props) {
   return (
-    <div>
-        <button {...rest} type="button">
-            <img src={menu} alt="icone menu" />
+    
+        <button {...rest} type="button" className="hover:opacity-60 hover:cursor-pointer">
+                {children }
         </button>
-        {children }
+        
       
-    </div>
+    
   );
 }

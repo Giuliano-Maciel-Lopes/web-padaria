@@ -11,9 +11,7 @@ export function Input({ children, ...rest }: Props) {
       <input
         type="text"
         {...rest}
-        className="w-full border p-2   border-gray-400 rounded-md flex-1  focus:outline-none"
+        className="w-full h-full border p-2 border-gray-400 rounded-md flex-1  focus:outline-none"
       />
-      
-   
   );
 }

@@ -9,7 +9,7 @@ export function Formsearch({...rest}:Props) {
   return (
     <form {...rest} className="flex  w-full items-center justify-center">
       <div className=" flex items-center border rounded-md overflow-hidden w-full h-10 ">
-        <Input placeholder="procure seu pedido aqui" />
+        <Input placeholder="Buscar" />
         <Button className="h-full " type={"submit"}>
           <img
             src={search}

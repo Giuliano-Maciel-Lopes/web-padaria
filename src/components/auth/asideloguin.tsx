@@ -1,5 +1,6 @@
 import { Input } from "./input";
 import { LayoutAuth } from "../layouts/layout-auth";
+import { Button } from "../button";
 
 type Props ={
   oncloseAuth:()=> void
@@ -14,7 +15,7 @@ export function AsideLoguin({oncloseAuth}:Props) {
           <Input legend="email" placeholder="ex: @gmail.com"/>
           <Input legend="senha" placeholder="digite sua senha"/>
 
-          
+          <Button className="w-10"/>
           
             
 

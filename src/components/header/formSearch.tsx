@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import search from "../../assets/lupa.png";
-import { Button } from "./button";
+import { Button } from "../button";
 import { Input } from "./input";
 type Props = ComponentProps<"form"> 
 
@@ -10,7 +10,7 @@ export function Formsearch({...rest}:Props) {
     <form {...rest} className="flex  w-full items-center justify-center">
       <div className=" flex items-center border rounded-md overflow-hidden w-full h-10 ">
         <Input placeholder="Buscar" />
-        <Button className="h-full " type={"submit"}>
+        <Button  variant={"icon"} type={"submit"}>
           <img
             src={search}
             alt="icone de pesquisa "

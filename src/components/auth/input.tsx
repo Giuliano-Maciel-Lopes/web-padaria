@@ -7,7 +7,7 @@ type Props = React.ComponentProps<"input"> &{
 export function Input({legend ,  ...rest}:Props){
     return(
        
-        <fieldset className="flex flex-1 focus-within:text-green-100" >
+        <fieldset className="flex flex-1 focus-within:text-amber-950" >
 
             { legend&& 
                 <legend  className="uppercase text-xs m-1.5" >
@@ -18,7 +18,7 @@ export function Input({legend ,  ...rest}:Props){
 
 
 
-      <input type="text"  {...rest} className="w-full text-gray-200 h-12 rounded-lg border border-gray-300 p-2 outline-none focus:border-green-600"  />
+      <input type="text"  {...rest} className="w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow"  />
       </fieldset>
 
 

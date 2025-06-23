@@ -1,11 +1,9 @@
 
 import type { ComponentProps , ReactNode} from "react";
 
-type Props = ComponentProps<"input"> & {
-  children?: ReactNode;}
+type Props = ComponentProps<"input"> 
 
-
-export function Input({ children, ...rest }: Props) {
+export function Input({  ...rest }: Props) {
   return (
    
       <input

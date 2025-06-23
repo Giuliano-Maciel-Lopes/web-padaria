@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import search from "../../assets/lupa.png";
 import { Button } from "./button";
-import { Input } from "./inputSearch";
+import { Input } from "./input";
 type Props = ComponentProps<"form"> 
 
 

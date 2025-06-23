@@ -8,6 +8,7 @@
    --bg-header: #DDB892;   /* creme claro para header */
   --bg-button:#8B5E3C;   /* caramelo suave para botão */
   --bg-footer: #6F4E37;   /* chocolate claro para footer */
+  --bg-login: #E1C699;
   --font-family:'Poppins', sans-serif;
 }
   
@@ -28,6 +29,10 @@
   .bg-footer {
     background-color: var(--bg-footer);
   }
+  .bg-login {
+    background-color: var(--bg-login);
+  }
+
   
 }
 body{

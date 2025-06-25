@@ -1,16 +1,27 @@
 import { Logo } from "../logo";
 import { IconButton } from "../header/iconButton";
+import { Button } from "../button";
 import x from "../../assets/x.svg";
 import type React from "react";
+import type { ReactNode } from "react";
+
+
 type Props = {
   children?: React.ReactNode;
   onLayout: () => void;
+  nameBtn: string
+  title:ReactNode
+  nameBtn2:string
+  toggleAuth:()=> void
+
+
+  
 };
 
-export function LayoutAuth({ children, onLayout }: Props) {
+export function LayoutAuth({ toggleAuth , title, nameBtn2  , nameBtn, children, onLayout }: Props) {
   return (
-    <div className=" h-screen w-full flex items-center justify-center sticky my-20 z-50">
-      <main className=" md:px-6 px-4 relative rounded-3xl flex flex-col  pt-4 md:w-[600px] md:max=h-[600px] w-[300px] max-h-[500px] bg-login md">
+    <div className=" h-screen w-full flex items-center justify-center fixed bg-black/40 z-50">
+      <aside className=" overflow-y-auto  md:px-6 px-4 relative rounded-3xl flex flex-col  pt-4 md:w-[500px] md:max-h-[90vh] w-[300px] max-h-[90vh] bg-login md "  style={{ WebkitOverflowScrolling: 'touch' }}>
         <IconButton
           onClick={onLayout}
           animation
@@ -18,15 +29,24 @@ export function LayoutAuth({ children, onLayout }: Props) {
         >
           <img src={x} alt="icone x" />
         </IconButton>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col  items-center justify-center">
           <Logo />
+          <h3>{title}</h3>
         </div>
 
         <div className="flex flex-col gap-4 py-4">
         {children}
         </div>
 
-      </main>
+        <div className="flex flex-col items-center gap-8 mt-8 py-4">
+        <Button >{nameBtn}</Button>
+
+        <Button onClick={toggleAuth} colorVariant="secund">{nameBtn2}</Button>
+        </div>
+
+       
+
+      </aside>
     </div>
   );
 }

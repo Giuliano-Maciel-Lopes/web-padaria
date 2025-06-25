@@ -1,25 +1,28 @@
 import { Input } from "./input";
 import { LayoutAuth } from "../layouts/layout-auth";
-import { Button } from "../button";
 
-type Props ={
-  oncloseAuth:()=> void
-}
+type Props = {
+  oncloseAuth: () => void;
+  onRegister:()=>void
+};
 
-
-export function AsideLoguin({oncloseAuth}:Props) {
+export function AsideLoguin({ onRegister , oncloseAuth }: Props) {
   return (
-    
-        <LayoutAuth onLayout={oncloseAuth}>
-          
-          <Input legend="email" placeholder="ex: @gmail.com"/>
-          <Input legend="senha" placeholder="digite sua senha"/>
+    <LayoutAuth 
+    toggleAuth={onRegister}
+    title={
+    <>
+    Faça o login e volte pras Terras
+    <br className="block md:hidden" />
+    <span className="block text-center md:inline md:text-left"> Mineiras</span>
+    </>}
 
-          <Button className="w-10"/>
-          
-            
-
-        </LayoutAuth>
-  
+     nameBtn2="Criar uma conta"
+      onLayout={oncloseAuth}
+      nameBtn="ENTRAR"
+    >
+      <Input legend="email" placeholder="ex: @gmail.com" />
+      <Input legend="senha" placeholder="digite sua senha" />
+    </LayoutAuth>
   );
 }

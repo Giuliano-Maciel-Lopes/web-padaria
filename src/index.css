@@ -6,7 +6,8 @@
 :root{
   --bg-teste:#F9F4E7;
    --bg-header: #DDB892;   /* creme claro para header */
-  --bg-button:#8B5E3C;   /* caramelo suave para botão */
+  --bg-button:#8B5E3C; 
+   --bg-button2:#f7e970;  /* caramelo suave para botão */
   --bg-footer: #6F4E37;   /* chocolate claro para footer */
   --bg-login: #E1C699;
   --border-input: #FFD580; /* dourado pastel, se destaca no fundo claro */
@@ -25,6 +26,9 @@
 
   .bg-button {
     background-color: var(--bg-button);
+  }
+   .bg-button2 {
+    background-color: var(--bg-button2);
   }
 
   .bg-footer {

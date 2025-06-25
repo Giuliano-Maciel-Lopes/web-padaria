@@ -1,11 +1,11 @@
-import { LogoEscrita } from "../logoescrita";
+import { LogoEscrita } from "../../logoescrita";
 import { Socials } from "./socials";
-import insta from "../../assets/Instagram.svg";
-import Facebook from "../../assets/Facebook.svg";
-import twwiter from "../../assets/Twitter.svg";
-import email from "../../assets/Email.svg";
-import local from "../../assets/🔹 Primary Color.svg";
-import phone from "../../assets/call.svg";
+import insta from "../../../assets/Instagram.svg"
+import Facebook from "../../../assets/Facebook.svg";
+import twwiter from "../../../assets/Twitter.svg";
+import email from "../../../assets/Email.svg";
+import local from "../../../assets/🔹 Primary Color.svg";
+import phone from "../../../assets/call.svg";
 
 export function Fotter() {
   return (

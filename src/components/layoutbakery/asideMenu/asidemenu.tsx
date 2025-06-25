@@ -1,8 +1,8 @@
 import { Li } from "./li";
-import { Logo } from "../logo";
+import { Logo } from "../../logo";
 import { Formsearch } from "../header/formSearch";
 import { IconButton } from "../header/iconButton";
-import x from "../../assets/x.svg";
+import x from "../../../assets/x.svg";
 
 type Props = {
   oncloseMenu: () => void;

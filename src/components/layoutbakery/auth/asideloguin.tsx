@@ -1,5 +1,5 @@
-import { Input } from "./input";
-import { LayoutAuth } from "../layouts/layout-auth";
+import { Input } from "../../input";
+import { LayoutAuth } from "../../layouts/layout-auth";
 
 type Props = {
   oncloseAuth: () => void;

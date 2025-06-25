@@ -1,5 +1,5 @@
 import { Logo } from "../logo";
-import { IconButton } from "../header/iconButton";
+import { IconButton } from "../layoutbakery/header/iconButton";
 import { Button } from "../button";
 import x from "../../assets/x.svg";
 import type React from "react";

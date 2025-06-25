@@ -1,8 +1,8 @@
-import { Logo } from "../logo";
+import { Logo } from "../../logo";
 import { IconButton } from "./iconButton";
-import cart from "../../assets/carrinho.png";
-import loguin from "../../assets/LOGUIN.png";
-import menu from "../../assets/menu.svg";
+import cart from "../../../assets/carrinho.png";
+import loguin from "../../../assets/LOGUIN.png";
+import menu from "../../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 
@@ -31,7 +31,7 @@ export function Header({onAsideMenu , onAsideLoguin}: Props) {
               <img
                 src={loguin}
                 alt="loguin icon"
-                className="w-6 h-6 object-contain hover:opacity-60"
+                className=" object-contain hover:opacity-60"
               />
             </IconButton>
 
@@ -39,7 +39,7 @@ export function Header({onAsideMenu , onAsideLoguin}: Props) {
               <img
                 src={cart}
                 alt="Cart icon"
-                className="w-6 h-6 object-contain hover:opacity-60"
+                className=" object-contain hover:opacity-60"
               />
             </IconButton>
           </div>

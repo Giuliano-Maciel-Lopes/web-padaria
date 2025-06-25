@@ -5,13 +5,13 @@ type Props = ComponentProps<"button"> & {
   animation?: boolean;
 };
 
-export function IconButton({ animation=true, children, className="", ...rest }: Props) {
+export function IconButton({ animation=false, children, className="", ...rest }: Props) {
   return (
     <button
       {...rest}
       type="button"
-      className={`hover:opacity-60 hover:cursor-pointer  transition-transform duration-500 ease-in-out ${
-        animation ? "hover:rotate-90": "hover:rotate-0"
+      className={`hover:opacity-60 hover:cursor-pointer   ${
+        animation ? "hover:rotate-90 transition-transform duration-500 ease-in-out": ""  
       } ${className}`}
     >
       {children}

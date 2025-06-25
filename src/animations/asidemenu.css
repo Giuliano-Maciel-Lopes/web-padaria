@@ -1,0 +1,17 @@
+
+  
+@keyframes asidemenu {
+  0% {
+    transform: translateX(-100%); /* começa totalmente fora da tela à esquerda */
+    opacity: 0;                   /* invisível */
+  }
+  100% {
+    transform: translateX(0);     /* na posição normal */
+    opacity: 1;                   /* totalmente visível */
+  }
+}
+.aside-animation{
+    animation: asidemenu ease-in 1s forwards;
+
+}
+

@@ -2,24 +2,28 @@ import { Li } from "./li";
 import { Logo } from "../logo";
 import { Formsearch } from "../header/formSearch";
 import { IconButton } from "../header/iconButton";
-import x from "../../assets/x.svg"
+import x from "../../assets/x.svg";
 
 type Props = {
-  oncloseMenu: ()=> void
-}
+  oncloseMenu: () => void;
+};
 
-export function  AsideMenu({oncloseMenu}:Props) {
+export function AsideMenu({ oncloseMenu }: Props) {
   return (
     <div>
-      <aside className=" p-4 flex flex-col bg-header h-screen w-screen top-0 fixed md:w-90 z-50 " >
+      <aside className=" p-4 flex flex-col bg-header h-screen w-screen top-0 fixed md:w-90 z-50 aside-animation">
         <div className="flex flex-col items-center mb-4">
-          <IconButton onClick={oncloseMenu} animation className=" absolute top-4 right-4">
-        <img src={x} alt="icone x" />
-      </IconButton >
-        <Logo/>
-        <Formsearch/>
+          <IconButton
+            onClick={oncloseMenu}
+            animation
+            className=" absolute top-4 right-4"
+          >
+            <img src={x} alt="icone x" />
+          </IconButton>
+          <Logo />
+          <Formsearch />
         </div>
-        
+
         <nav>
           <ul className="flex flex-col gap-4 justify-center ">
             <Li href="#sobre">SOBRE NÓS</Li>

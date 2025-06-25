@@ -1,0 +1,20 @@
+@keyframes icone-hover {
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(-20deg); /* mais suave */
+  }
+  66% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.icone-animation:hover {
+  animation: icone-hover 1.5s ease-in-out forwards;
+}
+
+

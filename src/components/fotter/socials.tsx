@@ -9,7 +9,7 @@ type Props = ComponentProps<"a"> & {
 
 export function Socials({href, logo,  ...rest }:Props) {
   return (
-    <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white cursor-pointer">
+    <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white cursor-pointer icone-animation">
       <a {...rest} href={href}>
         <img src={logo} alt="icone da redes sociais" />
       </a>

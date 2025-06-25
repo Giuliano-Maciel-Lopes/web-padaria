@@ -9,12 +9,13 @@ type Props = {
 export function AsideLoguin({ onRegister , oncloseAuth }: Props) {
   return (
     <LayoutAuth 
+    className="aside-login-animation"
     toggleAuth={onRegister}
     title={
     <>
     Faça o login e volte pras Terras
     <br className="block md:hidden" />
-    <span className="block text-center md:inline md:text-left"> Mineiras</span>
+    <span className="block text-center md:inline md:text-left "> Mineiras</span>
     </>}
 
      nameBtn2="Criar uma conta"

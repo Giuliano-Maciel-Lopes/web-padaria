@@ -1,0 +1,14 @@
+@keyframes asideloguin {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.aside-login-animation {
+  animation: asideloguin 0.5s ease forwards;
+}

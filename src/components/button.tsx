@@ -5,7 +5,7 @@ type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;
   isloading?: boolean;
   variant?: "base" | "icon";
-  colorVariant?: "primary" | "secund" | "bg" 
+  colorVariant?: "primary" | "secund" | "bg" |"products"
   ;
 };
 
@@ -19,6 +19,7 @@ const variants = {
     primary: "bg-button",
     secund: "bg-button2",
     bg: "bg-button3",
+    products:"bg-footer2"
   },
 };
 

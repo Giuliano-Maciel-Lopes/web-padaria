@@ -9,6 +9,7 @@
 
 :root{
   --bg-teste:#F9F4E7;
+  --bg-porducts:#e9b483;
    --bg-header: #DDB892;   /* creme claro para header */
   --bg-button:#8B5E3C; 
    --bg-button2:#f7e970;  /* caramelo suave para botão */
@@ -28,6 +29,9 @@
   .bg-header {
     background-color: var(--bg-header);
   }
+  .bg-products {
+    background-color: var(--bg-porducts);
+  }
 
   .bg-button {
     background-color: var(--bg-button);
@@ -39,6 +43,10 @@
   .bg-footer {
     background-color: var(--bg-footer);
   }
+  .bg-footer2 {
+    background-color: var(--bg-footer2);
+  }
+
   .bg-login {
     background-color: var(--bg-login);
   }
@@ -80,6 +88,7 @@
   
 }
 body{
+  overflow-x: hidden;
   font-family: var(--font-family);
 }
 

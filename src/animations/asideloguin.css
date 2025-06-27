@@ -12,3 +12,11 @@
 .aside-login-animation {
   animation: asideloguin 0.5s ease forwards;
 }
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}

@@ -10,15 +10,21 @@
 :root{
   --bg-teste:#F9F4E7;
   --bg-porducts:#e9b483;
-   --bg-header: #DDB892;   /* creme claro para header */
+   --bg-header: #DDB892;   
   --bg-button:#8B5E3C; 
-   --bg-button2:#f7e970;  /* caramelo suave para botão */
+   --bg-button2:#f7e970;  
   --bg-footer: #6F4E37;   /* chocolate claro para footer */
   --bg-footer2: #D97706;   
   --bg-login: #E1C699;
   --border-input: #FFD580; /* dourado pastel, se destaca no fundo claro */
   --font-family:'Poppins', sans-serif;
    --bg-button3: #F9F4E7;
+   background: linear-gradient(135deg, #f7e970, #F9F4E7);
+
+    /* Cores para gradiente */
+    --gradient-from: #f7e970;    /* caramelo */
+  --gradient-mid: #D97706;     /* laranja/marrom */
+  --gradient-to: #6F4E37;      /* marrom escuro */
 }
 
 @layer utilities {
@@ -72,6 +78,7 @@
   
   
 }
+
 
   /* Para navegadores baseados em Firefox */
 .hide-scrollbar {

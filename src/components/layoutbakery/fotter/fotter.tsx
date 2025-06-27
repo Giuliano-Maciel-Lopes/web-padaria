@@ -9,7 +9,7 @@ import phone from "../../../assets/call.svg";
 
 export function Fotter() {
   return (
-    <footer className="bg-footer w-full flex flex-col min-h-screen md:h-100 px-8 text-[#F5EDE3]">
+    <footer className="bg-footer w-full flex flex-col h-auto md:h-100 px-8 text-[#F5EDE3]">
       <div className="max-w-[100rem] w-full mx-auto md:flex  gap-8">
         <div className="py-8  flex flex-col gap-8 md:w-1/3">
           <LogoEscrita />

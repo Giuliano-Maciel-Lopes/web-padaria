@@ -13,8 +13,8 @@ type Props = {
 
 export function Header({onAsideMenu , onAsideLoguin}: Props) {
   return (
-    <div>
-      <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem]">
+    
+      <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">
         
         <div className=" flex  items-center justify-between gap-10">
           <IconButton onClick={onAsideMenu}>
@@ -49,6 +49,6 @@ export function Header({onAsideMenu , onAsideLoguin}: Props) {
           <Formsearch />
         </div>
       </header>
-    </div>
+    
   );
 }

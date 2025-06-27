@@ -18,17 +18,19 @@ export function LayoutBakery() {
     
     
   return (
-   <div>
-    
-<div className="min-h-screen flex  justify-center bg-beige">
-  <div className="max-w-[100rem] w-full ">
+ <div className="min-h-screen flex flex-col bg-beige"> 
+  <div className="w-full flex grow justify-center ">         
+    <div className="max-w-[100rem] w-full flex flex-col flex-1"> 
+      
     <Header onAsideMenu={menu.open} onAsideLoguin={loguin.open} />
+    <div className="h-[9.5rem] md:h-20" />
+
    {menu.isOpen && < AsideMenu oncloseMenu={menu.closed} />}
 
    {loguin.isOpen && <AsideLoguin  oncloseAuth={loguin.closed} onRegister={()=>{register.open() , loguin.closed()}} />}
    {register.isOpen && <AsideRegister oncloseAuth={register.closed} onLoguin={()=> {register.closed() , loguin.open()}}/>}
 
-    <div className="">
+    <div className="flex-grow ">
       <Outlet/>
     </div>
    

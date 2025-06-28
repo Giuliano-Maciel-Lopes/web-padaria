@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Button } from "../button";
+
+import { Button } from "../index/button";
 
 type Props = {
   name?: string;

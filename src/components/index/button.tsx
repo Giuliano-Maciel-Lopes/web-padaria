@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { classMerge } from "../utils/merge";
+import { classMerge } from "../../utils/merge";
 
 type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;

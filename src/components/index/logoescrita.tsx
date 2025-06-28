@@ -1,6 +1,6 @@
 
 import type React from "react";
-import logo from "../assets/logoEscrita (2).png";
+import logo from "../../assets/logoEscrita (2).png";
 type Props = React.ComponentProps<"img"> 
 
 export function LogoEscrita({...rest}: Props) {

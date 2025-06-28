@@ -1,6 +1,6 @@
 
 import type React from "react";
-import logo from "../assets/LOGO.png";
+import logo from "../../assets/LOGO.png";
 type Props = React.ComponentProps<"img"> 
 
 export function Logo({...rest}: Props) {

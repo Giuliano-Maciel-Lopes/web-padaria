@@ -5,24 +5,15 @@ import { ProductsView } from "../components/layouts/products";
 import { Carrossel } from "../components/bakeryshowcase/corrosel";
 
 import doce1 from "../assets/rosquinhas - Copia.png"
+import { categorie } from "../utils/categorias";
 
 
 
-export function Bakery() {
+export function BakeryPage() {
   const [activecat, setActiveCat] = useState<null | string>(null);
 
-  const categories = [
-    "Pães",
-    "Bolos",
-    "Tortas",
-    "Salgados",
-    "Doces",
-    "Bebidas",
-    "Cafés",
-    "Lanches",
-    "Naturais",
-    "Congelados",
-  ];
+  const categories = categorie
+  
   const produtos = [
     { id: "1", nome: "Pão Francês", preco: 1.2 },
     { id: "2", nome: "Bolo de Chocolate", preco: 6.5 },
@@ -34,18 +25,9 @@ export function Bakery() {
 
   return (
     <div className="flex flex-col">
-      <Slid />
+     
 
-      <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
-        {categories.map((cat) => (
-          <Buttoncategory
-            name={cat}
-            key={cat}
-            onActive={() => setActiveCat(cat)}
-            active={activecat === cat}
-          />
-        ))}
-      </div>
+     
 
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-6">
         {produtos.map((products) => (

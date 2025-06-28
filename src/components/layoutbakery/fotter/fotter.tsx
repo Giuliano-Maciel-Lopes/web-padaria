@@ -1,4 +1,4 @@
-import { LogoEscrita } from "../../logoescrita";
+import { LogoEscrita } from "../../index/logoescrita";
 import { Socials } from "./socials";
 import insta from "../../../assets/Instagram.svg"
 import Facebook from "../../../assets/Facebook.svg";

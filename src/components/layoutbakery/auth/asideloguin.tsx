@@ -1,4 +1,4 @@
-import { Input } from "../../input";
+import { Input } from "../../index/input";
 import { LayoutAuth } from "../../layouts/layout-auth";
 
 type Props = {

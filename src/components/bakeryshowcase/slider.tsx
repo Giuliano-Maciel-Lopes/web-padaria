@@ -5,7 +5,7 @@ import slid4 from "../../assets/slid4.png";
 import arrowleft from "../../assets/Forward.svg";
 import arrowrigth from "../../assets/Back.svg";
 import { useState } from "react";
-import { Button } from "../button";
+import { Button } from "../index/button";
 
 export function Slid() {
   const img = [slid1, slid2, slid3, slid4];

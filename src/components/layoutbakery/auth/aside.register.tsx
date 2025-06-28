@@ -1,5 +1,5 @@
 import { LayoutAuth } from "../../layouts/layout-auth";
-import { Input } from "../../input";
+import { Input } from "../../index/input";
 
 type Props = {
   onLoguin: () => void;

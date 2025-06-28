@@ -1,4 +1,4 @@
-import { Logo } from "../../logo";
+import { Logo } from "../../index/logo";
 import { IconButton } from "./iconButton";
 import cart from "../../../assets/carrinho.png";
 import loguin from "../../../assets/LOGUIN.png";

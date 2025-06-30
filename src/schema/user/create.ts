@@ -1,4 +1,4 @@
-import { z } from "zod"; // usa z ao invés de z.default
+import { z } from "zod"; 
 
 export const createUserSchema = z.object({
   name: z

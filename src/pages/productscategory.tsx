@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router";
 
-import { ProductsView } from "../components/layouts/products";
+import { ProductsView } from "../components/index/products";
 import type { Product } from "../types/api/producsts";
 
 

@@ -8,7 +8,6 @@ import type { ReactNode } from "react";
 type Props = {
   children?: React.ReactNode;
   onLayout: () => void;
-  nameBtn: string;
   title: ReactNode;
   nameBtn2: string;
   toggleAuth: () => void;
@@ -20,7 +19,6 @@ export function LayoutAuth({
   title,
   nameBtn2,
   className = "",
-  nameBtn,
   children,
   onLayout,
 }: Props) {
@@ -29,7 +27,6 @@ export function LayoutAuth({
       <aside
         className={`relative flex flex-col rounded-3xl bg-login md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4 ${className}`}
       >
-       
         <IconButton
           onClick={onLayout}
           animation
@@ -38,20 +35,17 @@ export function LayoutAuth({
           <img src={x} alt="icone x" />
         </IconButton>
 
-       
         <div className="flex flex-col items-center justify-center mb-2">
           <Logo />
           <h3>{title}</h3>
         </div>
 
-       
         <div className="overflow-y-auto flex-grow min-h-0">
           <div className="flex flex-col gap-4 py-4">{children}</div>
         </div>
 
-       
         <div className="flex flex-col items-center gap-8 mt-4 py-4">
-          <Button>{nameBtn}</Button>
+         
           <Button onClick={toggleAuth} colorVariant="secund">
             {nameBtn2}
           </Button>

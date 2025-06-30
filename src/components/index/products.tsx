@@ -1,5 +1,5 @@
 import car from "../../assets/carrinho.png";
-import { Button } from "../index/button";
+import { Button } from "./button";
 
 type Props = {
   name: string;
@@ -12,12 +12,12 @@ export function ProductsView({ img,  name, value }: Props) {
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col items-center gap-4  w-full bg-white">
     
       <a href="#" className="w-full flex justify-center">
-        <img
-          src={img}
-          alt={`Imagem do produto ${name}`}
-          className="object-cover w-52 h-36"
-        />
-      </a>
+  <img
+    src={img}
+    alt={`Imagem do produto ${name}`}
+    className="object-contain w-52 h-36 bg-white "
+  />
+</a>
 
       <span className="text-lg font-semibold text-amber-950 text-center">
         {name}

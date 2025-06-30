@@ -5,11 +5,13 @@ type Props = {
   name?: string;
   onActive?: () => void;
   active?:boolean
+  isloading:boolean
 };
 
-export function Buttoncategory({ active=false, onActive, name }: Props) {
+export function Buttoncategory({ isloading, active=false, onActive, name }: Props) {
   return (
     <Button
+    isloading={isloading}
       colorVariant="bg"
       onClick={onActive}
       className={`border-4 border-gray-500 bg-beige w-auto h-6 md:h-13 px-5 rounded-lg  ${

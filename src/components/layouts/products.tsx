@@ -5,15 +5,16 @@ import { Button } from "../index/button";
 type Props = {
   name: string;
   value: number;
+  img?:string
 };
 
-export function ProductsView({ name, value }: Props) {
+export function ProductsView({ img,  name, value }: Props) {
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col items-center gap-4  w-full bg-white">
     
       <a href="#" className="w-full flex justify-center">
         <img
-          src={teste}
+          src={img}
           alt={`Imagem do produto ${name}`}
           className="object-cover w-52 h-36"
         />

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { use, useState } from "react";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 
 import { useToggle } from "../../hooks/useToggle";
 import { categorie } from "../../utils/categorias";
@@ -14,8 +14,20 @@ import { AsideMenu } from "../layoutbakery/asideMenu/asidemenu";
 import { Fotter } from "../layoutbakery/fotter/fotter";
 import { Header } from "../layoutbakery/header/header";
 
+import { indexProductQuerySchema  } from "../../schema/products";
+import { api } from "../../services/api";
+import { ZodError } from "zod/v4";
+import type { Product } from "../../types/api/producsts";
+
+
+
+
+
 export function LayoutBakery() {
+  
   const [activecat, setActiveCat] = useState<null | string>(null);
+  const [products , setproducts] = useState<Product[]>([])
+  const [isloading , setisloading] =useState(false)
 
   const menu = useToggle();
   const loguin = useToggle();
@@ -23,8 +35,37 @@ export function LayoutBakery() {
   const location = useLocation();
   const slid = location.pathname === "/";
   const navigate = useNavigate();
+  
+   
+   
 
   const categories = categorie;
+
+ async function  onClickCategory(params:string){
+    try {
+      setisloading(true)
+     indexProductQuerySchema.parse({category: params ,})
+
+   const products = await api.get("/products", {params:{category:params}})
+    
+   setproducts(products.data)
+   console.log(products)
+
+
+      
+    } catch (error) {
+      if(error instanceof ZodError){
+        return alert(error.issues[0].message)
+
+      }
+      
+    }
+    
+    finally{
+    setisloading(false)
+
+  }
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
@@ -61,18 +102,22 @@ export function LayoutBakery() {
             <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
               {categories.map((cat) => (
                 <Buttoncategory
+                  isloading={isloading}
                   name={cat}
                   key={cat}
                   onActive={() => {
                     setActiveCat(cat);
                     navigate(`/${cat}`);
+                    onClickCategory(cat)
+
                   }}
                   active={activecat === cat}
                 />
               ))}
+              
             </div>
 
-            <Outlet />
+            <Outlet context={products} />
           </div>
         </div>
       </div>

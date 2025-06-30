@@ -1,18 +1,16 @@
-import { useState } from "react";
-import { Buttoncategory } from "../components/bakeryshowcase/category";
-import { Slid } from "../components/bakeryshowcase/slider";
+
 import { ProductsView } from "../components/layouts/products";
 import { Carrossel } from "../components/bakeryshowcase/corrosel";
 
 import doce1 from "../assets/rosquinhas - Copia.png"
-import { categorie } from "../utils/categorias";
+
 
 
 
 export function BakeryPage() {
-  const [activecat, setActiveCat] = useState<null | string>(null);
 
-  const categories = categorie
+
+
   
   const produtos = [
     { id: "1", nome: "Pão Francês", preco: 1.2 },

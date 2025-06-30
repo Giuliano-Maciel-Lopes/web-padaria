@@ -1,5 +1,5 @@
-import { use, useState } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router";
+import { useState, useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
 
 import { useToggle } from "../../hooks/useToggle";
 import { categorie } from "../../utils/categorias";
@@ -14,58 +14,29 @@ import { AsideMenu } from "../layoutbakery/asideMenu/asidemenu";
 import { Fotter } from "../layoutbakery/fotter/fotter";
 import { Header } from "../layoutbakery/header/header";
 
-import { indexProductQuerySchema  } from "../../schema/products";
-import { api } from "../../services/api";
-import { ZodError } from "zod/v4";
-import type { Product } from "../../types/api/producsts";
-
-
-
-
+import { useCategoryFilter } from "../../hooks/useCategoryfilter";
 
 export function LayoutBakery() {
-  
-  const [activecat, setActiveCat] = useState<null | string>(null);
-  const [products , setproducts] = useState<Product[]>([])
-  const [isloading , setisloading] =useState(false)
-
   const menu = useToggle();
   const loguin = useToggle();
   const register = useToggle();
+  const { onClickCategory, products, isloading, activeCat } =useCategoryFilter();
   const location = useLocation();
   const slid = location.pathname === "/";
   const navigate = useNavigate();
-  
+
+
+
+  useEffect(() => {
    
-   
+    const categoryUrl = decodeURIComponent(location.pathname.slice(1));
+
+    if (categoryUrl  !==  activeCat) {
+      onClickCategory(categoryUrl);
+    }
+  }, [location.pathname]);
 
   const categories = categorie;
-
- async function  onClickCategory(params:string){
-    try {
-      setisloading(true)
-     indexProductQuerySchema.parse({category: params ,})
-
-   const products = await api.get("/products", {params:{category:params}})
-    
-   setproducts(products.data)
-   console.log(products)
-
-
-      
-    } catch (error) {
-      if(error instanceof ZodError){
-        return alert(error.issues[0].message)
-
-      }
-      
-    }
-    
-    finally{
-    setisloading(false)
-
-  }
-  }
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
@@ -106,15 +77,12 @@ export function LayoutBakery() {
                   name={cat}
                   key={cat}
                   onActive={() => {
-                    setActiveCat(cat);
                     navigate(`/${cat}`);
-                    onClickCategory(cat)
-
+                 
                   }}
-                  active={activecat === cat}
+                  active={activeCat === cat}
                 />
               ))}
-              
             </div>
 
             <Outlet context={products} />

@@ -1,4 +1,3 @@
-import teste from "../../assets/torta_de_frutas-removebg-preview - Copia.png";
 import car from "../../assets/carrinho.png";
 import { Button } from "../index/button";
 

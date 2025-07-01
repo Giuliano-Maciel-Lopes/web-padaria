@@ -10,7 +10,7 @@ type Props = {
 
 export function AsideLoguin({ onRegister, oncloseAuth }: Props) {
   const { email, setEmail, password, setPassword, onSubmit , isloading,
-    setIsloading } = useLogin();
+   } = useLogin();
   console.log(email, password);
 
   return (

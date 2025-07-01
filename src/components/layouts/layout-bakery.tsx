@@ -15,11 +15,15 @@ import { Fotter } from "../layoutbakery/fotter/fotter";
 import { Header } from "../layoutbakery/header/header";
 
 import { useCategoryFilter } from "../../hooks/useCategoryfilter";
+import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
+import { useAuth } from "../../hooks/useAuth";
 
 export function LayoutBakery() {
   const menu = useToggle();
+  const confirmLogout= useToggle()
   const loguin = useToggle();
   const register = useToggle();
+   const {  remove} = useAuth()
   const { onClickCategory, products, isloading, activeCat } =useCategoryFilter();
   const location = useLocation();
   const slid = location.pathname === "/";
@@ -45,7 +49,9 @@ export function LayoutBakery() {
           <Header onAsideMenu={menu.open} onAsideLoguin={loguin.open} />
           <div className="h-[9.5rem] md:h-20" />
 
-          {menu.isOpen && <AsideMenu oncloseMenu={menu.closed} />}
+          {menu.isOpen && <AsideMenu onAsideConfirm={confirmLogout.open}  oncloseMenu={menu.closed} />}
+          {confirmLogout.isOpen && <ConfirmLogout  onConfirm={()=> {remove(), confirmLogout.closed()}} onCancel={confirmLogout.closed}/> }
+          
 
           {loguin.isOpen && (
             <AsideLoguin

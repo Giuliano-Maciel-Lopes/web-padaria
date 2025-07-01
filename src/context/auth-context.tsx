@@ -25,9 +25,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
   
     function remove(){
-   localStorage.getItem(`${LOCAL_STORAGE_KEY}:datauser`);
-    localStorage.getItem(`${LOCAL_STORAGE_KEY}:token`);
+   localStorage.removeItem(`${LOCAL_STORAGE_KEY}:datauser`);
+    localStorage.removeItem(`${LOCAL_STORAGE_KEY}:token`);
+     setSession(null)
     window.location.assign("/")
+   
     }
     
   function loaduser() {

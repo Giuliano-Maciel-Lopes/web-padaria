@@ -10,8 +10,8 @@ export function IconButton({ animation=false, children, className="", ...rest }:
     <button
       {...rest}
       type="button"
-      className={`hover:opacity-60 hover:cursor-pointer icone-animation ${
-        animation ? "hover:rotate-90 transition-transform duration-500 ease-in-out": ""  
+      className={`hover:opacity-60 hover:cursor-pointer  ${
+        animation ? " icone-animation hover:rotate-90 transition-transform duration-500 ease-in-out": ""  
       } ${className}`}
     >
       {children}

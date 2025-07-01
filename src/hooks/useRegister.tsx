@@ -3,12 +3,14 @@ import { useState } from "react";
 import { createUserSchema } from "../schema/user/create";
 import { ZodError } from "zod";
 import { api } from "../services/api";
+import { AxiosError } from "axios";
 
 export function useRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const[isloading , setIsloading]=useState(false)
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -17,6 +19,7 @@ export function useRegister() {
     }
 
     try {
+      setIsloading(true)
       
 
       const data = createUserSchema.parse({ name, email, password });
@@ -26,9 +29,14 @@ export function useRegister() {
 
     } catch (error) {
       if (error instanceof ZodError) {
-        return alert(error.issues[0].message);
+        return alert(error.issues[0].message);}
+
+        if (error instanceof AxiosError) {
+        return alert(error.response?.data.message);
       }
       return alert("nao foi possivel terminar seu cadastro");
+    }finally{
+      setIsloading(false)
     }
   }
   return {
@@ -41,5 +49,6 @@ export function useRegister() {
     confirmPassword,
     setConfirmPassword,
     onSubmit,
+    isloading
   };
 }

@@ -1,7 +1,7 @@
 import { Input } from "../../index/input";
 import { LayoutAuth } from "../../layouts/layout-auth";
 import { Button } from "../../index/button";
-import { useLoguin } from "../../../hooks/useLoguin";
+import { useLogin } from "../../../hooks/useLoguin";
 
 type Props = {
   oncloseAuth: () => void;
@@ -9,7 +9,8 @@ type Props = {
 };
 
 export function AsideLoguin({ onRegister, oncloseAuth }: Props) {
-  const { email, setEmail, password, setPassword, onSubmit } = useLoguin();
+  const { email, setEmail, password, setPassword, onSubmit , isloading,
+    setIsloading } = useLogin();
   console.log(email, password);
 
   return (
@@ -44,7 +45,7 @@ export function AsideLoguin({ onRegister, oncloseAuth }: Props) {
           placeholder="digite sua senha"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button className="mt-4" type="submit">
+        <Button disabled={isloading}  className="mt-4" type="submit">
           ENTRAR
         </Button>
       </form>

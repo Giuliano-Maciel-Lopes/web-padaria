@@ -20,6 +20,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
     confirmPassword,
     setConfirmPassword,
     onSubmit,
+    isloading
   } = useRegister();
 
   console.log(name,email , password,confirmPassword)
@@ -64,7 +65,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             type="password"
             required
           />
-          <Button type="submit" className="mt-4">
+          <Button disabled={isloading}type="submit" className="mt-4">
             CADASTRAR
           </Button>
         </form>

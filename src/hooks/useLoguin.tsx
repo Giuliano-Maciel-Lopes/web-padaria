@@ -1,25 +1,30 @@
 import { useState, type FormEvent } from "react"
 import {createSessionSchema} from "../schema/session/create"
 import { api } from "../services/api"
-import { ZodError } from "zod/v4"
+import { ZodError } from "zod"
 import { AxiosError } from "axios"
+import { useAuth } from "./useAuth"
 
 
 
 
-export function useLoguin() {
+export function useLogin() {
    const [email , setEmail] = useState("")
    const [password, setPassword] = useState("")
-   // ADD IS LOADING DO BOTAO AMANHA
+   const [isloading , setIsloading] = useState(false)
 
+   const auth =useAuth()
   async function onSubmit(e: FormEvent){
     e.preventDefault()
 
     
     try {
+      setIsloading(true)
         const data = createSessionSchema.parse({email , password})
-         await api.post("/sessions" , data)
-    console.log("token criado")
+       const response =  await api.post("/sessions" , data)
+    auth.save(response.data)
+    console.log(response.data)
+    console.log("tudo certo")
         
     } catch (error) {
         if(error instanceof ZodError){
@@ -28,6 +33,8 @@ export function useLoguin() {
        if(error instanceof AxiosError){
     return  alert(error.response?.data.message)
     }
+    }finally{
+      setIsloading(false)
     }
     
    
@@ -40,5 +47,7 @@ export function useLoguin() {
     password,
     setPassword,
     onSubmit,
+    isloading,
+    setIsloading
   }
 }

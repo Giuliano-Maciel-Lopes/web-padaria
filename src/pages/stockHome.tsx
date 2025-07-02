@@ -1,4 +1,4 @@
-export function StockHome() {
+export function Stockpage() {
   return (
     <div>
       StockHome

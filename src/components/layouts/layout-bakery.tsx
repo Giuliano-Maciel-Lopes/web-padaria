@@ -31,14 +31,19 @@ export function LayoutBakery() {
 
 
 
-  useEffect(() => {
-   
-    const categoryUrl = decodeURIComponent(location.pathname.slice(1));
+ useEffect(() => {
+  // Pega o caminho atual
+  const pathParts = location.pathname.split("/");
 
-    if (categoryUrl  !==  activeCat) {
-      onClickCategory(categoryUrl);
+  // Verifica se o primeiro segmento é "category"
+  if (pathParts[1] === "category") {
+    const categoryName = decodeURIComponent(pathParts[2]);
+    if (categoryName !== activeCat) {
+      onClickCategory(categoryName);
     }
-  }, [location.pathname]);
+  
+  }
+}, [location.pathname]);
 
   const categories = categorie;
 
@@ -55,6 +60,7 @@ export function LayoutBakery() {
 
           {loguin.isOpen && (
             <AsideLoguin
+            onclosed={loguin.closed}
               oncloseAuth={loguin.closed}
               onRegister={() => {
                 register.open(), loguin.closed();
@@ -83,7 +89,7 @@ export function LayoutBakery() {
                   name={cat}
                   key={cat}
                   onActive={() => {
-                    navigate(`/${cat}`);
+                    navigate(`/category/${cat}`);
                  
                   }}
                   active={activeCat === cat}

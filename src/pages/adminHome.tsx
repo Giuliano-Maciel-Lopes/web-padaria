@@ -1,4 +1,4 @@
-export function AdminHome() {
+export function AdminPage() {
   return (
     <div>
       adinnnHOME

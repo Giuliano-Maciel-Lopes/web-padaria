@@ -1,5 +1,5 @@
 import { LayoutAuth } from "../../layouts/layout-auth";
-import { Input } from "../../index/input";
+import { Fildinput } from "../../index/inputfildset";
 import { Button } from "../../index/button";
 import { useRegister } from "../../../hooks/useRegister";
 import { use } from "react";
@@ -34,14 +34,14 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
         title={<>SEJA BEM VINDO A TERRA MENEIRA</>}
       >
         <form  onSubmit={onSubmit}>
-          <Input
+          <Fildinput
           value={name}
             legend="Name"
             placeholder="Infome seu nome"
             required
             onChange={(e) => setName(e.target.value)}
           />
-          <Input
+          <Fildinput
           value={email}
             onChange={(e) => setEmail(e.target.value)}
             legend="Email"
@@ -49,7 +49,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             type="email"
             required
           />
-          <Input
+          <Fildinput
           value={password}
             legend="senha"
             placeholder="senha "
@@ -57,7 +57,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Input
+          <Fildinput
           value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             legend="confirme a senha "

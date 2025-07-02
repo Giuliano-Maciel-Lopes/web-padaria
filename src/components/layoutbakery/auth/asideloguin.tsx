@@ -1,4 +1,4 @@
-import { Input } from "../../index/input";
+import { Fildinput } from "../../index/inputfildset";
 import { LayoutAuth } from "../../layouts/layout-auth";
 import { Button } from "../../index/button";
 import { useLogin } from "../../../hooks/useLoguin";
@@ -6,11 +6,12 @@ import { useLogin } from "../../../hooks/useLoguin";
 type Props = {
   oncloseAuth: () => void;
   onRegister: () => void;
+  onclosed:()=>void
 };
 
-export function AsideLoguin({ onRegister, oncloseAuth }: Props) {
+export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
   const { email, setEmail, password, setPassword, onSubmit , isloading,
-   } = useLogin();
+   } = useLogin(onclosed);
   console.log(email, password);
 
   return (
@@ -31,14 +32,14 @@ export function AsideLoguin({ onRegister, oncloseAuth }: Props) {
       onLayout={oncloseAuth}
     >
       <form onSubmit={onSubmit}>
-        <Input
+        <Fildinput
         value={email}
           legend="email"
           placeholder="ex: @gmail.com"
           onChange={(e) => setEmail(e.target.value)}
           type="email"
         />
-        <Input
+        <Fildinput
         type="password"
         value={password}
           legend="senha"

@@ -1,13 +1,20 @@
 import car from "../../assets/carrinho.png";
+import { useAuth } from "../../hooks/useAuth";
 import { Button } from "./button";
+
 
 type Props = {
   name: string;
   value: number;
-  img?:string
+  img?:string,
+  onBuy:()=> void
+  
+  
 };
 
-export function ProductsView({ img,  name, value }: Props) {
+export function ProductsView({ onBuy ,  img,  name, value }: Props) {
+   const {session }= useAuth()
+   const isHomeStock = session?.datauser.role === "STOCK"
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col items-center gap-4  w-full bg-white">
     
@@ -26,11 +33,13 @@ export function ProductsView({ img,  name, value }: Props) {
       <span className="bg-footer text-white text-xl font-bold px-4 py-1 rounded-md shadow">
         R$ {value.toFixed(2)}
       </span>
-
-      <Button colorVariant="products" className="text-lg w-full py-2">
+    
+      <Button onClick={onBuy}  colorVariant="products" className="text-lg w-full py-2">
         <div className="flex items-center justify-center gap-2">
-          <img src={car} alt="Carrinho" className="w-5 h-5" />
-          COMPRAR
+          
+             {!isHomeStock && <img src={car} alt="Carrinho" className="w-5 h-5" />}
+          {isHomeStock ? "EDITAR" : "COMPRAR"}
+        
         </div>
       </Button>
     </div>

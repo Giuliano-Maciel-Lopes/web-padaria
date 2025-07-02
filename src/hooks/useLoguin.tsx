@@ -8,7 +8,7 @@ import { useAuth } from "./useAuth"
 
 
 
-export function useLogin() {
+export function useLogin(onSuccess?:()=>void) {
    const [email , setEmail] = useState("")
    const [password, setPassword] = useState("")
    const [isloading , setIsloading] = useState(false)
@@ -25,6 +25,8 @@ export function useLogin() {
     auth.save(response.data)
     console.log(response.data)
     console.log("tudo certo")
+
+    onSuccess?.()
         
     } catch (error) {
         if(error instanceof ZodError){

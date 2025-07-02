@@ -1,7 +1,5 @@
-
-
 export const categorie = [
-  "pães", 
+  "pães",
   "bebidas",
   "doces",
   "salgados",
@@ -10,7 +8,7 @@ export const categorie = [
   "achocolatados",
   "bolos e tortas",
   "combos",
-  "produtos do dia", 
+  "produtos do dia",
 ];
 export const images = {
   paes: "",

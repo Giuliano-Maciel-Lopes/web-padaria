@@ -1,4 +1,4 @@
-export function DeliveryHome() {
+export function Deliverypage() {
   return (
     <div>
       DeliveryHome

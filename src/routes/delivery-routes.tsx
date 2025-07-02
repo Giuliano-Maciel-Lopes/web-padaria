@@ -6,8 +6,8 @@ import { DeliveryHome } from "../pages/deliveryhome";
 export function DeliveryRoutes() {
   return (
     <Routes>
-      <Route path={"/"} element={<LayoutBakery/>}>
-      <Route path={"/"} element={<DeliveryHome/>}/>
+      <Route path="/" element={<LayoutBakery/>}>
+      <Route path="/" element={<DeliveryHome/>}/>
       
 
       </Route>

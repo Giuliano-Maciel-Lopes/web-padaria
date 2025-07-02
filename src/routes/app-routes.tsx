@@ -1,7 +1,7 @@
 import { Route , Routes } from "react-router";
 import { BakeryPage } from "../pages/bakery";
 import { LayoutBakery } from "../components/layouts/layout-bakery";
-import { CategoryProductsPage } from "../pages/productscategory";
+import { CategoryProductsPage } from "../pages/categoryproductscategory";
 
 
 

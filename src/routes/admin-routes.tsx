@@ -5,8 +5,8 @@ import { AdminHome } from "../pages/adminHome";
 export function AdminRoutes() {
   return (
     <Routes>
-      <Route path={"/"} element={<LayoutBakery/>}>
-      <Route path={"/"} element={<AdminHome/>}/>
+      <Route path="/" element={<LayoutBakery/>}>
+      <Route path="/" element={<AdminHome/>}/>
       
 
       </Route>

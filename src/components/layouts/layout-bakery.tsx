@@ -23,10 +23,10 @@ export function LayoutBakery() {
   const confirmLogout= useToggle()
   const loguin = useToggle();
   const register = useToggle();
-   const {  remove} = useAuth()
+   const { session, remove} = useAuth()
   const { onClickCategory, products, isloading, activeCat } =useCategoryFilter();
   const location = useLocation();
-  const slid = location.pathname === "/";
+ const slid = location.pathname === "/" && (!session?.datauser.role || session.datauser.role === "CUSTOMER");
   const navigate = useNavigate();
 
 

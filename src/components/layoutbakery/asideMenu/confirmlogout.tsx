@@ -2,10 +2,11 @@ import { Button } from "../../index/button";
 
 type Props = {
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel: () => void ;
 };
 
 export function ConfirmLogout({ onConfirm, onCancel }: Props) {
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-sm md:max-w-md p-6 flex flex-col">
@@ -17,7 +18,7 @@ export function ConfirmLogout({ onConfirm, onCancel }: Props) {
           <Button onClick={onCancel} className="flex-1" colorVariant="secund">
             CANCELAR
           </Button>
-          <Button onClick={onConfirm} className="flex-1" colorVariant="primary">
+          <Button onClick={onConfirm } className="flex-1" colorVariant="primary">
             CONFIRMAR
           </Button>
         </div>

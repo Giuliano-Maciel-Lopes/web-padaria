@@ -7,7 +7,7 @@ type Props = {
   name: string;
   value: number;
   img?:string,
-  onBuy:()=> void
+  onBuy?:()=> void
   
   
 };

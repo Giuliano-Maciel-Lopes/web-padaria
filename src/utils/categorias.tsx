@@ -1,15 +1,16 @@
 export const categorie = [
-  "pães",
-  "bebidas",
-  "doces",
-  "salgados",
+   "achocolatados",
+  "Bebidas",
+  "Bolos e Tortas",
+  "Combos",
+  "Doces",
+  "Pães",
   "queijos",
-  "sanduíches",
-  "achocolatados",
-  "bolos e tortas",
-  "combos",
-  "produtos do dia",
+  "Salgados",
+  "Sanduíches",
+  "produtos do dia"
 ];
+
 export const images = {
   paes: "",
   bebidas: "/fotos/suco-laranja.jpg",

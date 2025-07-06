@@ -29,7 +29,7 @@ export function BakeryPage() {
 
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-6">
         {produtos.map((products) => (
-          <ProductsView
+          <ProductsView 
             name={products.nome.toUpperCase()}
             value={products.preco}
           />

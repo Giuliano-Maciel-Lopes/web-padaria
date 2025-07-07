@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { updateProductBodySchema } from "../schema/products/update";
+import { updateProductBodySchema } from "../../schema/products/update";
 import { ZodError } from "zod/v4";
 import { AxiosError } from "axios";
-import { api } from "../services/api";
+import { api } from "../../services/api";
 import { useParams } from "react-router";
 
 export function useEdit() {

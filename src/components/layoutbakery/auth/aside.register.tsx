@@ -1,7 +1,7 @@
 import { LayoutAuth } from "../../layouts/layout-auth";
 import { Fildinput } from "../../index/inputfildset";
 import { Button } from "../../index/button";
-import { useRegister } from "../../../hooks/useRegister";
+import { useRegister } from "../../../hooks/auth/useRegister";
 import { use } from "react";
 
 type Props = {

@@ -1,24 +1,25 @@
 import { Fildinput } from "../index/inputfildset";
 import { Select } from "../index/select";
 import { Button } from "../index/button";
-import { useEdit } from "../../hooks/useEdit";
+import { useEdit } from "../../hooks/products/useEdit";
 import { File } from "./filecat";
+import { categorie } from "../../utils/categorias";
 
 type Props = {
   onAside: () => void;
-  edit: ReturnType<typeof useEdit>; 
-   file: File | null;
+  edit: ReturnType<typeof useEdit>;
+  file: File | null;
   onSetFile: (file: File | null) => void;
 };
 
-export function Edit({file ,onSetFile ,  edit , onAside }: Props) {
+export function Edit({ file, onSetFile, edit, onAside }: Props) {
   const {
     name,
     description,
     category,
     price,
     imageUrl,
-    setImageUrl,  
+    setImageUrl,
     setName,
     setCategory,
     setDescription,
@@ -39,11 +40,15 @@ export function Edit({file ,onSetFile ,  edit , onAside }: Props) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className="flex gap-4">
-          <Fildinput
+          <Select
             legend="categoria"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-          />
+          >
+            {categorie.map((cat) => (
+              <option key={cat}>{cat}</option>
+            ))}
+          </Select>
           <Fildinput
             legend="valor"
             value={price}
@@ -52,11 +57,15 @@ export function Edit({file ,onSetFile ,  edit , onAside }: Props) {
         </div>
         <Fildinput
           className="hidden"
-           value={imageUrl}
+          value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-
         />
-        <File category={category} onSetCategory={setCategory} file={file} onSetFile={onSetFile}/>
+        <File
+          category={category}
+          onSetCategory={setCategory}
+          file={file}
+          onSetFile={onSetFile}
+        />
 
         <Button type="button" onClick={onAside}>
           ALTERAR

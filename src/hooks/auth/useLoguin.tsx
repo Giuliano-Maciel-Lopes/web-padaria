@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react"
-import {createSessionSchema} from "../schema/session/create"
-import { api } from "../services/api"
+import {createSessionSchema} from "../../schema/session/create"
+import { api } from "../../services/api"
 import { ZodError } from "zod"
 import { AxiosError } from "axios"
 import { useAuth } from "./useAuth"

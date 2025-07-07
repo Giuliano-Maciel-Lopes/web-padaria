@@ -1,7 +1,7 @@
 import { Fildinput } from "../../index/inputfildset";
 import { LayoutAuth } from "../../layouts/layout-auth";
 import { Button } from "../../index/button";
-import { useLogin } from "../../../hooks/useLoguin";
+import { useLogin } from "../../../hooks/auth/useLoguin";
 
 type Props = {
   oncloseAuth: () => void;

@@ -1,4 +1,4 @@
-import { useFile } from "../../hooks/usefile";
+import { useFile } from "../../hooks/uploads/usefile";
 import { Fildinput } from "../index/inputfildset";
 
 

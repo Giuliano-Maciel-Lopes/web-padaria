@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { createUserSchema } from "../schema/user/create";
+import { createUserSchema } from "../../schema/user/create";
 import { ZodError } from "zod";
-import { api } from "../services/api";
+import { api } from "../../services/api";
 import { AxiosError } from "axios";
 
 export function useRegister() {

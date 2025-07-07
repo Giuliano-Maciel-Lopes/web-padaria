@@ -1,5 +1,5 @@
 import car from "../../assets/carrinho.png";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/auth/useAuth";
 import { Button } from "./button";
 
 

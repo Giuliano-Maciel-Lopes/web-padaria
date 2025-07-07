@@ -1,11 +1,11 @@
 import img from "../assets/rosquinhas - Copia.png";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/auth/useAuth"; 
 import { Buy } from "../components/buyedit/buy";
 import { Edit } from "../components/buyedit/edit";
 import { ConfirmLogout } from "../components/layoutbakery/asideMenu/confirmlogout";
 import { useToggle } from "../hooks/useToggle";
-import { useEdit } from "../hooks/useEdit";
-import { useFile } from "../hooks/usefile";
+import { useEdit } from "../hooks/products/useEdit";
+import { useFile } from "../hooks/uploads/usefile";
 
 export function BuyEditPage() {
   const { session } = useAuth();
@@ -17,21 +17,18 @@ export function BuyEditPage() {
   const fileState = useFile(edit.setImageUrl);
 
   async function handleConfirm() {
+    //criar um hook handle confirm depois
     if (fileState.file) {
-    const imagePath = await fileState.onSUbmit(edit.category);
-    console.log("✅ Upload finalizado");
+      const imagePath = await fileState.onSUbmit(edit.category);
 
-    console.log("🛠 Chamando edição...");
-    await edit.OnEdit(imagePath); // passa direto a URL
-  } else {
-    console.log("🛠 Chamando edição...");
-    await edit.OnEdit(); // sem imagem nova, usa o estado
+      await edit.OnEdit(imagePath); // passa direto a URL
+    } else {
+      await edit.OnEdit(); // sem imagem nova, usa o estado
+    }
+
+    console.log("✅ Produto editado");
+    confEdit.closed();
   }
-
-  console.log("✅ Produto editado");
-  confEdit.closed();
-}
-
 
   return (
     <div className="flex flex-col md:flex-row w-full min-h-screen  ">

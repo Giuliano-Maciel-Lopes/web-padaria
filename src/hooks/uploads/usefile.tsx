@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { uploadCombinedSchema } from "../schema/uploads/uploads";
-import { api } from "../services/api";
+import { uploadCombinedSchema } from "../../schema/uploads/uploads";
+import { api } from "../../services/api";
 import { ZodError } from "zod";
 import { AxiosError } from "axios";
 

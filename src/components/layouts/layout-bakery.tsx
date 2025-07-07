@@ -14,36 +14,36 @@ import { AsideMenu } from "../layoutbakery/asideMenu/asidemenu";
 import { Fotter } from "../layoutbakery/fotter/fotter";
 import { Header } from "../layoutbakery/header/header";
 
-import { useCategoryFilter } from "../../hooks/useCategoryfilter";
+import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 export function LayoutBakery() {
   const menu = useToggle();
-  const confirmLogout= useToggle()
+  const confirmLogout = useToggle();
   const loguin = useToggle();
   const register = useToggle();
-   const { session, remove} = useAuth()
-  const { onClickCategory, products, isloading, activeCat } =useCategoryFilter();
+  const { session, remove } = useAuth();
+  const { onClickCategory, products, isloading, activeCat } =
+    useCategoryFilter();
   const location = useLocation();
- const slid = location.pathname === "/" && (!session?.datauser.role || session.datauser.role === "CUSTOMER");
+  const slid =
+    location.pathname === "/" &&
+    (!session?.datauser.role || session.datauser.role === "CUSTOMER");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Pega o caminho atual
+    const pathParts = location.pathname.split("/");
 
-
- useEffect(() => {
-  // Pega o caminho atual
-  const pathParts = location.pathname.split("/");
-
-  // Verifica se o primeiro segmento é "category"
-  if (pathParts[1] === "category") {
-    const categoryName = decodeURIComponent(pathParts[2]);
-    if (categoryName !== activeCat) {
-      onClickCategory(categoryName);
+    // Verifica se o primeiro segmento é "category"
+    if (pathParts[1] === "category") {
+      const categoryName = decodeURIComponent(pathParts[2]);
+      if (categoryName !== activeCat) {
+        onClickCategory(categoryName);
+      }
     }
-  
-  }
-}, [location.pathname]);
+  }, [location.pathname]);
 
   const categories = categorie;
 
@@ -54,13 +54,24 @@ export function LayoutBakery() {
           <Header onAsideMenu={menu.open} onAsideLoguin={loguin.open} />
           <div className="h-[9.5rem] md:h-20" />
 
-          {menu.isOpen && <AsideMenu onAsideConfirm={confirmLogout.open}  oncloseMenu={menu.closed} />}
-          {confirmLogout.isOpen && <ConfirmLogout  onConfirm={()=> {remove(), confirmLogout.closed()}} onCancel={confirmLogout.closed}/> }
-          
+          {menu.isOpen && (
+            <AsideMenu
+              onAsideConfirm={confirmLogout.open}
+              oncloseMenu={menu.closed}
+            />
+          )}
+          {confirmLogout.isOpen && (
+            <ConfirmLogout
+              onConfirm={() => {
+                remove(), confirmLogout.closed();
+              }}
+              onCancel={confirmLogout.closed}
+            />
+          )}
 
           {loguin.isOpen && (
             <AsideLoguin
-            onclosed={loguin.closed}
+              onclosed={loguin.closed}
               oncloseAuth={loguin.closed}
               onRegister={() => {
                 register.open(), loguin.closed();
@@ -90,7 +101,6 @@ export function LayoutBakery() {
                   key={cat}
                   onActive={() => {
                     navigate(`/category/${cat}`);
-                 
                   }}
                   active={activeCat === cat}
                 />

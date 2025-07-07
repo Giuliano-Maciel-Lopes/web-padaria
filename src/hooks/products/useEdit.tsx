@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { updateProductBodySchema } from "../../schema/products/update";
-import { ZodError } from "zod/v4";
-import { AxiosError } from "axios";
 import { api } from "../../services/api";
 import { useParams } from "react-router";
+import { errorHandler } from "../../utils/errorHandler";
+
 
 export function useEdit() {
   const [isloading, setisloading] = useState<boolean>(false);
@@ -22,48 +22,38 @@ export function useEdit() {
     if (!id) {
       return alert("product nao encontrado");
     }
+  setisloading(true)
+   await errorHandler(async () => {
+   
+    const imageToSend = newImageUrl ?? imageUrl;
 
-    try {
-      setisloading(true);
-      console.log("c");
+    const data = updateProductBodySchema.parse({
+      name,
+      description,
+      category,
+      price: price.trim() === "" ? undefined : Number(price),
+      imageUrl:
+        imageToSend?.trim() === ""
+          ? undefined
+          : "/" + imageToSend.trim().replace(/^\/+/, ""),
+    });
 
-      const data = updateProductBodySchema.parse({
-        name,
-        description,
-        category,
-        price: price.trim() === "" ? undefined : Number(price),
-        imageUrl:
-          imageToSend?.trim() === ""
-            ? undefined
-            : "/" + imageToSend.trim().replace(/^\/+/, ""),
-      });
+    await api.patch(`/products/${id}`, data);
 
-      await api.patch(`/products/${id}`, data);
+    console.log("mudanças feitas  com sucesso");
+    console.log("📝 Dados enviados:", {
+      name,
+      description,
+      category,
+      price,
+      imageUrl: imageToSend,
+    });
+ 
+  });
 
-      console.log("mudanças feitas  com sucesso");
-      console.log("📝 Dados enviados:", {
-        name,
-        description,
-        category,
-        price,
-        imageUrl: imageToSend,
-      });
-    } catch (error) {
-      if (error instanceof ZodError) {
-        console.log(error);
-        return alert(error.issues[0].message);
-      }
-      if (error instanceof AxiosError) {
-        console.log(error);
-        console.error("Axios error response:", error.response?.data);
-        return alert(error.response?.data.message);
-      }
-
-      console.log(error);
-    } finally {
-      setisloading(false);
-    }
-  }
+     setisloading(false);
+}
+  
   return {
     isloading,
     name,

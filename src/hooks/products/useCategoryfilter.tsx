@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Product } from "../../types/api/producsts";
 import { indexProductQuerySchema } from "../../schema/products";
 import { api } from "../../services/api";
-import { ZodError } from "zod/v4";
+import { errorHandler } from "../../utils/errorHandler";
 
 export function useCategoryFilter() {
   const [activeCat, setActiveCat] = useState<null | string>(null);
@@ -10,24 +10,21 @@ export function useCategoryFilter() {
   const [isloading, setisloading] = useState(false);
 
   async function onClickCategory(params: string) {
-    try {
-      setisloading(true);
+    setisloading(true); // liga o loading no começo
+
+    await errorHandler(async () => {
       indexProductQuerySchema.parse({ category: params });
 
-      const products = await api.get("/products", {
+      const response = await api.get("/products", {
         params: { category: params },
       });
 
-      setproducts(products.data);
-      setActiveCat(params)
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return alert(error.issues[0].message);
-      }
-    } finally {
-      setisloading(false);
-    }
+      setproducts(response.data);
+      setActiveCat(params);
+    });
+
+    setisloading(false); // desliga o loading depois que tudo termina
   }
 
-  return { onClickCategory, products, isloading , activeCat };
+  return { onClickCategory, products, isloading, activeCat };
 }

@@ -14,6 +14,7 @@ export function CategoryProductsPage() {
         {products.map((product) => {
           return (
             <ProductsView
+            
               onBuy={()=> navigate(`/products/${product.id}`)}
               key={product.id}
               name={product.name}

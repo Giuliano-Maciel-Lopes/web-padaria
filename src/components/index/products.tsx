@@ -1,5 +1,5 @@
 import car from "../../assets/carrinho.png";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../hooks/auth/useAuth"; 
 import { Button } from "./button";
 
 
@@ -8,6 +8,7 @@ type Props = {
   value: number;
   img?:string,
   onBuy?:()=> void
+  
   
   
 };
@@ -34,7 +35,7 @@ export function ProductsView({ onBuy ,  img,  name, value }: Props) {
         R$ {value.toFixed(2)}
       </span>
     
-      <Button onClick={onBuy}  colorVariant="products" className="text-lg w-full py-2">
+      <Button onClick={onBuy}   colorVariant="products" className="text-lg w-full py-2">
         <div className="flex items-center justify-center gap-2">
           
              {!isHomeStock && <img src={car} alt="Carrinho" className="w-5 h-5" />}

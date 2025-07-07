@@ -4,15 +4,20 @@ import { Button } from "../index/button";
 import { useEdit } from "../../hooks/products/useEdit";
 import { File } from "./filecat";
 import { categorie } from "../../utils/categorias";
+import { useProductId } from "../../hooks/products/useProductId";
+import { useEffect } from "react";
+import type { Product } from "../../types/api/producsts";
+
 
 type Props = {
   onAside: () => void;
   edit: ReturnType<typeof useEdit>;
   file: File | null;
   onSetFile: (file: File | null) => void;
+  product: Product | null
 };
 
-export function Edit({ file, onSetFile, edit, onAside }: Props) {
+export function Edit({ product , file, onSetFile, edit, onAside }: Props) {
   const {
     name,
     description,
@@ -25,6 +30,9 @@ export function Edit({ file, onSetFile, edit, onAside }: Props) {
     setDescription,
     setPrice,
   } = edit;
+  
+
+ 
 
   return (
     <div className="flex flex-col gap-6">
@@ -33,17 +41,20 @@ export function Edit({ file, onSetFile, edit, onAside }: Props) {
           legend="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder={product?.name}
         />
         <Fildinput
           legend="descriçao"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          placeholder={product?.description}
         />
         <div className="flex gap-4">
           <Select
             legend="categoria"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+          
           >
             {categorie.map((cat) => (
               <option key={cat}>{cat}</option>
@@ -53,6 +64,7 @@ export function Edit({ file, onSetFile, edit, onAside }: Props) {
             legend="valor"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            placeholder={product?.price}
           />
         </div>
         <Fildinput

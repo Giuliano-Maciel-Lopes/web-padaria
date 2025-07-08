@@ -1,4 +1,3 @@
-import img from "../assets/rosquinhas - Copia.png";
 import { useAuth } from "../hooks/auth/useAuth";
 import { Buy } from "../components/buyedit/buy";
 import { Edit } from "../components/buyedit/edit";
@@ -14,16 +13,13 @@ export function BuyEditPage() {
   const isHome = session?.datauser.role === "STOCK";
   const baseUrl = import.meta.env.VITE_BASE_API;
   const confEdit = useToggle();
-  const {products , onView} = useProductId() /// reviar amanhas dormi parei aqui 
-  const edit = useEdit(); // usa aqui e passa para os outro
+  const { products, onView } = useProductId();
+  const edit = useEdit();
   const fileState = useFile(edit.setImageUrl);
 
   useEffect(() => {
-   
-  onView()  /// revisar aamhha vou dormir parei aqui 
-   
-  }, [])
-  
+    onView();
+  }, []);
 
   async function handleConfirm() {
     //criar um hook handle confirm depois
@@ -42,12 +38,16 @@ export function BuyEditPage() {
   return (
     <div className="flex flex-col md:flex-row w-full min-h-screen  ">
       <div className=" h-auto items-center justify-center md:w-1/2">
-        <img src={`${baseUrl}${products?.imageUrl}`} alt="" className="object-contain h-full" />
+        <img
+          src={`${baseUrl}${products?.imageUrl}`}
+          alt=""
+          className="object-contain h-full"
+        />
       </div>
       <div className="md:w-1/2 w-full">
         {isHome ? (
           <Edit
-          product={products}
+            product={products}
             onSetFile={fileState.setFile}
             file={fileState.file}
             edit={edit}
@@ -57,7 +57,11 @@ export function BuyEditPage() {
           <Buy />
         )}
         {confEdit.isOpen && (
-          <ConfirmLogout onCancel={confEdit.closed} onConfirm={handleConfirm} />
+          <ConfirmLogout
+            mensagem="tem certeza que deseja alterar"
+            onCancel={confEdit.closed}
+            onConfirm={handleConfirm}
+          />
         )}
       </div>
     </div>

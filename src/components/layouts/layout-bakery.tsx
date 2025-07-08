@@ -24,8 +24,7 @@ export function LayoutBakery() {
   const loguin = useToggle();
   const register = useToggle();
   const { session, remove } = useAuth();
-  const { onClickCategory, products, isloading, activeCat } =
-    useCategoryFilter();
+  const { onClickCategory, products, isloading, activeCat } = useCategoryFilter();
   const location = useLocation();
   const slid =
     location.pathname === "/" &&
@@ -62,6 +61,7 @@ export function LayoutBakery() {
           )}
           {confirmLogout.isOpen && (
             <ConfirmLogout
+              mensagem="Tem certeza que deseja sair?"
               onConfirm={() => {
                 remove(), confirmLogout.closed();
               }}

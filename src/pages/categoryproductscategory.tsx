@@ -11,15 +11,15 @@ export function CategoryProductsPage() {
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-6">
+        
         {products.map((product) => {
           return (
             <ProductsView
-            
               onBuy={()=> navigate(`/products/${product.id}`)}
               key={product.id}
-              name={product.name}
-              value={Number(product.price)}
-              img={`${baseUrl}${product.imageUrl}`}
+             product={{...product , imageUrl:`${baseUrl}${product.imageUrl}`}}
+            
+              
             />
           );
         })}

@@ -9,10 +9,13 @@ export async function errorHandler<T>(fn: AsyncFn<T>): Promise<T | undefined> {
   } catch (error) {
     if (error instanceof ZodError) {
       alert(error.issues[0].message);
+      console.log(error)
     } else if (error instanceof AxiosError) {
       alert(error.response?.data?.message || "Erro na requisição");
+        console.log(error)
     } else {
       alert("Erro desconhecido");
+        console.log(error)
     }
     return undefined;
   }

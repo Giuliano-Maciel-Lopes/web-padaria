@@ -2,7 +2,7 @@ import { useNavigate, useOutletContext } from "react-router";
 
 import { ProductsView } from "../components/index/productsview";
 import type { Product } from "../types/api/producsts";
-import { ProductCreat } from "../components/index/productscreate";
+import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/auth/useAuth";
 import { use } from "react";
 
@@ -31,7 +31,7 @@ export function CategoryProductsPage() {
             />
           );
         })}
-        {isStock && <ProductCreat />}
+        {isStock && <AddProductCard />}
       </div>
     </div>
   );

@@ -1,12 +1,14 @@
 import { useAuth } from "../hooks/auth/useAuth";
-import { Buy } from "../components/buyedit/buy";
-import { Edit } from "../components/buyedit/edit";
+import { Buy } from "../components/buyedit & create/buy";
+import { Edit } from "../components/buyedit & create/edit";
 import { ConfirmLogout } from "../components/layoutbakery/asideMenu/confirmlogout";
 import { useToggle } from "../hooks/useToggle";
 import { useEdit } from "../hooks/products/useEdit";
 import { useFile } from "../hooks/uploads/usefile";
-import { useOutletContext } from "react-router";
+import { useOutletContext, useParams } from "react-router";
 import type { Product } from "../types/api/producsts";
+import { useCreateProduct } from "../hooks/products/useCreateProduct";
+
 interface ContextType {
   products: Product;
 }
@@ -14,26 +16,43 @@ interface ContextType {
 export function BuyEditPage() {
   const { session } = useAuth();
   const isHome = session?.datauser.role === "STOCK";
-  const baseUrl = import.meta.env.VITE_BASE_API;
   const confEdit = useToggle();
  const { products } = useOutletContext<ContextType>();
-  const edit = useEdit(products);
-  const fileState = useFile(edit.setImageUrl);
 
-  
+const { id } = useParams<{ id?: string }>();
+  const isCreate = !id;
+
+  //create and edit 
+  const create = useCreateProduct();
+  const edit = useEdit(products ,id);
+
+  const hook = isCreate ? create : edit;
+
+  const fileState = useFile(hook.setImageUrl);
+
 
   async function handleConfirm() {
-    //criar um hook handle confirm depois
-    if (fileState.file) {
-      const imagePath = await fileState.onSUbmit(edit.category);
+  if (fileState.file) {
+    console.log("fileState.file:", fileState.file);
+    const imagePath = await fileState.onSUbmit(hook.category);
+    console.log("imagePath recebido:", imagePath);
 
-      await edit.OnEdit(imagePath); // passa direto a URL
+    if (isCreate) {
+      await create.onCreateEdit(imagePath);
     } else {
-      await edit.OnEdit(); // sem imagem nova, usa o estado
+      await edit.onCreateEdit(imagePath);
     }
-
-    console.log("✅ Produto editado");
-    confEdit.closed();
+  }
+  
+  else {
+    if (isCreate) {
+      await create.onCreateEdit();
+    } else {
+      await edit.onCreateEdit();
+    }
+  }
+   console.log(isCreate ? "✅ Produto criado" : "✅ Produto editado");
+  confEdit.closed();
   }
 
   return (
@@ -41,11 +60,12 @@ export function BuyEditPage() {
        <div>
       
         {isHome ? (
-          <Edit
+          <Edit 
+          isCreate={isCreate}
             product={products}
             onSetFile={fileState.setFile}
             file={fileState.file}
-            edit={edit}
+            edit={hook}
             onAside={confEdit.open}
           />
         ) : (

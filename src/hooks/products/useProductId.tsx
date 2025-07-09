@@ -7,8 +7,10 @@ import { idParamSchema } from "../../schema/products/remove";
 
 export function useProductId() {
   const [products, setProduct] = useState<Product | null>(null);
+  
 
   async function onView(id: string) {
+    if (id === "newproduct") return;
     
 
     errorHandler(async () => {

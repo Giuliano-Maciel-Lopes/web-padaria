@@ -16,7 +16,7 @@ export const createProductSchema = z.object({
     .positive({ message: "O preço deve ser positivo." }),
   imageUrl: z
     .string()
-    .url({ message: "A imagem deve ser uma URL válida." })
+
     .optional(),
      isVitrine: z.boolean().optional().default(false),
 });

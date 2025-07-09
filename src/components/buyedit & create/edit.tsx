@@ -5,16 +5,18 @@ import { useEdit } from "../../hooks/products/useEdit";
 import { File } from "./filecat";
 import { categorie } from "../../utils/categorias";
 import type { Product } from "../../types/api/producsts";
+import type { UseProductHook } from "../../types/api/createEdit";
 
 type Props = {
   onAside: () => void;
-  edit: ReturnType<typeof useEdit>;
+  edit: UseProductHook
   file: File | null;
   onSetFile: (file: File | null) => void;
   product: Product | null;
+  isCreate: boolean
 };
 
-export function Edit({ product, file, onSetFile, edit, onAside }: Props) {
+export function Edit({ isCreate ,  product, file, onSetFile, edit, onAside }: Props) {
   const {
     name,
     description,
@@ -47,13 +49,13 @@ export function Edit({ product, file, onSetFile, edit, onAside }: Props) {
           legend="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={product?.name}
+          placeholder={isCreate ? "Digite o nome do produto" : product?.name}
         />
         <Fildinput
           legend="descriçao"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder={product?.description}
+          placeholder={isCreate ? "Digite a descrição" : product?.description}
         />
         <div className="flex gap-4">
           <Select
@@ -69,12 +71,11 @@ export function Edit({ product, file, onSetFile, edit, onAside }: Props) {
             legend="valor"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder={product?.price.toString()}
+               placeholder={isCreate ? "Digite o valor" : product?.price?.toString()}
           />
         </div>
         <Fildinput
           className="hidden"
-          value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
         <File
@@ -85,7 +86,7 @@ export function Edit({ product, file, onSetFile, edit, onAside }: Props) {
         />
 
         <Button type="button" onClick={onAside}>
-          ALTERAR
+         {isCreate ? "CRIAR PRODUTO" : "ALTERAR"}
         </Button>
       </form>
     </div>

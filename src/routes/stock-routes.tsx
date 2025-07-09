@@ -15,7 +15,7 @@ export function StockRoutes() {
 
         <Route path="products"element={< ProductLayoutPage  />}>
           <Route path=":id" element={<BuyEditPage />} />
-          <Route path="newproduct"  />
+          <Route path="newproduct" element={<BuyEditPage />}  />
         </Route>
 
       </Route>

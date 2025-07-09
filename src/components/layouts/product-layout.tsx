@@ -14,7 +14,7 @@ export function ProductLayoutPage() {
       onView(id); // 👈 Passa o ID para buscar o produto certo
     }
   }, [id]);
-
+ //const imageSrc = products?.imageUrl ? `${baseUrl}${products.imageUrl}` : placeholderImg; AJEEITAR AMANHA 
   return (
     <div className="flex flex-col md:flex-row w-full min-h-screen">
       <div className="h-auto flex items-center justify-center md:w-1/2">

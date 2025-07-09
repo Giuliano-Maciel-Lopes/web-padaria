@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { updateProductBodySchema } from "../../schema/products/update";
 import { api } from "../../services/api";
-import { useParams } from "react-router";
+
 import { errorHandler } from "../../utils/errorHandler";
 import { useEffect } from "react";
 import type { Product } from "../../types/api/producsts";
+import type { UseProductHook } from "../../types/api/createEdit";
 
 
-export function useEdit(product:Product | null) {
-  const [isloading, setisloading] = useState<boolean>(false);
+export function useEdit(product:Product | null, id?:string):UseProductHook {
+  const [isLoading, setisLoading] = useState<boolean>(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [price, setPrice] = useState<number | string >("");
+  const [imageUrl, setImageUrl] = useState<string | null>("");
   const [isVitrine, setIsVitrine] = useState<boolean>(false);
 
-  const { id } = useParams<string>();
+ 
 
   useEffect(() => {
   if (product) {
@@ -26,14 +27,14 @@ export function useEdit(product:Product | null) {
 }, [product]);
    
 
-  async function OnEdit(newImageUrl?: string) {
+  async function onCreateEdit(newImageUrl?: string) {
     console.log("esta sendo chamado");
-    const imageToSend = newImageUrl ?? imageUrl; // se receber param, usa ele, senão o estado atual
+    
 
     if (!id) {
       return alert("product nao encontrado");
     }
-  setisloading(true)
+  setisLoading(true)
   
    await errorHandler(async () => {
    
@@ -44,11 +45,11 @@ export function useEdit(product:Product | null) {
       description,
       category,
       isVitrine,
-      price: price.trim() === "" ? undefined : Number(price),
+     price: String(price).trim() === "" ? undefined : Number(price),
       imageUrl:
-        imageToSend?.trim() === ""
-          ? undefined
-          : "/" + imageToSend.trim().replace(/^\/+/, ""),
+        imageToSend && imageToSend.trim() !== ""
+      ? "/" + imageToSend.trim().replace(/^\/+/, "")
+      : undefined,
     });
 
     await api.patch(`/products/${id}`, data);
@@ -68,12 +69,13 @@ export function useEdit(product:Product | null) {
   });
    
 
-     setisloading(false);
+     setisLoading(false);
 }
 
   
   return {
-    isloading,
+    setisLoading,
+    isLoading,
     name,
     description,
     category,
@@ -84,7 +86,7 @@ export function useEdit(product:Product | null) {
     setDescription,
     setPrice,
     setImageUrl,
-    OnEdit,
+    onCreateEdit,
     setIsVitrine,
     isVitrine,
   };

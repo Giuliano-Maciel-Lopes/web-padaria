@@ -8,3 +8,4 @@ export type Product = {
   imageUrl?: string ;
   isVitrine: boolean;
 };
+

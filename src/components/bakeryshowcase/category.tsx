@@ -5,7 +5,7 @@ type Props = {
   name?: string;
   onActive?: () => void;
   active?:boolean
-  isloading:boolean
+  isloading?:boolean
 };
 
 export function Buttoncategory({ isloading, active=false, onActive, name }: Props) {

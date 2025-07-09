@@ -1,10 +1,11 @@
 import type { ComponentProps } from "react";
 import { classMerge } from "../../utils/merge";
 
+
 type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;
   isloading?: boolean;
-  variant?: "base" | "icon" | "add";
+  variant?: "base" | "icon" | "add"|"square" |"buy";
   colorVariant?: "primary" | "secund" | "bg" |"products"
   ;
 };
@@ -13,7 +14,9 @@ const variants = {
   Size: {
     base: "h-12",
     icon: "h-10 w-10",
-    add: "h-50 "
+    add: "h-50",
+    square:"w-12",
+    buy: "w-80 h-12 "
   },
 
   color: {

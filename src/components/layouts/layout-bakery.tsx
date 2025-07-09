@@ -24,7 +24,8 @@ export function LayoutBakery() {
   const loguin = useToggle();
   const register = useToggle();
   const { session, remove } = useAuth();
-  const { onClickCategory, products, isloading, activeCat } = useCategoryFilter();
+  const { onClickCategory, products, isloading, activeCat } =
+    useCategoryFilter();
   const location = useLocation();
   const slid =
     location.pathname === "/" &&
@@ -94,6 +95,14 @@ export function LayoutBakery() {
               </div>
             )}
             <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
+              <Buttoncategory
+                name="inicio"
+                active={location.pathname === "/"}
+                onActive={() => {
+                  navigate("/");
+                  onClickCategory(""); // reset
+                }}
+              />
               {categories.map((cat) => (
                 <Buttoncategory
                   isloading={isloading}

@@ -57,7 +57,7 @@ const { id } = useParams<{ id?: string }>();
 
   return (
     
-       <div>
+       <div className="px-5">
       
         {isHome ? (
           <Edit 

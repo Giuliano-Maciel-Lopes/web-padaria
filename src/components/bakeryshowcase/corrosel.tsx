@@ -6,7 +6,7 @@ type Props = {
 
 export function Carrossel({ img, img2, name }: Props) {
   return (
-    <div className="w-full h-17 bg-gradient-animated flex flex-col  p-4 my-20">
+    <div className="w-full h-17 bg-gradient-animated flex flex-col  p-4 my-6">
       <div className="flex items-center  w-full h-full justify-between">
         <img
           src={img2}

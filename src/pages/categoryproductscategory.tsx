@@ -4,7 +4,7 @@ import { ProductsView } from "../components/index/productsview";
 import type { Product } from "../types/api/producsts";
 import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/auth/useAuth";
-import { use } from "react";
+
 
 export function CategoryProductsPage() {
   const products = useOutletContext<Product[]>();
@@ -25,7 +25,7 @@ export function CategoryProductsPage() {
             
               onBuy={()=> navigate(`/products/${product.id}`)}
               key={product.id}
-             product={{...product , imageUrl:`${baseUrl}${product.imageUrl}`}}
+             product={product}
             
               
             />

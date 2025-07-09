@@ -8,7 +8,7 @@ import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 
 import { usedelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/producsts";
-import { useEffect } from "react";
+
 
 type Props = {
   product:Product
@@ -20,6 +20,7 @@ export function ProductsView({ onBuy,product }: Props) {
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
   const { onDelete } = usedelete();
+    const baseUrl = import.meta.env.VITE_BASE_API;
   
 
   async function handleconfirm() {
@@ -43,7 +44,7 @@ export function ProductsView({ onBuy,product }: Props) {
       <div className="flex flex-col items-center gap-4">
         <a href="#" className="w-full flex justify-center">
           <img
-            src={product.imageUrl}
+            src={`${baseUrl}${product.imageUrl}`}
             alt={`Imagem do produto ${product.name}`}
             className="object-contain w-52 h-36 bg-white "
           />

@@ -1,3 +1,7 @@
+import img1 from "../assets/rosquinhas - Copia.png"
+import img2 from  "../assets/torta_de_frutas-removebg-preview - Copia.png"
+
+
 export const categorie = [
    "achocolatados",
   "Bebidas",
@@ -8,7 +12,7 @@ export const categorie = [
   "queijos",
   "Salgados",
   "Sanduíches",
-  "produtos do dia"
+  "Produtos do dia"
 ];
 
 export const images = {
@@ -23,3 +27,4 @@ export const images = {
   combos: "/fotos/combo-cafe.jpg",
   produtosDoDia: "/fotos/pao-de-queijo.jpg",
 };
+

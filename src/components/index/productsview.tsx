@@ -8,6 +8,7 @@ import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 
 import { usedelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/producsts";
+import { useEffect } from "react";
 
 type Props = {
   product:Product
@@ -19,6 +20,7 @@ export function ProductsView({ onBuy,product }: Props) {
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
   const { onDelete } = usedelete();
+  
 
   async function handleconfirm() {
     await onDelete(product.id);

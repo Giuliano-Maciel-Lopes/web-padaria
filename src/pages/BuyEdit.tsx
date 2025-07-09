@@ -8,13 +8,14 @@ import { useFile } from "../hooks/uploads/usefile";
 import { useProductId } from "../hooks/products/useProductId";
 import { useEffect } from "react";
 
+
 export function BuyEditPage() {
   const { session } = useAuth();
   const isHome = session?.datauser.role === "STOCK";
   const baseUrl = import.meta.env.VITE_BASE_API;
   const confEdit = useToggle();
   const { products, onView } = useProductId();
-  const edit = useEdit();
+  const edit = useEdit(products);
   const fileState = useFile(edit.setImageUrl);
 
   useEffect(() => {

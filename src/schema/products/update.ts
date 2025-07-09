@@ -19,6 +19,8 @@ export const updateProductBodySchema = z.object({
   price: z.number().positive().optional(),
 
   imageUrl: z.string().optional(),
+  
+   isVitrine: z.boolean().optional(), 
 });
 
 export type UpdateInput = z.infer<typeof updateProductBodySchema>;

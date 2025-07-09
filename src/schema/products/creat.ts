@@ -18,6 +18,7 @@ export const createProductSchema = z.object({
     .string()
     .url({ message: "A imagem deve ser uma URL válida." })
     .optional(),
+     isVitrine: z.boolean().optional().default(false),
 });
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;

@@ -1,25 +1,36 @@
-import { Fieldset } from "./fildset"
-import { Input } from "./input"
+import { Fieldset } from "./fildset";
+import { Input } from "./input";
 
-type Props = React.ComponentProps<"input"> &{
-    legend?:string
-    type?:string
-}
+type Props = React.ComponentProps<"input"> & {
+  legend?: string;
+  type?: string;
+};
 
-
-
-export function Fildinput({ type="text" , legend , className ="", ...rest}:Props){
-    return(
-       
-       <Fieldset legend={legend}>
-
-
-
-
-      <Input type={type}  {...rest} className={`w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${className} `}  />
-      </Fieldset>
-
-
-    )
-    
+export function Fildinput({
+  type = "text",
+  legend,
+  className = "",
+  ...rest
+}: Props) {
+     if (type === "checkbox") {
+    return (
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          className={`w-10 h-10 ${className}`}
+          {...rest}
+        />
+        {legend && <span>{legend}</span>}
+      </label>
+    );
+  }
+  return (
+    <Fieldset legend={legend}>
+      <Input
+        type={type}
+        {...rest}
+        className={`w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${className} `}
+      />
+    </Fieldset>
+  );
 }

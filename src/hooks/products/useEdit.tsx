@@ -3,17 +3,28 @@ import { updateProductBodySchema } from "../../schema/products/update";
 import { api } from "../../services/api";
 import { useParams } from "react-router";
 import { errorHandler } from "../../utils/errorHandler";
+import { useEffect } from "react";
+import type { Product } from "../../types/api/producsts";
 
 
-export function useEdit() {
+export function useEdit(product:Product | null) {
   const [isloading, setisloading] = useState<boolean>(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [isVitrine, setIsVitrine] = useState<boolean>(false);
 
   const { id } = useParams<string>();
+
+  useEffect(() => {
+  if (product) {
+   
+      setIsVitrine(product.isVitrine ?? false);
+  }
+}, [product]);
+   
 
   async function OnEdit(newImageUrl?: string) {
     console.log("esta sendo chamado");
@@ -23,6 +34,7 @@ export function useEdit() {
       return alert("product nao encontrado");
     }
   setisloading(true)
+  
    await errorHandler(async () => {
    
     const imageToSend = newImageUrl ?? imageUrl;
@@ -31,6 +43,7 @@ export function useEdit() {
       name,
       description,
       category,
+      isVitrine,
       price: price.trim() === "" ? undefined : Number(price),
       imageUrl:
         imageToSend?.trim() === ""
@@ -47,12 +60,17 @@ export function useEdit() {
       category,
       price,
       imageUrl: imageToSend,
+      isVitrine,
+      
     });
+    
  
   });
+   
 
      setisloading(false);
 }
+
   
   return {
     isloading,
@@ -67,5 +85,7 @@ export function useEdit() {
     setPrice,
     setImageUrl,
     OnEdit,
+    setIsVitrine,
+    isVitrine,
   };
 }

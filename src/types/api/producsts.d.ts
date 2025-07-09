@@ -6,4 +6,5 @@ export type Product = {
   category: string;
   price: number;
   imageUrl?: string ;
+  isVitrine: boolean;
 };

@@ -1,5 +1,5 @@
 
-import { ProductsView } from "../components/index/products";
+import { ProductsView } from "../components/index/productsview";
 import { Carrossel } from "../components/bakeryshowcase/corrosel";
 
 import doce1 from "../assets/rosquinhas - Copia.png"

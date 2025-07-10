@@ -10,6 +10,9 @@ export async function errorHandler<T>(
     const data = await fn();
     return { data };
   } catch (err: any) {
+    if (import.meta.env.MODE === "development") {
+    console.error("Erro capturado em errorHandler:", err);
+  }
     if (err instanceof ZodError) {
       const fieldErrors: Record<string, string> = {};
       for (const issue of err.issues) {

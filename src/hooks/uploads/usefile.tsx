@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { uploadCombinedSchema } from "../../schema/uploads/uploads";
 import { api } from "../../services/api";
+import type { UploadFileError } from "../../types/erros/uploads";
 import { errorHandler } from "../../utils/errorHandler";
 
 export function useFile(setImageUrl: (url: string) => void) {
   const [file, setFile] = useState<File | null>(null);
+   const [error, setError] = useState< UploadFileError | null>(null);
 
   async function onSUbmit(category: string) {
 
-
-  return errorHandler(async () => {
+   setError(null)
+      const {error:err , data} = await errorHandler(async () => {
     // Validar ambos (file e category) juntos
     uploadCombinedSchema.parse({
       file: file
@@ -38,8 +40,13 @@ export function useFile(setImageUrl: (url: string) => void) {
     console.log("🚀 URL recebida:", response.data.path);
     return url;
   });
+  if(err){
+    setError(err)
+
+  }
+    return data ?? null; // retorno real da URL
 }
 
 
-  return { file, setFile, onSUbmit };
+  return { file, setFile, onSUbmit , error};
 }

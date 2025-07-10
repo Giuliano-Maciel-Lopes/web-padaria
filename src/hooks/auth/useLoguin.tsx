@@ -3,16 +3,13 @@ import { createSessionSchema } from "../../schema/session/create";
 import { api } from "../../services/api";
 import { useAuth } from "./useAuth";
 import { errorHandler } from "../../utils/errorHandler";
+import type { LoginErrors } from "../../types/erros/auth";
 
 export function useLogin(onSuccess?: () => void) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
-  const [error, setError] = useState<{
-    email?: string;
-    password?: string;
-    general?: string;
-  } | null>(null);
+  const [error, setError] = useState<LoginErrors>(null);
 
   const auth = useAuth();
   async function onSubmit(e: FormEvent) {

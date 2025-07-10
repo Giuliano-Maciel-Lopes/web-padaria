@@ -7,9 +7,10 @@ type Props = {
    onSetFile: (file: File | null) => void;
   category: string;
   onSetCategory: (value: string) => void;
+  errors?: string
 }
 
-export function File({ category , onSetCategory ,file , onSetFile}:Props) {
+export function File({ errors ,  category , onSetCategory ,file , onSetFile}:Props) {
   
 
 
@@ -17,6 +18,7 @@ export function File({ category , onSetCategory ,file , onSetFile}:Props) {
   return (
    <div>
       <Fildinput
+      err={errors}
         type="file"
         legend="imagem"
         className="h-50 border-2 border-gray-400"
@@ -26,8 +28,8 @@ export function File({ category , onSetCategory ,file , onSetFile}:Props) {
     
       />
        <Fildinput
+       
        className="hidden"
-        legend="categoria"
         value={category}
         onChange={(e) => onSetCategory(e.target.value)}
       />

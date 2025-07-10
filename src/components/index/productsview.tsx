@@ -5,27 +5,31 @@ import remove from "../../assets/remove.svg";
 import { IconButton } from "../layoutbakery/header/iconButton";
 import { useToggle } from "../../hooks/useToggle";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
-
 import { usedelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/producsts";
-
+import { TopBanner } from "./banner";
+import { useState } from "react";
+import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 
 type Props = {
-  product:Product
+  product: Product;
   onBuy?: () => void;
 };
 
-export function ProductsView({ onBuy,product }: Props) {
+export function ProductsView({ onBuy, product }: Props) {
   const { session } = useAuth();
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
-  const { onDelete } = usedelete();
-    const baseUrl = import.meta.env.VITE_BASE_API;
-  
+  const { onDelete, successMessage } = usedelete();
+  const baseUrl = import.meta.env.VITE_BASE_API;
+  const [showBanner, setShowBanner] = useState(false);
 
   async function handleconfirm() {
     await onDelete(product.id);
     asideDelete.closed();
+
+    setShowBanner(true);
+    setTimeout(() => setShowBanner(false), 2000);
   }
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">
@@ -78,6 +82,7 @@ export function ProductsView({ onBuy,product }: Props) {
           onConfirm={handleconfirm}
         />
       )}
+      {showBanner && <TopBanner message={successMessage} />}
     </div>
   );
 }

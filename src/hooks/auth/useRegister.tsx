@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createUserSchema } from "../../schema/user/create";
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
-import type { string } from "zod/v4";
+import type { RegisterErrors } from "../../types/erros/auth";
 
 export function useRegister() {
   const [name, setName] = useState("");
@@ -11,13 +11,7 @@ export function useRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
-  const [error, setError] = useState<{
-    name?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?:string,
-    general?: string;
-  } | null>(null);
+  const [error, setError] = useState<RegisterErrors>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

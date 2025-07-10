@@ -10,30 +10,32 @@ export function useCategoryFilter() {
   const [isloading, setisloading] = useState(false);
 
   async function onClickCategory(params: string) {
-  setisloading(true);
+    setisloading(true);
 
-  await errorHandler(async () => {
-    indexProductQuerySchema.parse({ category: params });
+    const { error } = await errorHandler(async () => {
+      indexProductQuerySchema.parse({ category: params });
 
-    const response = await api.get("/products", {
-      params: { category: params },
+      const response = await api.get("/products", {
+        params: { category: params },
+      });
+
+      setproducts(response.data);
+      setActiveCat(params);
     });
 
-    setproducts(response.data);
-    setActiveCat(params);
-  });
+    if (error) {
+      alert(error.general || "Erro ao carregar produtos");
+    }
+    setisloading(false);
+  }
 
-  setisloading(false);
-}
+  async function reloadProducts() {
+    if (!activeCat) return;
 
-async function reloadProducts() {
-  if (!activeCat) return;
-
-  await errorHandler(async () => {
-    await onClickCategory(activeCat);
-  });
-}
-
+    await errorHandler(async () => {
+      await onClickCategory(activeCat);
+    });
+  }
 
   return { onClickCategory, reloadProducts, products, isloading, activeCat };
 }

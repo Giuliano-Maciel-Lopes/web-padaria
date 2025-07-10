@@ -61,6 +61,7 @@ const { id } = useParams<{ id?: string }>();
       
         {isHome ? (
           <Edit 
+          fileError={fileState.error}
           isCreate={isCreate}
             product={products}
             onSetFile={fileState.setFile}

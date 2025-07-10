@@ -6,18 +6,26 @@ import { useState } from "react";
 
 export function usedelete() {
   const [isloading, setisloading] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   async function onDelete(uuid: string) {
     const data = idParamSchema.parse({ id: uuid });
     setisloading(true);
-    await errorHandler(async () => {
-      await api.delete(`products/${data.id}`);
-     
-    });
+    const { error, data: responseData } = await errorHandler(async () => {
+      const res = await api.delete(`products/${data.id}`);
 
+      return res.data;
+    });
+    if (error) {
+      alert(
+        error.general ||
+          "Impossível deletar o produto. Tente novamente mais tarde."
+      );
+      return null;
+    }
     setisloading(false);
+    return setSuccessMessage(responseData); // retorna os dados recebidos (ex: produto deletado)
   }
 
-  return { onDelete, isloading };
+  return { onDelete, isloading, successMessage };
 }

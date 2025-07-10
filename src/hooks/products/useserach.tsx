@@ -6,27 +6,24 @@ import React from "react";
 import z from "zod";
 
 export function useProductsearch() {
-    const [producstSerach , setProductSearch] =useState<Product| null>(null)
-    const [name , setname] =useState("")
+  const [producstSerach, setProductSearch] = useState<Product | null>(null);
+  const [name, setname] = useState("");
 
-     const bodySchema = z.object({ //so por preucaçao
-      name: z.string(),
-    });
+  const bodySchema = z.object({
+    //so por preucaçao
+    name: z.string(),
+  });
 
-  function onSearch(e:React.FormEvent) {
-    e.preventDefault()
+  function onSearch(e: React.FormEvent) {
+    e.preventDefault();
     errorHandler(async () => {
-        const data = bodySchema.parse({name})
+      const data = bodySchema.parse({ name });
 
-        
-
-      const products = await api.get("/products/search" )
-      console.log(products.data)
-      setProductSearch(products.data)
-     
-
+      const products = await api.get("/products/search");
+      console.log(products.data);
+      setProductSearch(products.data);
     });
   }
 
-  return {onSearch , producstSerach , name ,setname};
+  return { onSearch, producstSerach, name, setname };
 }

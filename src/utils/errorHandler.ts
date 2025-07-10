@@ -8,14 +8,17 @@ export async function errorHandler<T>(fn: AsyncFn<T>): Promise<T | undefined> {
     return await fn();
   } catch (error) {
     if (error instanceof ZodError) {
+       console.log(error)
       alert(error.issues[0].message);
-      console.log(error)
+      
     } else if (error instanceof AxiosError) {
+       console.log(error)
       alert(error.response?.data?.message || "Erro na requisição");
-        console.log(error)
+       
     } else {
+       console.log(error)
       alert("Erro desconhecido");
-        console.log(error)
+        
     }
     return undefined;
   }

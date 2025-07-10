@@ -8,6 +8,7 @@ export function useLogin(onSuccess?: () => void) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
+  const [error , setIsError] = useState(false)
 
   const auth = useAuth();
   async function onSubmit(e: FormEvent) {

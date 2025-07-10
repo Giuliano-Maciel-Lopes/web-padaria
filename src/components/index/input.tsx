@@ -1,19 +1,22 @@
 import type { ComponentProps, ReactNode } from "react";
 
 type Props = ComponentProps<"input"> & {
-  error:boolean
+  err?:string
 };
 
-export function Input({ error ,  className = "", ...rest }: Props) {
+export function Input({ err ,  className = "", ...rest }: Props) {
   return (
-    <div className="w-full h-12">
+    <div className="w-full ">
     <input
       type="text"
       {...rest}
-      className={` w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${ error ? "border-red-500" : ""} ${className}  `}
+      className={` w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${ err ? "border-red-500" : ""} ${className}  `}
      
 
     />
+    {err && (
+        <span className="text-red-500 text-sm mt-1 block">{err}</span>
+      )}
     
     </div>
     

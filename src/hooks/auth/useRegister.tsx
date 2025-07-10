@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createUserSchema } from "../../schema/user/create";
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
+import type { string } from "zod/v4";
 
 export function useRegister() {
   const [name, setName] = useState("");
@@ -10,26 +11,39 @@ export function useRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
+  const [error, setError] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?:string,
+    general?: string;
+  } | null>(null);
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return alert("as senhas nao batem ");
-    }
+  setError({ confirmPassword: "As senhas não batem" });
+  return;
+}
 
     setIsloading(true);
+    setError(null);
 
-    await errorHandler(async () => {
+    const { error: err } = await errorHandler(async () => {
       const data = createUserSchema.parse({ name, email, password });
 
       await api.post("/users", data);
       alert("Cadastro realizado com sucesso!");
     });
-
+    if (err) {
+      setError(err);
+    }
     setIsloading(false);
   }
 
   return {
+    error,
     name,
     setName,
     email,

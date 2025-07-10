@@ -8,7 +8,7 @@ type Props = {
 
 export function Fieldset({legend , children}:Props) {
   return (
-      <fieldset className="flex flex-1 focus-within:text-amber-950" >
+      <fieldset className="flex flex-col focus-within:text-amber-950" >
 
             { legend&& 
                 <legend  className="uppercase text-xs m-1.5" >

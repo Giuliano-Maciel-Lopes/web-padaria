@@ -3,6 +3,7 @@ import { Fildinput } from "../../index/inputfildset";
 import { Button } from "../../index/button";
 import { useRegister } from "../../../hooks/auth/useRegister";
 import { use } from "react";
+import { GeneralErro } from "../../../utils/general";
 
 type Props = {
   onLoguin: () => void;
@@ -12,6 +13,7 @@ type Props = {
 export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
   const {
     name,
+    error,
     setName,
     email,
     setEmail,
@@ -35,6 +37,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
       >
         <form  onSubmit={onSubmit}>
           <Fildinput
+          err={error?.name}
           value={name}
             legend="Name"
             placeholder="Infome seu nome"
@@ -43,6 +46,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
           />
           <Fildinput
           value={email}
+          err={error?.email}
             onChange={(e) => setEmail(e.target.value)}
             legend="Email"
             placeholder="digite email... "
@@ -51,6 +55,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
           />
           <Fildinput
           value={password}
+          err={error?.password}
             legend="senha"
             placeholder="senha "
             type="password"
@@ -59,13 +64,17 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
           />
           <Fildinput
           value={confirmPassword}
+          err={error?.confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             legend="confirme a senha "
             placeholder="confrme a senha  "
             type="password"
             required
           />
-          <Button disabled={isloading}type="submit" className="mt-4">
+          {error?.general && (
+            <GeneralErro message={error.general}/>
+          )}
+          <Button disabled={isloading} type="submit" className="mt-4">
             CADASTRAR
           </Button>
         </form>

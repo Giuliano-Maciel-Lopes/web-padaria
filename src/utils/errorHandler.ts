@@ -3,23 +3,30 @@ import { AxiosError } from "axios";
 
 type AsyncFn<T> = () => Promise<T>;
 
-export async function errorHandler<T>(fn: AsyncFn<T>): Promise<T | undefined> {
+export async function errorHandler<T>(
+  fn: AsyncFn<T>
+): Promise<{ data?: T; error?: Record<string, string> | { general: string } }> {
   try {
-    return await fn();
-  } catch (error) {
-    if (error instanceof ZodError) {
-       console.log(error)
-      alert(error.issues[0].message);
-      
-    } else if (error instanceof AxiosError) {
-       console.log(error)
-      alert(error.response?.data?.message || "Erro na requisição");
-       
-    } else {
-       console.log(error)
-      alert("Erro desconhecido");
-        
+    const data = await fn();
+    return { data };
+  } catch (err: any) {
+    if (err instanceof ZodError) {
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of err.issues) {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0]] = issue.message;
+        }
+      }
+      return { error: fieldErrors };
     }
-    return undefined;
+
+    if (err instanceof AxiosError) {
+      return {
+        error: { general: err.response?.data?.message || "Erro na requisição" },
+      };
+    }
+
+    return { error: { general: "Erro desconhecido" } };
   }
 }
+

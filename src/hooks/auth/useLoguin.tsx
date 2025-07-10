@@ -8,15 +8,19 @@ export function useLogin(onSuccess?: () => void) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
-  const [error , setIsError] = useState(false)
+  const [error, setError] = useState<{
+    email?: string;
+    password?: string;
+    general?: string;
+  } | null>(null);
 
   const auth = useAuth();
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-
+    setError(null);
     setIsloading(true);
 
-    await errorHandler(async () => {
+    const { error: err } = await errorHandler(async () => {
       const data = createSessionSchema.parse({ email, password });
       const response = await api.post("/sessions", data);
       auth.save(response.data);
@@ -24,11 +28,14 @@ export function useLogin(onSuccess?: () => void) {
       console.log("tudo certo");
       onSuccess?.();
     });
-
+    if (err) {
+      setError(err);
+    }
     setIsloading(false);
   }
 
   return {
+    error,
     email,
     setEmail,
     password,

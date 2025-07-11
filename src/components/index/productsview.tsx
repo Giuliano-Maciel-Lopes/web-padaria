@@ -22,14 +22,13 @@ export function ProductsView({ onBuy, product }: Props) {
   const asideDelete = useToggle();
   const { onDelete, successMessage } = usedelete();
   const baseUrl = import.meta.env.VITE_BASE_API;
-  const [showBanner, setShowBanner] = useState(false);
+
 
   async function handleconfirm() {
     await onDelete(product.id);
     asideDelete.closed();
 
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 2000);
+
   }
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">
@@ -82,7 +81,7 @@ export function ProductsView({ onBuy, product }: Props) {
           onConfirm={handleconfirm}
         />
       )}
-      {showBanner && <TopBanner message={successMessage} />}
+      {successMessage && <TopBanner message={successMessage} />}
     </div>
   );
 }

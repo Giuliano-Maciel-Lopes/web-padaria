@@ -13,13 +13,19 @@ export function useProductId() {
     if (id === "newproduct") return;
     
 
-    errorHandler(async () => {
+   const {error , data} = await errorHandler(async () => {
        const data = idParamSchema.parse({id})
       const product = await api.get(`/products/${data.id}`);
       console.log("proudct:", product.data);
 
-      setProduct(product.data);
+     return product
     });
+   if (error) {
+    alert(error.general || "Erro ao carregar produto");
+    setProduct(null);
+  } else if (data) {
+    setProduct(data.data); // aqui sim, pega a resposta do axios
+  }
     
   }
   return {products, onView}

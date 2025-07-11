@@ -1,8 +1,5 @@
-import { useState } from "react";
-import {
-  createProductSchema,
-  type CreateProductInput,
-} from "../../schema/products/creat";
+import { useEffect, useState } from "react";
+import { createProductSchema } from "../../schema/products/creat";
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
 import type { UseProductHook } from "../../types/api/createEdit";
@@ -17,13 +14,20 @@ export function useCreateProduct(): UseProductHook {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isVitrine, setIsVitrine] = useState(false);
   const [error, setError] = useState<ProductCreateEditError | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  useEffect(() => {
+    if (!successMessage) return;
+    const timer = setTimeout(() => setSuccessMessage(null), 2000);
+    return () => clearTimeout(timer);
+  }, [successMessage]);
 
   async function onCreateEdit(
     newImageUrl?: string
   ): Promise<ProductCreateEditError | null> {
     setisLoading(true);
+    setError(null);
 
-    const { error } = await errorHandler(async () => {
+    const { error, data: database } = await errorHandler(async () => {
       const imageToSend = newImageUrl ?? imageUrl;
 
       const data = createProductSchema.parse({
@@ -38,28 +42,24 @@ export function useCreateProduct(): UseProductHook {
         isVitrine,
       });
 
-      await api.post("/products", data);
+      const res = await api.post("/products", data);
 
-      console.log("product criado");
-
-      console.log("📝 Dados enviados:", {
-        name,
-        description,
-        category,
-        price,
-        imageUrl: imageToSend,
-        isVitrine,
-      });
-      return null;
+      return res.data;
     });
     if (error) {
       setError(error);
     }
 
     setisLoading(false);
-    return error ?? null;
+    setSuccessMessage(
+      typeof database === "string"
+        ? database
+        : database?.message ?? "Operação realizada com sucesso!"
+    );
+    return null;
   }
   return {
+    successMessage,
     error,
     isLoading,
     setisLoading,

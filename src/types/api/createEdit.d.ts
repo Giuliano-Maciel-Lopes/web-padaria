@@ -9,6 +9,8 @@ export interface UseProductHook {
 
   error: ProductCreateEditError | null;
   //setError: Dispatch<SetStateAction<ProductCreateEditError | null>>;
+  
+successMessage:string| null
 
   name: string;
   setName: Dispatch<SetStateAction<string>>;

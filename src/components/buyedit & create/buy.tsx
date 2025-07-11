@@ -51,11 +51,12 @@ export function Buy() {
           </Button>
         </div>
         <Button
+      
           className="text-white rounded-none  rounded-r-lg"
           colorVariant="primary"
           variant="buy"
         >
-          COMPRAR
+          ADICIONAR AO CARRINHO
         </Button>
       </div>
       <div className=" flex flex-col w-[300px] gap-4">

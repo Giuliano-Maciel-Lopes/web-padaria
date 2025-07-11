@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { updateProductBodySchema } from "../../schema/products/update";
 import { api } from "../../services/api";
-
 import { errorHandler } from "../../utils/errorHandler";
 import { useEffect } from "react";
 import type { Product } from "../../types/api/producsts";
@@ -17,16 +16,20 @@ export function useEdit(product: Product | null, id?: string): UseProductHook {
   const [imageUrl, setImageUrl] = useState<string | null>("");
   const [isVitrine, setIsVitrine] = useState<boolean>(false);
   const [error, setError] = useState<ProductCreateEditError | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (product) {
       setIsVitrine(product.isVitrine ?? false);
     }
   }, [product]);
+  useEffect(() => {
+    if (!successMessage) return;
+    const timer = setTimeout(() => setSuccessMessage(null), 2000);
+    return () => clearTimeout(timer);
+  }, [successMessage]);
 
-  async function onCreateEdit(
-    newImageUrl?: string
-  ): Promise<ProductCreateEditError | null> {
+  async function onCreateEdit(newImageUrl?: string): Promise<ProductCreateEditError | null> {
     console.log("esta sendo chamado");
 
     if (!id) {
@@ -35,7 +38,7 @@ export function useEdit(product: Product | null, id?: string): UseProductHook {
     setisLoading(true);
     setError(null);
 
-    const { error: err } = await errorHandler(async () => {
+    const { error: err, data: database } = await errorHandler(async () => {
       const imageToSend = newImageUrl ?? imageUrl;
 
       const data = updateProductBodySchema.parse({
@@ -50,17 +53,9 @@ export function useEdit(product: Product | null, id?: string): UseProductHook {
             : undefined,
       });
 
-      await api.patch(`/products/${id}`, data);
+      const res = await api.patch(`/products/${id}`, data);
 
-      console.log("mudanças feitas  com sucesso");
-      console.log("📝 Dados enviados:", {
-        name,
-        description,
-        category,
-        price,
-        imageUrl: imageToSend,
-        isVitrine,
-      });
+      return res.data;
     });
 
     if (err) {
@@ -68,10 +63,16 @@ export function useEdit(product: Product | null, id?: string): UseProductHook {
     }
 
     setisLoading(false);
+    setSuccessMessage(
+      typeof database === "string"
+        ? database
+        : database?.message ?? "Operação realizada com sucesso!"
+    );
     return err ?? null;
   }
 
   return {
+    successMessage,
     error,
     setisLoading,
     isLoading,

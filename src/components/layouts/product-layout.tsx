@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "react-router";
+import { Outlet, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useProductId } from "../../hooks/products/useProductId";
 

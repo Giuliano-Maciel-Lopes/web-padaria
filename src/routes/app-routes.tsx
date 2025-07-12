@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import { BakeryPage } from "../pages/bakery";
 import { LayoutBakery } from "../components/layouts/layout-bakery";
 import { CategoryProductsPage } from "../pages/categoryproductscategory";
@@ -20,10 +20,8 @@ export function AppRoutes() {
         </Route>
       </Route>
 
-      <Route path="/cart" element={<LayoutCartpage/>} >
-      <Route index element={<CartbuyPage />} />
-
-
+       <Route path="/cart" element={<LayoutCartpage />}>
+        <Route index element={<CartbuyPage />} />
       </Route>
     </Routes>
   );

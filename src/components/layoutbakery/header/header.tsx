@@ -6,7 +6,7 @@ import menu from "../../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
-import {  useNavigate } from "react-router";
+import {  useNavigate } from "react-router-dom";
 
 
 

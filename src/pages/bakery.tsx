@@ -8,7 +8,7 @@ import img2 from  "../assets/torta_de_frutas-removebg-preview - Copia.png"
 
 import { Carrossel } from "../components/bakeryshowcase/corrosel";
 import { ProductsView } from "../components/index/productsview";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function BakeryPage() {
   const [doces, setDoces] = useState<Product[]>([]);

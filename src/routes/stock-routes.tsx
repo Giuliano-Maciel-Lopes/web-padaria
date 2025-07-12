@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import { LayoutBakery } from "../components/layouts/layout-bakery";
 import { Stockpage } from "../pages/stockHome";
 import { CategoryProductsPage } from "../pages/categoryproductscategory";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { useToggle } from "../../hooks/useToggle";
 import { categorie } from "../../utils/categorias";

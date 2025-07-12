@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router";
+import { useOutletContext } from "react-router-dom";
 import type { Product } from "../../types/api/producsts";
 import { currencyBRL } from "./currencyBRL";
 import { Button } from "../index/button";

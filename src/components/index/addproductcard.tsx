@@ -1,6 +1,6 @@
 import { Button } from "./button";
 import cicle from "../..//assets/circle-plus.svg";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function AddProductCard() {
   const navigate = useNavigate();

@@ -1,10 +1,6 @@
 
 @import "tailwindcss";
-@import "./animations/index.css";
-
-
-
-
+@import "./styles/animations/index.css";
 
 
 :root{
@@ -19,7 +15,7 @@
   --border-input: #FFD580; /* dourado pastel, se destaca no fundo claro */
   --font-family:'Poppins', sans-serif;
    --bg-button3: #F9F4E7;
-   background: linear-gradient(135deg, #f7e970, #F9F4E7);
+  
 
     /* Cores para gradiente */
     --gradient-from: #f7e970;    /* caramelo */
@@ -91,6 +87,33 @@
   display: none; /* Safari e Chrome */
 }
 
+@layer utilities {
+  .clip-right {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 50%,
+      calc(100% - 20px) 100%,
+      0 100%
+    );
+  }
+
+.clip-left-inverted-shape {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    10px 50%,
+    20px 40%,
+    20px 60%,
+    10px 50%
+  );
+}
+
+
+
+}
 
   
 }

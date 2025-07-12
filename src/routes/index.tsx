@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./app-routes";
 import { AdminRoutes } from "./admin-routes";
 import { StockRoutes } from "./stock-routes";

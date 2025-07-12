@@ -10,14 +10,31 @@ import { Socials } from "../layoutbakery/fotter/socials";
 import Facebook from "../../assets/Facebook.svg";
 import twwiter from "../../assets/Twitter.svg";
 import email from "../../assets/Email.svg";
-import insta from "../../assets/Instagram.svg"
+import insta from "../../assets/Instagram.svg";
+import { useCartContext } from "../../hooks/context/cart";
 
 export function Buy() {
   const { product } = useOutletContext<{ product: Product }>();
   const [amount, setAmount] = useState(1);
+  const { save } = useCartContext();
+
   if (!product) {
     return <div className="p-4 text-red-600">Carregando product</div>;
   }
+  const {
+    category,
+    isVitrine,
+    description,
+    createdAt,
+    updatedAt,
+    ...itemSave
+  } = product;
+
+  function handleConfirm() {
+    save({ ...itemSave, quantity: amount });
+    
+  }
+
   return (
     <div className="min-h-screen w-full rounded-2xl border-2 border-amber-950 p-4 flex flex-col gap-7 text-gray-700">
       <h1 className="text-4xl font-semibold">
@@ -51,7 +68,7 @@ export function Buy() {
           </Button>
         </div>
         <Button
-      
+          onClick={handleConfirm}
           className="text-white rounded-none  rounded-r-lg"
           colorVariant="primary"
           variant="buy"
@@ -70,17 +87,17 @@ export function Buy() {
           <img src={local} alt="" />
           adiconar sua localizaçao
         </a>
-
       </div>
 
       <div className="flex flex-col gap-4 mt-7">
-        <h3 className="text-lg">Qualquer duvida entre em contato na nossas redes</h3>
-          <div className="flex gap-6 ">
-            <Socials logo={Facebook} href="" />
-            <Socials logo={insta} href="" />
-            <Socials logo={twwiter} href="" />
-          </div>
-
+        <h3 className="text-lg">
+          Qualquer duvida entre em contato na nossas redes
+        </h3>
+        <div className="flex gap-6 ">
+          <Socials logo={Facebook} href="" />
+          <Socials logo={insta} href="" />
+          <Socials logo={twwiter} href="" />
+        </div>
       </div>
     </div>
   );

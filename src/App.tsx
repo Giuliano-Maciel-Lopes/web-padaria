@@ -5,10 +5,12 @@ import { Routes } from "./routes";
 
 export function App() {
   return (
-    <CartProvider>
+   
       <AuthProvider>
+        <CartProvider>
         <Routes />
+        </CartProvider>
       </AuthProvider>
-    </CartProvider>
+    
   );
 }

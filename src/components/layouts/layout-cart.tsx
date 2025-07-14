@@ -12,7 +12,7 @@ export function LayoutCartpage() {
         <div className="max-w-[100rem] w-full flex flex-col">
           <StepCart />
 
-          <div className="flex">
+          <div className="mt-10">
             <Outlet />
           </div>
 

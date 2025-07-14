@@ -2,8 +2,6 @@ import { useOutletContext } from "react-router-dom";
 import type { Product } from "../../types/api/producsts";
 import { currencyBRL } from "./currencyBRL";
 import { Button } from "../index/button";
-import menos from "../../assets/menos.svg";
-import mais from "../../assets/mais.svg";
 import { useState } from "react";
 import local from "../../assets/local.svg";
 import { Socials } from "../layoutbakery/fotter/socials";
@@ -12,17 +10,24 @@ import twwiter from "../../assets/Twitter.svg";
 import email from "../../assets/Email.svg";
 import insta from "../../assets/Instagram.svg";
 import { useCartContext } from "../../hooks/context/cart";
+import { QuantityBuy } from "./quantitybuy";
+
+import { useCreateOrders } from "../../hooks/order/useCreateOrders";
+import { useCreateOrdersItens } from "../../hooks/order.itens/useCreateOrdersItens";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 export function Buy() {
   const { product } = useOutletContext<{ product: Product }>();
   const [amount, setAmount] = useState(1);
   const { save } = useCartContext();
+  const {session} =useAuth()
+  const{ onCreateOrder} =useCreateOrders()
+  const{ onCreateOrderItens} =useCreateOrdersItens()
 
   if (!product) {
     return <div className="p-4 text-red-600">Carregando product</div>;
   }
   const {
-    category,
     isVitrine,
     description,
     createdAt,
@@ -30,9 +35,23 @@ export function Buy() {
     ...itemSave
   } = product;
 
-  function handleConfirm() {
+async function handleConfirm() {
+    if (session?.token) {
+      // criei o pedido e o ID retornado
+      const orderId = await onCreateOrder();
+
+      if (orderId) {
+        await onCreateOrderItens(orderId, [
+          {
+            productId: product.id,
+            quantity: amount,
+          },
+        ]);
+      }
+    }
+
+    //  Salva no localStorage de qualquer jeito
     save({ ...itemSave, quantity: amount });
-    
   }
 
   return (
@@ -47,26 +66,9 @@ export function Buy() {
       <span className="text-xl">{` ${currencyBRL(product.price)}`}</span>
 
       <div className="flex h-12">
-        <div className="flex border-1 ">
-          <Button
-            onClick={() => setAmount((prev) => Math.max(1, prev - 1))}
-            variant="square"
-            colorVariant="bg"
-          >
-            <img src={menos} alt="sinal de menos" />
-          </Button>
-          <div className="flex items-center justify-center h-12 w-12">
-            <span className="text-2xl">{amount}</span>
-          </div>
-          <Button
-            onClick={() => setAmount(amount + 1)}
-            className=""
-            variant="square"
-            colorVariant="bg"
-          >
-            <img src={mais} alt="sinal de mais" />
-          </Button>
-        </div>
+        
+        <QuantityBuy quantity={amount} onChange={setAmount}/>
+
         <Button
           onClick={handleConfirm}
           className="text-white rounded-none  rounded-r-lg"

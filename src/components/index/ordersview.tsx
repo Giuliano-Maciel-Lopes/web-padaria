@@ -9,7 +9,7 @@ type Props = {
   quantity: number;
   imageUrl: string;
   category: string;
-  pricetotal: number;
+  priceTotal: number;
 };
 
 export function Ordersview({
@@ -18,7 +18,7 @@ export function Ordersview({
   quantity,
   imageUrl,
   category,
-  pricetotal,
+  priceTotal,
 }: Props) {
   const {  remove } = useCartContext();
 
@@ -58,7 +58,7 @@ export function Ordersview({
 
         {/* Valor total */}
         <div className="md:text-center font-bold text-2xl md:w-1/3 ">
-          <p>{pricetotal}</p>
+          <p>{priceTotal}</p>
         </div>
       </div>
 

@@ -6,9 +6,10 @@ import menu from "../../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
-import {  useNavigate } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/auth/useAuth";
+import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
+import { useEffect, useState } from "react";
 
 type Props = {
   onAsideMenu: () => void;
@@ -17,9 +18,26 @@ type Props = {
 
 export function Header({ onAsideMenu, onAsideLoguin }: Props) {
   const { items } = useCartContext();
+  const { session } = useAuth();
+  const { onViewOrders } = useIndexOrders();
   const amountItens = items.length;
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+  const [amountItensApi , setAmountItensApi ]= useState <number| null>(null)
+  const quantityItems = session?.token ? amountItensApi : amountItens
+
+  useEffect(() => {
+    async function fetchOrder() {
+      const { data } = await onViewOrders();
+      if (data) {
+        const amountItens = data.reduce((acc, pedido) => acc + pedido.items.length, 0);
+      
+        
+        setAmountItensApi(amountItens)
+      }
+    }
+    fetchOrder();
+  }, [session?.token ,]);
+
   return (
     <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">
       <div className=" flex  items-center justify-between gap-10">
@@ -41,10 +59,14 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
             />
           </IconButton>
 
-          <IconButton  onClick={()=> navigate("/cart")}animationbase className="flex relative">
-            {amountItens > 0 && (
+          <IconButton
+            onClick={() => navigate("/cart")}
+            animationbase
+            className="flex relative"
+          >
+            {(quantityItems ?? 0) > 0 && ( // c for null assume 0
               <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-xs font-bold text-amber-900 shadow-md">
-                {amountItens}
+                {quantityItems}
               </span>
             )}
             <img

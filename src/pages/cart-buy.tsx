@@ -4,7 +4,6 @@ import { useIndexOrders } from "../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/auth/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
-import { data } from "react-router";
 
 export function CartbuyPage() {
   const { session } = useAuth();
@@ -17,14 +16,15 @@ export function CartbuyPage() {
 
   useEffect(() => {
     async function fetchOrders() {
-
       if (!auth) return;
 
       const { data } = await onViewOrders();
+
+      //descoberta nova "flatmap" do ts ele junta map e o flat envese de usar map 2 vezes e flota no final
       if (data) {
         const datanew = data.flatMap((order) =>
           order.items.map((item) => ({
-            id: order.id,
+            id: item.id,
             name: item.product.name,
             category: item.product.category,
             imageUrl: item.product.imageUrl,
@@ -39,11 +39,11 @@ export function CartbuyPage() {
       }
     }
     fetchOrders();
-  }, []);
+  }, [auth ]);
 
-  const DataApiContext = auth && orders ? orders : items
+  const DataApiContext = auth && orders ? orders : items;
 
-   if (!DataApiContext || DataApiContext.length === 0) {
+  if (!DataApiContext || DataApiContext.length === 0) {
     return (
       <div className="w-full min-h-[60vh] flex items-center justify-center p-8">
         <p className="text-center text-gray-500 text-3xl md:text-5xl font-semibold">
@@ -54,11 +54,11 @@ export function CartbuyPage() {
   }
 
   return (
-      
-
     <div className="w-full">
       {DataApiContext.map((item) => (
         <Ordersview
+          setOrders={setOrders}
+          id={item.id}
           category={item.category}
           imageUrl={`${baseUrl}${item.imageUrl}`}
           key={item.id}
@@ -68,7 +68,6 @@ export function CartbuyPage() {
           quantity={item.quantity}
         />
       ))}
-     
     </div>
   );
 }

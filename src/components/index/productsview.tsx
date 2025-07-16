@@ -8,8 +8,7 @@ import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { usedelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/producsts";
 import { TopBanner } from "./banner";
-import { useState } from "react";
-import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
+
 
 type Props = {
   product: Product;

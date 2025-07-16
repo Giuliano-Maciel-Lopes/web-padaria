@@ -1,26 +1,44 @@
 import { useCartContext } from "../../hooks/context/cart";
-import { QuantityBuy } from "../buyedit & create/quantitybuy";
+import type { Orderview } from "../../types/api/orders/ordersview";
 import { IconButton } from "../layoutbakery/header/iconButton";
 import trash from "../../assets/trash-2.svg";
+import { useDeleteOrders } from "../../hooks/order/useDeleteorder";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 type Props = {
+  id:string
   name: string;
   price: number;
   quantity: number;
   imageUrl: string;
   category: string;
   priceTotal: number;
+   setOrders: React.Dispatch<React.SetStateAction<Orderview[] | null>>;
 };
 
 export function Ordersview({
+  id,
   name,
   price,
   quantity,
   imageUrl,
   category,
   priceTotal,
+  setOrders,
 }: Props) {
-  const {  remove } = useCartContext();
+  const { remove } = useCartContext();
+  const { onDelete } = useDeleteOrders();
+  const {session} = useAuth();
+
+ async function handleconfirm(){
+    if(session?.token){
+    await  onDelete(id)
+    
+    setOrders((prev) => prev?.filter((item) => item.id !== id) || null);
+    }
+   remove(id)
+  
+  }
 
   return (
     <div className="w-full border-b py-4 px-4 md:px-10 flex flex-col md:flex-row gap-4  text-sm relative ">
@@ -47,7 +65,7 @@ export function Ordersview({
       <div className="flex md:w-3/5 items-center">
         {/* Quantidade */}
         <div className="w-full  text-left md:text-center md:w-1/3">
-         {/*<QuantityBuy  quantity={quantity} />*/}
+          {/*<QuantityBuy  quantity={quantity} />*/}
         </div>
 
         <div className="hidden md:block md:w-1/3">
@@ -63,8 +81,8 @@ export function Ordersview({
       </div>
 
       <div className="absolute top-4 right-4 ">
-        <IconButton >
-          {" "}
+        <IconButton onClick={handleconfirm}>
+         
           <img src={trash} alt="lixeira" />
         </IconButton>
       </div>

@@ -10,22 +10,20 @@ import type { Product } from "../types/api/producsts";
 import { useCreateProduct } from "../hooks/products/useCreateProduct";
 import { TopBanner } from "../components/index/banner";
 
-interface ContextType {
-  products: Product;
-}
+
 
 export function BuyEditPage() {
   const { session } = useAuth();
   const isHome = session?.datauser.role === "STOCK";
   const confEdit = useToggle();
-  const { products } = useOutletContext<ContextType>();
+ const { product } = useOutletContext<{ product: Product }>();
 
   const { id } = useParams<{ id?: string }>();
   const isCreate = !id;
 
   //create and edit
   const create = useCreateProduct();
-  const edit = useEdit(products, id);
+  const edit = useEdit(product, id);
 
   const hook = isCreate ? create : edit;
 
@@ -61,7 +59,7 @@ export function BuyEditPage() {
         <Edit
           fileError={fileState.error}
           isCreate={isCreate}
-          product={products}
+          product={product}
           onSetFile={fileState.setFile}
           file={fileState.file}
           edit={hook}

@@ -32,18 +32,18 @@ export function LayoutBakery() {
     (!session?.datauser.role || session.datauser.role === "CUSTOMER");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Pega o caminho atual
-    const pathParts = location.pathname.split("/");
+  const [refreshProducts, setRefreshProducts] = useState(false);
 
-    // Verifica se o primeiro segmento é "category"
-    if (pathParts[1] === "category") {
-      const categoryName = decodeURIComponent(pathParts[2]);
-      if (categoryName !== activeCat) {
-        onClickCategory(categoryName);
-      }
-    }
-  }, [location.pathname]);
+ useEffect(() => {
+  const pathParts = location.pathname.split("/");
+
+  if (pathParts[1] === "category") {
+    const categoryName = decodeURIComponent(pathParts[2]);
+
+    // Chama sempre que mudar refreshProducts, independente do activeCat
+    onClickCategory(categoryName);
+  }
+}, [location.pathname, refreshProducts]);
 
   const categories = categorie;
 
@@ -116,7 +116,7 @@ export function LayoutBakery() {
               ))}
             </div>
 
-            <Outlet context={products} />
+            <Outlet context={{products , setRefreshProducts}} />
           </div>
         </div>
       </div>

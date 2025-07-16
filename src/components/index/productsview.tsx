@@ -13,9 +13,10 @@ import { TopBanner } from "./banner";
 type Props = {
   product: Product;
   onBuy?: () => void;
+  onReloadDelete:()=> void
 };
 
-export function ProductsView({ onBuy, product }: Props) {
+export function ProductsView({ onReloadDelete , onBuy, product }: Props) {
   const { session } = useAuth();
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
@@ -26,6 +27,9 @@ export function ProductsView({ onBuy, product }: Props) {
   async function handleconfirm() {
     await onDelete(product.id);
     asideDelete.closed();
+   
+    onReloadDelete()
+    
 
 
   }

@@ -7,7 +7,10 @@ import { useAuth } from "../hooks/auth/useAuth";
 
 
 export function CategoryProductsPage() {
-  const products = useOutletContext<Product[]>();
+  const { products, setRefreshProducts } = useOutletContext<{
+  products: Product[];
+  setRefreshProducts: React.Dispatch<React.SetStateAction<boolean>>;
+}>();
   const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate()
   const {session}= useAuth()
@@ -22,7 +25,7 @@ export function CategoryProductsPage() {
         {products.map((product) => {
           return (
             <ProductsView
-            
+             onReloadDelete={()=>setRefreshProducts((prev)=> !prev)}
               onBuy={()=> navigate(`/products/${product.id}`)}
               key={product.id}
              product={product}

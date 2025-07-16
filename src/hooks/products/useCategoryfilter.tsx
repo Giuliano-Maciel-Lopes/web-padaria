@@ -29,13 +29,7 @@ export function useCategoryFilter() {
     setisloading(false);
   }
 
-  async function reloadProducts() {
-    if (!activeCat) return;
 
-    await errorHandler(async () => {
-      await onClickCategory(activeCat);
-    });
-  }
 
-  return { onClickCategory, reloadProducts, products, isloading, activeCat };
+  return { onClickCategory,  products, isloading, activeCat };
 }

@@ -33,6 +33,10 @@ export function Edit({ fileError, isCreate ,  product, file, onSetFile, edit, on
     setPrice,
     setIsVitrine,
   } = edit;
+   console.log("Edit component props:");
+  console.log("isCreate:", isCreate);
+  console.log("product:", product);
+  console.log("edit states:", { name, description, category, price, imageUrl, isVitrine });
   
   return (
     <div className="flex flex-col gap-6">
@@ -102,6 +106,8 @@ export function Edit({ fileError, isCreate ,  product, file, onSetFile, edit, on
         <Button type="button" onClick={onAside}>
          {isCreate ? "CRIAR PRODUTO" : "ALTERAR"}
         </Button>
+        
+        
       </form>
     </div>
   );

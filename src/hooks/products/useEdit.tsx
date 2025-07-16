@@ -60,6 +60,7 @@ export function useEdit(product: Product | null, id?: string): UseProductHook {
 
     if (err) {
       setError(err);
+       return err;
     }
 
     setisLoading(false);

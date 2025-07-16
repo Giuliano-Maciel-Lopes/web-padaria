@@ -48,6 +48,7 @@ export function useCreateProduct(): UseProductHook {
     });
     if (error) {
       setError(error);
+      return error
     }
 
     setisLoading(false);

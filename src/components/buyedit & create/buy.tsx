@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import type { Product } from "../../types/api/producsts";
-import { currencyBRL } from "./currencyBRL";
+import { currencyBRL } from "../../utils/currencyBRL";
 import { Button } from "../index/button";
 import { useState } from "react";
 import local from "../../assets/local.svg";
@@ -15,27 +15,29 @@ import { QuantityBuy } from "./quantitybuy";
 import { useCreateOrders } from "../../hooks/order/useCreateOrders";
 import { useCreateOrdersItens } from "../../hooks/order.itens/useCreateOrdersItens";
 import { useAuth } from "../../hooks/auth/useAuth";
+type Props={
+  onAside:()=> void
 
-export function Buy() {
-  const { product } = useOutletContext<{ product: Product }>();
+}
+
+export function Buy({onAside}:Props) {
+  const { product, setRefreshOrders } = useOutletContext<{
+    product: Product;
+    setRefreshOrders: React.Dispatch<React.SetStateAction<boolean>>;
+  }>();
+
   const [amount, setAmount] = useState(1);
   const { save } = useCartContext();
-  const {session} =useAuth()
-  const{ onCreateOrder} =useCreateOrders()
-  const{ onCreateOrderItens} =useCreateOrdersItens()
+  const { session } = useAuth();
+  const { onCreateOrder } = useCreateOrders();
+  const { onCreateOrderItens } = useCreateOrdersItens();
 
   if (!product) {
     return <div className="p-4 text-red-600">Carregando product</div>;
   }
-  const {
-    isVitrine,
-    description,
-    createdAt,
-    updatedAt,
-    ...itemSave
-  } = product;
+  const { isVitrine, description, createdAt, updatedAt, ...itemSave } = product;
 
-async function handleConfirm() {
+  async function handleConfirm() {
     if (session?.token) {
       // criei o pedido e o ID retornado
       const orderId = await onCreateOrder();
@@ -47,6 +49,7 @@ async function handleConfirm() {
             quantity: amount,
           },
         ]);
+        setRefreshOrders((prev)=> !prev);
       }
     }
 
@@ -66,17 +69,17 @@ async function handleConfirm() {
       <span className="text-xl">{` ${currencyBRL(product.price)}`}</span>
 
       <div className="flex h-12">
-        
-        <QuantityBuy quantity={amount} onChange={setAmount}/>
+        <QuantityBuy quantity={amount} onChange={setAmount} />
 
         <Button
-          onClick={handleConfirm}
+          onClick={()=>{ handleConfirm(); onAside();}}
           className="text-white rounded-none  rounded-r-lg"
           colorVariant="primary"
           variant="buy"
         >
           ADICIONAR AO CARRINHO
         </Button>
+
       </div>
       <div className=" flex flex-col w-[300px] gap-4">
         Agora realizamos entregas em sua cidade. Aproveite e faça seu pedido com

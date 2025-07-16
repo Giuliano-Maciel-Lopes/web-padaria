@@ -6,7 +6,7 @@ import menu from "../../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutlet, useOutletContext } from "react-router-dom";
 import { useAuth } from "../../../hooks/auth/useAuth";
 import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";
@@ -14,16 +14,20 @@ import { useEffect, useState } from "react";
 type Props = {
   onAsideMenu: () => void;
   onAsideLoguin: () => void;
+  refreshOrders: boolean
 };
 
-export function Header({ onAsideMenu, onAsideLoguin }: Props) {
+export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
   const { items } = useCartContext();
   const { session } = useAuth();
   const { onViewOrders } = useIndexOrders();
   const amountItens = items.length;
   const navigate = useNavigate();
+   
   const [amountItensApi , setAmountItensApi ]= useState <number| null>(null)
   const quantityItems = session?.token ? amountItensApi : amountItens
+
+
 
   useEffect(() => {
     async function fetchOrder() {
@@ -36,7 +40,7 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
       }
     }
     fetchOrder();
-  }, [session?.token ,]);
+  }, [session?.token ,refreshOrders]);
 
   return (
     <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">

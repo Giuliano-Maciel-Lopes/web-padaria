@@ -33,17 +33,18 @@ export function LayoutBakery() {
   const navigate = useNavigate();
 
   const [refreshProducts, setRefreshProducts] = useState(false);
+  const [refreshOrders, setRefreshOrders] = useState(false); // vou chamar la no header
 
- useEffect(() => {
-  const pathParts = location.pathname.split("/");
+  useEffect(() => {
+    const pathParts = location.pathname.split("/");
 
-  if (pathParts[1] === "category") {
-    const categoryName = decodeURIComponent(pathParts[2]);
+    if (pathParts[1] === "category") {
+      const categoryName = decodeURIComponent(pathParts[2]);
 
-    // Chama sempre que mudar refreshProducts, independente do activeCat
-    onClickCategory(categoryName);
-  }
-}, [location.pathname, refreshProducts]);
+      // Chama sempre que mudar refreshProducts, independente do activeCat
+      onClickCategory(categoryName);
+    }
+  }, [location.pathname, refreshProducts]);
 
   const categories = categorie;
 
@@ -51,7 +52,11 @@ export function LayoutBakery() {
     <div className="min-h-screen flex flex-col bg-beige">
       <div className="w-full flex grow justify-center ">
         <div className="max-w-[100rem] w-full flex flex-col flex-1">
-          <Header onAsideMenu={menu.open} onAsideLoguin={loguin.open} />
+          <Header
+            refreshOrders={refreshOrders}
+            onAsideMenu={menu.open}
+            onAsideLoguin={loguin.open}
+          />
           <div className="h-[9.5rem] md:h-20" />
 
           {menu.isOpen && (
@@ -116,7 +121,9 @@ export function LayoutBakery() {
               ))}
             </div>
 
-            <Outlet context={{products , setRefreshProducts}} />
+            <Outlet
+              context={{ products, setRefreshProducts, setRefreshOrders }}
+            />
           </div>
         </div>
       </div>

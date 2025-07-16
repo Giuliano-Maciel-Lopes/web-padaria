@@ -9,14 +9,16 @@ import { useOutletContext, useParams } from "react-router-dom";
 import type { Product } from "../types/api/producsts";
 import { useCreateProduct } from "../hooks/products/useCreateProduct";
 import { TopBanner } from "../components/index/banner";
-
+import { AsidebuyCart } from "../components/cart buy/asidebuyCart";
 
 
 export function BuyEditPage() {
+  const BaseUrl = import.meta.env.VITE_BASE_API;
   const { session } = useAuth();
   const isHome = session?.datauser.role === "STOCK";
   const confEdit = useToggle();
- const { product } = useOutletContext<{ product: Product }>();
+  const Asidecartbuy = useToggle();
+  const { product } = useOutletContext<{ product: Product }>();
 
   const { id } = useParams<{ id?: string }>();
   const isCreate = !id;
@@ -66,14 +68,22 @@ export function BuyEditPage() {
           onAside={confEdit.open}
         />
       ) : (
-        <Buy 
-        />
+        <Buy onAside={Asidecartbuy.open} />
       )}
       {confEdit.isOpen && (
         <ConfirmLogout
           mensagem="tem certeza que deseja alterar"
           onCancel={confEdit.closed}
           onConfirm={handleConfirm}
+        />
+      )}
+      {Asidecartbuy.isOpen && (
+        <AsidebuyCart
+        price={product.price}
+          category={product.category}
+          img={`${BaseUrl}${product.imageUrl} `}
+          name={product.name}
+          onclosed={Asidecartbuy.closed}
         />
       )}
     </div>

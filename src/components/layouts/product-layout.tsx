@@ -1,10 +1,12 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useProductId } from "../../hooks/products/useProductId";
+
 
 export function ProductLayoutPage() {
   const { products, onView } = useProductId();
   const baseUrl = import.meta.env.VITE_BASE_API;
+  const { setRefreshOrders } = useOutletContext<{setRefreshOrders: React.Dispatch<React.SetStateAction<boolean>>; }>();
 
 
   const { id } = useParams<{ id: string }>(); // 👈 Pega o ID da URL
@@ -25,7 +27,7 @@ export function ProductLayoutPage() {
         />
       </div>
       <div className="md:w-1/2 w-full">
-        <Outlet context={{ product: products }} />
+        <Outlet context={{ product: products , setRefreshOrders}} />
       </div>
     </div>
   );

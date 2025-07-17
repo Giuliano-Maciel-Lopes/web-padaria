@@ -6,6 +6,8 @@ import { BuyEditPage } from "../pages/BuyEdit";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
 import { CartbuyPage } from "../pages/cart-buy";
 import { LayoutCartpage } from "../components/layouts/layout-cart";
+import { CartIdentificationPage } from "../pages/cart-identification";
+import { CartpaymentPage } from "../pages/cartpayment";
 
 export function AppRoutes() {
   return (
@@ -22,6 +24,8 @@ export function AppRoutes() {
 
        <Route path="/cart" element={<LayoutCartpage />}>
         <Route index element={<CartbuyPage />} />
+        <Route path="identification" element={<CartIdentificationPage />} />
+        <Route path="payment" element={<CartpaymentPage />} />
       </Route>
     </Routes>
   );

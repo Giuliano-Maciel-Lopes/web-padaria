@@ -6,6 +6,7 @@ type CartContextType = {
   save: (data: CartItem) => void;
   remove: (id: string) => void;
   clear: () => void;
+  updateQuantity: (id: string, quantity: number) => void;
 };
 
 const LOCAL_STORAGE_KEY = "@Refund:cart";
@@ -35,6 +36,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems(updatedItems);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedItems));
   }
+  function updateQuantity(id: string, quantity: number) {
+  const updatedItems = items.map((item) =>
+    item.id === id ? { ...item, quantity } : item
+  );
+
+  setItems(updatedItems);
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedItems));
+}
 
   function clear() {
     setItems([]);
@@ -53,7 +62,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <CartContext.Provider value={{ items, save, remove, clear }}>
+    <CartContext.Provider value={{ items, save, remove, clear , updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

@@ -16,7 +16,7 @@ const variants = {
     add: "h-50",
     square: "w-12",
     buy: "w-80 h-12 ",
-    stepcart: "h-15 md:w-[350px]",
+    stepcart: "h-15 md:w-[21.875rem]",
   },
 
   color: {

@@ -4,6 +4,8 @@ import { StepCart } from "../layoutcart/stepcart";
 
 
 export function LayoutCartpage() {
+
+
   return (
     <div className="bg-beige h-full min-h-screen flex flex-col ">
       <HeaderCart />
@@ -15,9 +17,6 @@ export function LayoutCartpage() {
           <div className="mt-10">
             <Outlet />
           </div>
-
-          
-
         </div>
       </div>
     </div>

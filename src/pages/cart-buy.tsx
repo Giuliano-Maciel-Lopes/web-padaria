@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/auth/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
 import { Button } from "../components/index/button";
 import { useNavigate } from "react-router";
+import { currencyBRL } from "../utils/currencyBRL";
 
 export function CartbuyPage() {
   const navigate = useNavigate()
@@ -46,6 +47,7 @@ export function CartbuyPage() {
   }, [auth , refreshQuantity]);
 
   const DataApiContext = auth && orders ? orders : items;
+  const total = DataApiContext.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   if (!DataApiContext || DataApiContext.length === 0) {
     return (
@@ -53,7 +55,7 @@ export function CartbuyPage() {
       <p className="text-center text-gray-500 text-3xl md:text-5xl font-semibold">
         Nenhum pedido encontrado
       </p>
-      <Button variant="stepcart" onClick={() => navigate(-1)}>
+      <Button variant="stepcart" onClick={() => navigate("/")}>
         voltar
       </Button>
     </div>
@@ -61,6 +63,7 @@ export function CartbuyPage() {
   }
 
   return (
+    <div className="flex flex-col gap-6">
     <div className="w-full">
       {DataApiContext.map((item) => (
         <Ordersview
@@ -77,5 +80,28 @@ export function CartbuyPage() {
         />
       ))}
     </div>
+    
+    <div className="flex flex-col items-center border w-[25rem] bg-white p-6 rounded-2xl shadow-lg gap-4">
+  <div className="w-full flex flex-col gap-2 text-lg text-gray-700 font-medium">
+    <div className="flex justify-between px-4">
+      <span>Valor total:</span>
+      <span>{currencyBRL(total)}</span>
+    </div>
+    <div className="flex justify-between">
+      <span>Frete:</span>
+      <span>A calcular</span>
+    </div>
+  </div>
+  <Button
+    variant="stepcart"
+    className="w-full mt-4"
+    onClick={() => navigate("identification")}
+  >
+    continuar
+  </Button>
+</div>
+
+    </div>
   );
+  
 }

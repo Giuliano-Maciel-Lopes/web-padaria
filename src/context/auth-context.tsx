@@ -32,6 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setSession(null);
     window.location.assign("/");
   }
+  
 
   function loaduser() {
     const datauser = localStorage.getItem(`${LOCAL_STORAGE_KEY}:datauser`);

@@ -33,7 +33,7 @@ export function Ordersview({
   roloadQuantityorder
 }: Props) {
   const { UpdateQuantityOrders } = UseUpdateQuantityOrdersItems();
-  const { remove } = useCartContext();
+  const { remove ,updateQuantity } = useCartContext();
   const { onDelete } = useDeleteOrders();
   const { session } = useAuth();
   const [localQuantity, setLocalQuantity] = useState(quantity); // localquantity vai ser a quantidade que tem na api que quantity vai pegar
@@ -46,6 +46,8 @@ export function Ordersview({
     setLocalQuantity(newQuantity);
     await UpdateQuantityOrders(id, newQuantity);
     roloadQuantityorder();
+    updateQuantity(id , newQuantity)
+
   }
 
   async function handleconfirm() {

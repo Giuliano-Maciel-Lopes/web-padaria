@@ -1,6 +1,6 @@
 type Props = {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   addressRegistered?: string;
 };
 
@@ -14,7 +14,7 @@ export function License({ name, email, addressRegistered }: Props) {
           <p className="font-semibold">Name:</p>
           <p>{name}</p>
         </div>
-        <div>
+        <div >
           <p className="font-semibold">Email:</p>
           <p>{email}</p>
         </div>
@@ -22,6 +22,7 @@ export function License({ name, email, addressRegistered }: Props) {
 
       {addressRegistered && (
         <div className="text-green-700">
+          <p className="font-semibold">Registered Address:</p>
           <p>{addressRegistered}</p>
         </div>
       )}

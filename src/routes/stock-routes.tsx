@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { LayoutBakery } from "../components/layouts/layout-bakery";
-import { Stockpage } from "../pages/stockHome";
+import { BakeryPage } from "../pages/bakery";
 import { CategoryProductsPage } from "../pages/categoryproductscategory";
 import { BuyEditPage } from "../pages/BuyEdit";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
@@ -10,7 +10,7 @@ export function StockRoutes() {
     <Routes>
       <Route path="/" element={<LayoutBakery />}>
       
-        <Route index element={<Stockpage />} />
+        <Route index element={<BakeryPage />} />
         <Route path="category/:name" element={<CategoryProductsPage />} />
 
         <Route path="products"element={< ProductLayoutPage  />}>

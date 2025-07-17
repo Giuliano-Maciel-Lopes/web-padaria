@@ -4,8 +4,11 @@ import { useIndexOrders } from "../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/auth/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
+import { Button } from "../components/index/button";
+import { useNavigate } from "react-router";
 
 export function CartbuyPage() {
+  const navigate = useNavigate()
   const { session } = useAuth();
   const auth = session?.token;
   const { items } = useCartContext();
@@ -13,6 +16,7 @@ export function CartbuyPage() {
   const baseUrl = import.meta.env.VITE_BASE_API;
 
   const [orders, setOrders] = useState<Orderview[] | null>(null);
+  const [refreshQuantity, setRefreshQuantity] = useState(false);
 
   useEffect(() => {
     async function fetchOrders() {
@@ -39,24 +43,28 @@ export function CartbuyPage() {
       }
     }
     fetchOrders();
-  }, [auth ]);
+  }, [auth , refreshQuantity]);
 
   const DataApiContext = auth && orders ? orders : items;
 
   if (!DataApiContext || DataApiContext.length === 0) {
     return (
-      <div className="w-full min-h-[60vh] flex items-center justify-center p-8">
-        <p className="text-center text-gray-500 text-3xl md:text-5xl font-semibold">
-          Nenhum pedido encontrado
-        </p>
-      </div>
-    );
+    <div className="w-full min-h-[60vh] flex flex-col items-center justify-center p-8 gap-6">
+      <p className="text-center text-gray-500 text-3xl md:text-5xl font-semibold">
+        Nenhum pedido encontrado
+      </p>
+      <Button variant="stepcart" onClick={() => navigate(-1)}>
+        voltar
+      </Button>
+    </div>
+  );
   }
 
   return (
     <div className="w-full">
       {DataApiContext.map((item) => (
         <Ordersview
+        roloadQuantityorder={() => setRefreshQuantity(prev => !prev)}
           setOrders={setOrders}
           id={item.id}
           category={item.category}

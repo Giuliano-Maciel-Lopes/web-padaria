@@ -29,7 +29,7 @@ export function LayoutBakery() {
   const location = useLocation();
   const slid =
     location.pathname === "/" &&
-    (!session?.datauser.role || session.datauser.role === "CUSTOMER");
+    (!session?.datauser.role || session.datauser.role === "CUSTOMER" );
   const navigate = useNavigate();
 
   const [refreshProducts, setRefreshProducts] = useState(false);
@@ -122,7 +122,7 @@ export function LayoutBakery() {
             </div>
 
             <Outlet
-              context={{ products, setRefreshProducts, setRefreshOrders }}
+              context={{ products, refreshProducts , setRefreshProducts, setRefreshOrders }}
             />
           </div>
         </div>

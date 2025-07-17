@@ -87,7 +87,6 @@
   display: none; /* Safari e Chrome */
 }
 
-@layer utilities {
   .clip-right {
     clip-path: polygon(
       0 0,
@@ -111,12 +110,20 @@
   );
 }
 
+ 
+  }
+
+   
+  
 
 
-}
+
+
+
+
 
   
-}
+
 body{
   overflow-x: hidden;
   font-family: var(--font-family);

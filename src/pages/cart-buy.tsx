@@ -1,52 +1,21 @@
-import { useCartContext } from "../hooks/context/cart";
+
 import { Ordersview } from "../components/index/ordersview";
-import { useIndexOrders } from "../hooks/order/userIndexOrder";
-import { useEffect, useState } from "react";
-import { useAuth } from "../hooks/auth/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
 import { Button } from "../components/index/button";
 import { useNavigate } from "react-router";
 import { currencyBRL } from "../utils/currencyBRL";
+import { useOutletContext } from "react-router";
 
-export function CartbuyPage() {
+export function CartbuyPage() { // mudar para rquivo separado vou dormir kkkkkk
+  type OutletCartContext = {
+  DataApiContext: Orderview[];
+  setRefreshQuantity: React.Dispatch<React.SetStateAction<boolean>>;
+  setOrders: React.Dispatch<React.SetStateAction<Orderview[] | null>>;
+};
+const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate()
-  const { session } = useAuth();
-  const auth = session?.token;
-  const { items } = useCartContext();
-  const { onViewOrders } = useIndexOrders();
-  const baseUrl = import.meta.env.VITE_BASE_API;
-
-  const [orders, setOrders] = useState<Orderview[] | null>(null);
-  const [refreshQuantity, setRefreshQuantity] = useState(false);
-
-  useEffect(() => {
-    async function fetchOrders() {
-      if (!auth) return;
-
-      const { data } = await onViewOrders();
-
-      //descoberta nova "flatmap" do ts ele junta map e o flat envese de usar map 2 vezes e flota no final
-      if (data) {
-        const datanew = data.flatMap((order) =>
-          order.items.map((item) => ({
-            id: item.id,
-            name: item.product.name,
-            category: item.product.category,
-            imageUrl: item.product.imageUrl,
-            price: item.unitPrice,
-            quantity: item.quantity,
-            priceTotal: order.totalAmount,
-          }))
-        );
-        setOrders(datanew);
-      } else {
-        setOrders(null);
-      }
-    }
-    fetchOrders();
-  }, [auth , refreshQuantity]);
-
-  const DataApiContext = auth && orders ? orders : items;
+  const {DataApiContext , setOrders , setRefreshQuantity} =  useOutletContext<OutletCartContext>();
+  
   const total = DataApiContext.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   if (!DataApiContext || DataApiContext.length === 0) {

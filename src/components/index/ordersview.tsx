@@ -8,6 +8,7 @@ import { currencyBRL } from "../../utils/currencyBRL";
 import { QuantityBuy } from "../buyedit & create/quantitybuy";
 import { UseUpdateQuantityOrdersItems } from "../../hooks/order.itens/UseUpdateQuantityOrdersItems";
 import { useEffect, useState } from "react";
+import { ProductImageCart } from "../cart identification/productidentification.";
 
 type Props = {
   id: string;
@@ -65,23 +66,13 @@ export function Ordersview({
   return (
     <div className="w-full border-b py-4 px-4 md:px-10 flex flex-col md:flex-row gap-4  text-sm relative ">
       {/* produtos */}
-      <div className="flex flex-col-reverse md:flex-row gap-4 md:w-2/5">
-        <div className="md:w-28 md:h-28 h-60 border- rounded overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-full h-full object-contain bg-gray-100"
-          />
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <h2 className="font-medium text-2xl">{name}</h2>
-          <p className=" text-lg">
-            <span className="text-gray-500">Quantidade:</span>
-            {quantity}
-          </p>
-          <p className="text-lg">{category}</p>
-        </div>
+      <div className=" md:w-2/5">
+        <ProductImageCart
+          imageUrl={imageUrl}
+          name={name}
+          quantity={quantity}
+          category={category}
+        />
       </div>
 
       <div className="flex md:w-3/5 items-center">

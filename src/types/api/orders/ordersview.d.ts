@@ -6,4 +6,5 @@ export type Orderview = {
   imageUrl: string;
   category: string;
   priceTotal:number
+  ishome?: boolean
 };

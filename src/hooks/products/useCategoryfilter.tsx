@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Product } from "../../types/api/producsts";
+import type { Product } from "../../types/api/products/producsts";
 import { indexProductQuerySchema } from "../../schema/products";
 import { api } from "../../services/api";
 import { errorHandler } from "../../utils/errorHandler";

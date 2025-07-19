@@ -1,7 +1,7 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { ProductsView } from "../components/index/productsview";
-import type { Product } from "../types/api/producsts";
+import type { Product } from "../types/api/products/producsts";
 import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/auth/useAuth";
 

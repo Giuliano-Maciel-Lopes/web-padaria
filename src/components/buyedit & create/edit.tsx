@@ -3,7 +3,7 @@ import { Select } from "../index/select";
 import { Button } from "../index/button";
 import { File } from "./filecat";
 import { categorie } from "../../utils/categorias";
-import type { Product } from "../../types/api/producsts";
+import type { Product } from "../../types/api/products/producsts";
 import type { UseProductHook } from "../../types/api/createEdit";
 import type { UploadFileError } from "../../types/erros/uploads";
 

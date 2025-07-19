@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import type { Product } from "../../types/api/producsts";
+import type { Product } from "../../types/api/products/producsts";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Button } from "../index/button";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
-import type { Product } from "../types/api/producsts";
+import type { Product } from "../types/api/products/producsts";
 
 import img1 from "../assets/rosquinhas - Copia.png";
 import img2 from "../assets/torta_de_frutas-removebg-preview - Copia.png";

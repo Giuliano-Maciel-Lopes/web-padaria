@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../../services/api";
 import { errorHandler } from "../../utils/errorHandler";
-import type { Product } from "../../types/api/producsts";
+import type { Product } from "../../types/api/products/producsts";
 import React from "react";
 import z from "zod";
 

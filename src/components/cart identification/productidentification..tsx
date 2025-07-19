@@ -7,6 +7,7 @@ type ProductViewProps = {
 
 export function ProductImageCart({ imageUrl, name, quantity, category }: ProductViewProps) {
   return (
+   
     <div className="flex flex-col-reverse md:flex-row gap-4">
       <div className="md:w-28 md:h-28 h-60  rounded overflow-hidden">
         <img
@@ -25,6 +26,7 @@ export function ProductImageCart({ imageUrl, name, quantity, category }: Product
         <p className="text-lg">{category}</p>
       </div>
       </div>
+      
    
   );
 }

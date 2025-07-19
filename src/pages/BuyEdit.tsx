@@ -6,7 +6,7 @@ import { useToggle } from "../hooks/useToggle";
 import { useEdit } from "../hooks/products/useEdit";
 import { useFile } from "../hooks/uploads/usefile";
 import { useOutletContext, useParams } from "react-router-dom";
-import type { Product } from "../types/api/producsts";
+import type { Product } from "../types/api/products/producsts";
 import { useCreateProduct } from "../hooks/products/useCreateProduct";
 import { TopBanner } from "../components/index/banner";
 import { AsidebuyCart } from "../components/cart buy/asidebuyCart";

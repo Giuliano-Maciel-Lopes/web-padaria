@@ -6,6 +6,8 @@ import { useCartContext } from "../../hooks/context/cart";
 import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";
 import type { Orderview } from "../../types/api/orders/ordersview";
+import { currencyBRL } from "../../utils/currencyBRL";
+import type { Order } from "../../types/api/orders/indexOrder";
 
 
 
@@ -17,7 +19,7 @@ export function LayoutCartpage() {
    const { items } = useCartContext();
     const { onViewOrders } = useIndexOrders();
     
-
+    const [dataOrdersfull , setDataOrdersfull] = useState<Order[]| null>(null);
     const [orders, setOrders] = useState<Orderview[] | null>(null);
       const [refreshQuantity, setRefreshQuantity] = useState(false);
 
@@ -40,7 +42,9 @@ export function LayoutCartpage() {
                   priceTotal: order.totalAmount,
                 }))
               );
+              setDataOrdersfull(data)
               setOrders(datanew);
+
             } else {
               setOrders(null);
             }
@@ -48,7 +52,8 @@ export function LayoutCartpage() {
           fetchOrders();
         }, [auth , refreshQuantity]);
          const DataApiContext = auth && orders ? orders : items;
-  
+  const totalAmount = DataApiContext.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  const total = currencyBRL(totalAmount);
 
 
   return (
@@ -60,7 +65,7 @@ export function LayoutCartpage() {
           <StepCart />
 
           <div className="mt-10">
-            <Outlet context={{DataApiContext, setRefreshQuantity , setOrders}} />
+            <Outlet context={{DataApiContext, setRefreshQuantity , setOrders , total , dataOrdersfull}} />
           </div>
         </div>
       </div>

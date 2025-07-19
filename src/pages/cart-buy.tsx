@@ -11,12 +11,13 @@ export function CartbuyPage() { // mudar para rquivo separado vou dormir kkkkkk
   DataApiContext: Orderview[];
   setRefreshQuantity: React.Dispatch<React.SetStateAction<boolean>>;
   setOrders: React.Dispatch<React.SetStateAction<Orderview[] | null>>;
+  total: number;
 };
 const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate()
-  const {DataApiContext , setOrders , setRefreshQuantity} =  useOutletContext<OutletCartContext>();
+  const {DataApiContext , setOrders , setRefreshQuantity , total} =  useOutletContext<OutletCartContext>();
   
-  const total = DataApiContext.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  
 
   if (!DataApiContext || DataApiContext.length === 0) {
     return (

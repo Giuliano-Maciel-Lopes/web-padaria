@@ -6,7 +6,7 @@ import { IconButton } from "../layoutbakery/header/iconButton";
 import { useToggle } from "../../hooks/useToggle";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { usedelete } from "../../hooks/products/usedelete";
-import type { Product } from "../../types/api/producsts";
+import type { Product } from "../../types/api/products/producsts";
 import { TopBanner } from "./banner";
 
 

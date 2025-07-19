@@ -14,7 +14,7 @@ import { QuantityBuy } from "./quantitybuy";
 
 import { useCreateOrders } from "../../hooks/order/useCreateOrders";
 import { useCreateOrdersItens } from "../../hooks/order.itens/useCreateOrdersItens";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../hooks/context/useAuth";
 type Props={
   onAside:()=> void
 

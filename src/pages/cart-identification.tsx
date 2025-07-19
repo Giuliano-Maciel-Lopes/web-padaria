@@ -1,7 +1,7 @@
 import { Navigate, useOutletContext } from "react-router";
 import { License } from "../components/cart identification/license";
 import { ProductImageCart } from "../components/cart identification/productidentification.";
-import { useAuth } from "../hooks/auth/useAuth";
+import { useAuth } from "../hooks/context/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
 import { IsHomeResumo } from "../components/cart identification/ishomeResumo";
 import type { Order } from "../types/api/orders/indexOrder";

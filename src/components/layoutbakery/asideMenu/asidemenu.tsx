@@ -4,7 +4,7 @@ import { Formsearch } from "../header/formSearch";
 import { IconButton } from "../header/iconButton";
 import x from "../../../assets/x.svg";
 import logout from "../../../assets/sair.svg";
-import { useAuth } from "../../../hooks/auth/useAuth";
+import { useAuth } from "../../../hooks/context/useAuth";
 
 
 type Props = {

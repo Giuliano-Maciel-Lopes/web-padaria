@@ -4,7 +4,7 @@ import { api } from "../../services/api";
 import { errorHandler } from "../../utils/errorHandler";
 import { useEffect } from "react";
 import type { Product } from "../../types/api/products/producsts";
-import type { UseProductHook } from "../../types/api/createEdit";
+import type { UseProductHook } from "../../types/api/products/createEdit";
 import type { ProductCreateEditError } from "../../types/erros/product/createedit";
 
 export function useEdit(product: Product | null, id?: string): UseProductHook {

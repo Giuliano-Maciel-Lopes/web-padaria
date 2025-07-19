@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createProductSchema } from "../../schema/products/creat";
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
-import type { UseProductHook } from "../../types/api/createEdit";
+import type { UseProductHook } from "../../types/api/products/createEdit";
 import type { ProductCreateEditError } from "../../types/erros/product/createedit";
 
 export function useCreateProduct(): UseProductHook {

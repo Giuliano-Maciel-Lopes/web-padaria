@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { HeaderCart } from "../layoutcart/headercart";
 import { StepCart } from "../layoutcart/stepcart";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../hooks/context/useAuth";
 import { useCartContext } from "../../hooks/context/cart";
 import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";

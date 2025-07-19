@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { createSessionSchema } from "../../schema/session/create";
 import { api } from "../../services/api";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../context/useAuth";
 import { errorHandler } from "../../utils/errorHandler";
 import type { LoginErrors } from "../../types/erros/auth";
 

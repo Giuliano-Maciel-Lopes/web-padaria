@@ -1,21 +1,23 @@
 import { Button } from "../index/button";
+import { useAuthModal } from "../../hooks/context/asideauth";
 
 type Props = {
   name?: string;
   email?: string;
   addressRegistered?: string;
   auth?: boolean;
-  onLoginClick?: () => void;
+
 };
 
-export function License({ name, email, addressRegistered, auth, onLoginClick }: Props) {
+export function License({ name, email, addressRegistered, auth,  }: Props) {
+  const {login}= useAuthModal()
   return (
     <div className="w-full md:w-[25rem] bg-green-100 h-44 border-2 border-green-400 rounded-2xl p-6 flex flex-col justify-between shadow-md items-center justify-center">
       <h3 className="text-xl font-bold text-green-800 mb-4">UAI License</h3>
 
       {!auth ? (
         <Button
-          onClick={onLoginClick}
+          onClick={login.open}
           className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
         >
           Faça login

@@ -7,7 +7,7 @@ import menu from "../../../assets/menu.svg";
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
 import { useNavigate, useOutlet, useOutletContext } from "react-router-dom";
-import { useAuth } from "../../../hooks/auth/useAuth";
+import { useAuth } from "../../../hooks/context/useAuth";
 import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
 import { useEffect, useState } from "react";
 

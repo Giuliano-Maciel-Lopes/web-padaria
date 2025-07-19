@@ -13,7 +13,7 @@ import { Header } from "../layoutbakery/header/header";
 
 import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
 
 export function LayoutBakery() {

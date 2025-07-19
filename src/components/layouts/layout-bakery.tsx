@@ -7,9 +7,6 @@ import { categorie } from "../../utils/categorias";
 import { Buttoncategory } from "../bakeryshowcase/category";
 import { Slid } from "../bakeryshowcase/slider";
 
-import { AsideLoguin } from "../layoutbakery/auth/asideloguin";
-import { AsideRegister } from "../layoutbakery/auth/aside.register";
-
 import { AsideMenu } from "../layoutbakery/asideMenu/asidemenu";
 import { Fotter } from "../layoutbakery/fotter/fotter";
 import { Header } from "../layoutbakery/header/header";
@@ -17,19 +14,19 @@ import { Header } from "../layoutbakery/header/header";
 import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuthModal } from "../../hooks/context/asideauth";
 
 export function LayoutBakery() {
   const menu = useToggle();
   const confirmLogout = useToggle();
-  const loguin = useToggle();
-  const register = useToggle();
+  const { login, register } = useAuthModal();
   const { session, remove } = useAuth();
   const { onClickCategory, products, isloading, activeCat } =
     useCategoryFilter();
   const location = useLocation();
   const slid =
     location.pathname === "/" &&
-    (!session?.datauser.role || session.datauser.role === "CUSTOMER" );
+    (!session?.datauser.role || session.datauser.role === "CUSTOMER");
   const navigate = useNavigate();
 
   const [refreshProducts, setRefreshProducts] = useState(false);
@@ -55,7 +52,7 @@ export function LayoutBakery() {
           <Header
             refreshOrders={refreshOrders}
             onAsideMenu={menu.open}
-            onAsideLoguin={loguin.open}
+            onAsideLoguin={login.open}
           />
           <div className="h-[9.5rem] md:h-20" />
 
@@ -72,24 +69,6 @@ export function LayoutBakery() {
                 remove(), confirmLogout.closed();
               }}
               onCancel={confirmLogout.closed}
-            />
-          )}
-
-          {loguin.isOpen && (
-            <AsideLoguin
-              onclosed={loguin.closed}
-              oncloseAuth={loguin.closed}
-              onRegister={() => {
-                register.open(), loguin.closed();
-              }}
-            />
-          )}
-          {register.isOpen && (
-            <AsideRegister
-              oncloseAuth={register.closed}
-              onLoguin={() => {
-                register.closed(), loguin.open();
-              }}
             />
           )}
 
@@ -122,7 +101,12 @@ export function LayoutBakery() {
             </div>
 
             <Outlet
-              context={{ products, refreshProducts , setRefreshProducts, setRefreshOrders }}
+              context={{
+                products,
+                refreshProducts,
+                setRefreshProducts,
+                setRefreshOrders,
+              }}
             />
           </div>
         </div>

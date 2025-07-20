@@ -7,13 +7,10 @@ export function useCreateOrdersItens() {
     ordersId: string,
     items: { productId: string; quantity: number }[]
   ) {
-    // Validação com Zod
     const result = createOrderItemsSchema.parse({ items });
 
-    
-
     await errorHandler(async () => {
-      await api.post(`orders_itens/${ordersId}`, result); 
+      await api.post(`orders_itens/${ordersId}`, result);
     });
   }
 

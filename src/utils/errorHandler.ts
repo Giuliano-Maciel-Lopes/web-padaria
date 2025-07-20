@@ -1,35 +1,36 @@
+import axios from "axios";
 import { ZodError } from "zod";
-import { AxiosError } from "axios";
 
 type AsyncFn<T> = () => Promise<T>;
 
 export async function errorHandler<T>(
   fn: AsyncFn<T>
-): Promise<{ data?: T; error?: Record<string, string> | { general: string } }> {
+): Promise<{ data?: T; error?: { general: string } }> {
   try {
     const data = await fn();
     return { data };
   } catch (err: any) {
-    if (import.meta.env.MODE === "development") {
-    console.error("Erro capturado em errorHandler:", err);
-  }
-    if (err instanceof ZodError) {
-      const fieldErrors: Record<string, string> = {};
-      for (const issue of err.issues) {
-        if (issue.path[0]) {
-          fieldErrors[issue.path[0]] = issue.message;
-        }
-      }
-      return { error: fieldErrors };
+    const isDev = import.meta.env.MODE === "development";
+
+    if (isDev && err instanceof ZodError) {
+      console.error("Erro de validação Zod capturado em errorHandler:", err);
+      return { error: { general: "Erro de validação (ver console para detalhes)" } };
     }
 
-    if (err instanceof AxiosError) {
+    if (axios.isAxiosError(err)) {
       return {
-        error: { general: err.response?.data?.message || "Erro na requisição" },
+        error: {
+          general: err.response?.data?.message || "Erro na requisição",
+        },
       };
     }
 
-    return { error: { general: "Erro desconhecido" } };
+    // Erro genérico
+    return {
+      error: {
+        general: isDev ? err.message || "Erro desconhecido" : "Erro desconhecido",
+      },
+    };
   }
 }
 

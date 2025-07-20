@@ -11,9 +11,9 @@ type Props = {
 };
 
 export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
-  const { email, setEmail, password, setPassword, onSubmit, isloading, error } =
+  const { errors , isloading , onSubmit , register , successMessage } =
     useLogin(onclosed);
-  console.log(email, password);
+
 
   return (
     <LayoutAuth
@@ -34,23 +34,22 @@ export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
     >
       <form onSubmit={onSubmit}>
         <Fildinput
-        err={error?.email}
-          value={email}
+        err={errors?.email?.message}
+         
           legend="email"
           placeholder="ex: @gmail.com"
-          onChange={(e) => setEmail(e.target.value)}
+         {...register("email")}
           type="email"
         />
         <Fildinput
-        err={error?.password}
+        err={errors?.password?.message}
           type="password"
-          value={password}
           legend="senha"
           placeholder="digite sua senha"
-          onChange={(e) => setPassword(e.target.value)}
+          {...register("password")}
         />
-        {error?.general && (
-         <GeneralErro message={error.general}/>
+        {errors.root && (
+         <GeneralErro message={errors.root.message}/>
           
         )}
         <Button  disabled={isloading} className="mt-4" type="submit">

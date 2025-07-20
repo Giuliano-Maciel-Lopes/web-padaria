@@ -29,7 +29,5 @@ export function useCategoryFilter() {
     setisloading(false);
   }
 
-
-
-  return { onClickCategory,  products, isloading, activeCat };
+  return { onClickCategory, products, isloading, activeCat };
 }

@@ -11,70 +11,51 @@ type Props = {
 };
 
 export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
-  const {
-    name,
-    error,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
-    onSubmit,
-    isloading
-  } = useRegister();
-
-  console.log(name,email , password,confirmPassword)
+  const { onSubmit, errors, isLoading, register, successMessage } =
+    useRegister();
 
   return (
     <div className="">
       <LayoutAuth
-       onClosed={oncloseAuth}
+        onClosed={oncloseAuth}
         toggleAuth={onLoguin}
         nameBtn2="Entrar na conta"
         title={<>SEJA BEM VINDO A TERRA MENEIRA</>}
       >
-        <form  onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <Fildinput
-          err={error?.name}
-          value={name}
+            err={errors?.name?.message}
             legend="Name"
             placeholder="Infome seu nome"
             required
-            onChange={(e) => setName(e.target.value)}
+            {...register("name")}
           />
           <Fildinput
-          value={email}
-          err={error?.email}
-            onChange={(e) => setEmail(e.target.value)}
+            err={errors.email?.message}
+            {...register("email")}
             legend="Email"
             placeholder="digite email... "
             type="email"
             required
           />
           <Fildinput
-          value={password}
-          err={error?.password}
+            {...register("password")}
+            err={errors?.password?.message}
             legend="senha"
             placeholder="senha "
             type="password"
             required
-            onChange={(e) => setPassword(e.target.value)}
           />
           <Fildinput
-          value={confirmPassword}
-          err={error?.confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            err={errors?.confirmPassword?.message}
+            {...register("confirmPassword")}
             legend="confirme a senha "
             placeholder="confrme a senha  "
             type="password"
             required
           />
-          {error?.general && (
-            <GeneralErro message={error.general}/>
-          )}
-          <Button disabled={isloading} type="submit" className="mt-4">
+          {errors?.root && <GeneralErro message={errors.root.message} />}
+          <Button disabled={isLoading} type="submit" className="mt-4">
             CADASTRAR
           </Button>
         </form>

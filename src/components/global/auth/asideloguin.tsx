@@ -30,7 +30,7 @@ export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
         </>
       }
       nameBtn2="Criar uma conta"
-      onLayout={oncloseAuth}
+     onClosed={oncloseAuth}
     >
       <form onSubmit={onSubmit}>
         <Fildinput

@@ -44,7 +44,7 @@ export function AsideMenu({ oncloseMenu , onAsideConfirm}: Props) {
         <nav>
           <ul className="flex flex-col gap-4 justify-center ">
             <Li href="#sobre">SOBRE NÓS</Li>
-            <Li href="#cardapio">CARDÁPIO</Li>
+            <Li href="#cardapio">ADICIONAR ENDREÇO PARA ENTREGA</Li>
             <Li href="#contato">CONTATO</Li>
             <Li href="#promocoes">PROMOÇÕES DO DIA</Li>
           </ul>

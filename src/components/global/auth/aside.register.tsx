@@ -30,7 +30,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
   return (
     <div className="">
       <LayoutAuth
-        onLayout={oncloseAuth}
+       onClosed={oncloseAuth}
         toggleAuth={onLoguin}
         nameBtn2="Entrar na conta"
         title={<>SEJA BEM VINDO A TERRA MENEIRA</>}

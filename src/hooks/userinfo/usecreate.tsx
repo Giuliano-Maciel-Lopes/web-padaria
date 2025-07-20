@@ -1,8 +1,10 @@
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
 import { createUserInfoSchema } from "../../schema/userInfo/create";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/useAuth";
+
+
 useAuth;
 
 export function useUserInfoCreate() {
@@ -19,7 +21,8 @@ export function useUserInfoCreate() {
     setUserInfo((prev) => ({ ...prev, [field]: value }));
   }
 
-  async function onCreateUserInfo() {
+  async function onCreateUserInfo(e: React.FormEvent) {
+    e.preventDefault()
     const database = createUserInfoSchema.parse(userInfo);
     const userId = session?.datauser.id;
     const data = { userId, ...database };

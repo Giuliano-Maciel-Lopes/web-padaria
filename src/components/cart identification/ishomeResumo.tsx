@@ -3,6 +3,8 @@ import { Button } from "../index/button";
 import { Input } from "../index/input";
 import { useUpdateisHome } from "../../hooks/order/useUpdateisHome";
 import { useAuth } from "../../hooks/context/useAuth";
+import { useAuthModal } from "../../hooks/context/asideauth";
+
 
 
 type Props = {
@@ -13,6 +15,7 @@ type Props = {
 
 export function IsHomeResumo({id ,  total }: Props) {
   const {onUpdateisHomeOrders} = useUpdateisHome()
+  const {userInfo} = useAuthModal()
  const [isHome ,  setishome] = useState<boolean| null>(null)
  const {session} = useAuth()
 
@@ -65,7 +68,7 @@ async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
             </label>
           </div>
 
-          <Button type="submit" className="mt-4" disabled={!!session?.token}>
+          <Button onClick={userInfo.open} type="submit" className="mt-4" disabled={!!session?.token}>
             Finalizar Compra
           </Button>
         </form>

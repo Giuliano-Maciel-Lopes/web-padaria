@@ -16,10 +16,11 @@ type Props = {
   isCreate: boolean;
   fileError: UploadFileError | null;
  oncategory: (value: string) => void;
+ erroUpload:string 
 };
 
 export function Edit({
-  fileError,
+ erroUpload,
   isCreate,
   product,
   file,
@@ -79,9 +80,8 @@ export function Edit({
         </div>
         <Fildinput className="hidden"  />
         <File
-          errors={[fileError?.file, fileError?.category, fileError?.general]
-            .filter(Boolean)
-            .join(" | ")}
+          errors={erroUpload}
+           
         
           file={file}
           onSetFile={onSetFile}

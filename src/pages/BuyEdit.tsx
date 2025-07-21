@@ -9,8 +9,10 @@ import type { Product } from "../types/api/products/producsts";
 import { useCreateProduct } from "../hooks/products/useCreateProduct";
 import { TopBanner } from "../components/index/banner";
 import { AsidebuyCart } from "../components/cart buy/asidebuyCart";
+import { useState } from "react";
 
 export function BuyEditPage() {
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const BaseUrl = import.meta.env.VITE_BASE_API;
   const { session } = useAuth();
   const isHome = session?.datauser.role === "STOCK";
@@ -24,37 +26,44 @@ export function BuyEditPage() {
   //create and edit
   const hook = useCreateProduct(product);
 
-  const{category , file , setFile , onSUbmit , setcategory , error} = useFile((url) => {
-    hook.setValue("imageUrl", url);
-  });
+  const { category, file, setFile, onSUbmit, setcategory, error } = useFile(
+    (url) => {
+      hook.setValue("imageUrl", url);
+    }
+  );
 
-async function handleConfirm() {
-   if (file && category) {
-    let imagePath = await onSUbmit(category);
+  async function handleConfirm() {
+    setUploadError(null);
 
-    if (!imagePath.startsWith("/")) {
-      imagePath = "/" + imagePath;
+    if (file && category) {
+      const imagePath = await onSUbmit(category);
+      if (!imagePath) {
+        setUploadError(
+          "Erro no upload: verifique categoria e arquivo  Apenas JPEG e PNG são permitidos."
+        );
+     confEdit.closed();   return; 
+      }
+      hook.setValue(
+        "imageUrl",
+        imagePath.startsWith("/") ? imagePath : "/" + imagePath
+      );
+    } else if (!file && !category && !isCreate) {
+      hook.setValue("imageUrl", product.imageUrl);
+    } else if (file && !category) {
+      setUploadError("Categoria é obrigatória quando enviar imagem.");
+    confEdit.closed();  return; 
     }
 
-    hook.setValue("imageUrl", imagePath);
-  } else if (!file && !category && !isCreate) {
-    // Caso esteja editando e não trocou imagem, mantém a imagem antiga
-    hook.setValue("imageUrl", product.imageUrl);
+    await hook.onCreateEdit();
+    confEdit.closed();
   }
-
-
-  await hook.onCreateEdit();
-  console.log(isCreate ? "✅ Produto criado" : "✅ Produto editado");
-  confEdit.closed();
-}
 
   return (
     <div className="px-5">
-  
-
       {isHome ? (
         <Edit
-       oncategory={setcategory}
+          erroUpload={uploadError ?? ""}
+          oncategory={setcategory}
           fileError={error}
           isCreate={isCreate}
           product={product}

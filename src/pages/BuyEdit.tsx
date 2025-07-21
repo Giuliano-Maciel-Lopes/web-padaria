@@ -3,14 +3,12 @@ import { Buy } from "../components/buyedit & create/buy";
 import { Edit } from "../components/buyedit & create/edit";
 import { ConfirmLogout } from "../components/layoutbakery/asideMenu/confirmlogout";
 import { useToggle } from "../hooks/useToggle";
-import { useEdit } from "../hooks/products/useEdit";
 import { useFile } from "../hooks/uploads/usefile";
 import { useOutletContext, useParams } from "react-router-dom";
 import type { Product } from "../types/api/products/producsts";
 import { useCreateProduct } from "../hooks/products/useCreateProduct";
 import { TopBanner } from "../components/index/banner";
 import { AsidebuyCart } from "../components/cart buy/asidebuyCart";
-
 
 export function BuyEditPage() {
   const BaseUrl = import.meta.env.VITE_BASE_API;
@@ -24,46 +22,44 @@ export function BuyEditPage() {
   const isCreate = !id;
 
   //create and edit
-  const create = useCreateProduct();
-  const edit = useEdit(product, id);
+  const hook = useCreateProduct(product);
 
-  const hook = isCreate ? create : edit;
+  const{category , file , setFile , onSUbmit , setcategory , error} = useFile((url) => {
+    hook.setValue("imageUrl", url);
+  });
 
-  const fileState = useFile(hook.setImageUrl);
+async function handleConfirm() {
+   if (file && category) {
+    let imagePath = await onSUbmit(category);
 
-  async function handleConfirm() {
-    if (fileState.file) {
-      console.log("fileState.file:", fileState.file);
-      const imagePath = await fileState.onSUbmit(hook.category);
-      console.log("imagePath recebido:", imagePath);
-
-      if (isCreate) {
-        await create.onCreateEdit(imagePath);
-      } else {
-        await edit.onCreateEdit(imagePath);
-      }
-    } else {
-      if (isCreate) {
-        await create.onCreateEdit();
-      } else {
-        await edit.onCreateEdit();
-      }
+    if (!imagePath.startsWith("/")) {
+      imagePath = "/" + imagePath;
     }
-    console.log(isCreate ? "✅ Produto criado" : "✅ Produto editado");
-    confEdit.closed();
+
+    hook.setValue("imageUrl", imagePath);
+  } else if (!file && !category && !isCreate) {
+    // Caso esteja editando e não trocou imagem, mantém a imagem antiga
+    hook.setValue("imageUrl", product.imageUrl);
   }
+
+
+  await hook.onCreateEdit();
+  console.log(isCreate ? "✅ Produto criado" : "✅ Produto editado");
+  confEdit.closed();
+}
 
   return (
     <div className="px-5">
-      {hook.successMessage && <TopBanner message={hook.successMessage} />}
+  
 
       {isHome ? (
         <Edit
-          fileError={fileState.error}
+       oncategory={setcategory}
+          fileError={error}
           isCreate={isCreate}
           product={product}
-          onSetFile={fileState.setFile}
-          file={fileState.file}
+          onSetFile={setFile}
+          file={file}
           edit={hook}
           onAside={confEdit.open}
         />
@@ -79,7 +75,7 @@ export function BuyEditPage() {
       )}
       {Asidecartbuy.isOpen && (
         <AsidebuyCart
-        price={product.price}
+          price={product.price}
           category={product.category}
           img={`${BaseUrl}${product.imageUrl} `}
           name={product.name}

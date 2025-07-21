@@ -1,81 +1,74 @@
-import { useEffect, useState } from "react";
-import { createProductSchema } from "../../schema/products/creat";
+import { useState } from "react";
+import { createProductSchema,type CreateProductInput,} from "../../schema/products/creat";
+import { updateProductBodySchema , type UpdateInput } from "../../schema/products/update";
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
-import type { UseProductHook } from "../../types/api/products/createEdit";
-import type { ProductCreateEditError } from "../../types/erros/product/createedit";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { Product } from "../../types/api/products/producsts";
+import { useSuccessMessage } from "../sucessmensagem";
 
-export function useCreateProduct(): UseProductHook {
-  const [isLoading, setisLoading] = useState<boolean>(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState<number | string>("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isVitrine, setIsVitrine] = useState(false);
-  const [error, setError] = useState<ProductCreateEditError | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  useEffect(() => {
-    if (!successMessage) return;
-    const timer = setTimeout(() => setSuccessMessage(null), 2000);
-    return () => clearTimeout(timer);
-  }, [successMessage]);
 
-  async function onCreateEdit(
-    newImageUrl?: string
-  ): Promise<ProductCreateEditError | null> {
-    setisLoading(true);
-    setError(null);
+export function useCreateProduct(product?: Product) {
+  const isEdit = !!product?.id // porque c nao tiver id ele nao existe (teste)
+
+  
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+    reset,
+    watch, 
+    setValue
+  } = useForm<ProductFormInputs>({
+    resolver: zodResolver(isEdit? updateProductBodySchema :createProductSchema),
+    defaultValues: {
+      name: product?.name ?? "",
+      category: product?.category ?? "",
+      price: product?.price ?? undefined,
+      isVitrine: product?.isVitrine ?? false,
+      description: product?.description ?? "",
+      imageUrl: product?.imageUrl ?? "",
+    },
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const { setSuccessMessage, successMessage } = useSuccessMessage();
+
+  const onCreateEdit = handleSubmit(async (data) => {
+    setIsLoading(true);
 
     const { error, data: database } = await errorHandler(async () => {
-      const imageToSend = newImageUrl ?? imageUrl;
-
-      const data = createProductSchema.parse({
-        name,
-        description,
-        category,
-        price: String(price).trim() === "" ? undefined : Number(price),
-        imageUrl:
-          imageToSend && imageToSend.trim() !== ""
-            ? "/" + imageToSend.trim().replace(/^\/+/, "")
-            : undefined,
-        isVitrine,
-      });
-
-      const res = await api.post("/products", data);
-
-      return res.data;
+      if (product?.id) {
+        const res = await api.patch(`/products/${product.id}`, data);
+ console.log("Dados do formulário no submit:", data);
+        return res.data;
+        
+      } else {
+        const res = await api.post("/products", data);
+ console.log("Dados do formulário no submit:", data);
+        return res.data;
+      }
     });
+
     if (error) {
-      setError(error);
-      return error
+      setError("root", { message: error.general });
+    } else {
+      setSuccessMessage(database);
+      reset()
     }
 
-    setisLoading(false);
-    setSuccessMessage(
-      typeof database === "string"
-        ? database
-        : database?.message ?? "Operação realizada com sucesso!"
-    );
-    return null;
-  }
+    setIsLoading(false);
+  });
+
   return {
-    successMessage,
-    error,
-    isLoading,
-    setisLoading,
-    name,
-    setName,
-    description,
-    setDescription,
-    category,
-    setCategory,
-    price,
-    setPrice,
-    imageUrl,
-    setImageUrl,
-    isVitrine,
-    setIsVitrine,
+    watch, 
+    register,
+    errors,
     onCreateEdit,
+    isLoading,
+    successMessage,
+    setValue
   };
 }

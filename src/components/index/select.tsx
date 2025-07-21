@@ -11,7 +11,7 @@ export function Select({ err, legend, children, ...rest }: Props) {
       <select
         {...rest}
         className="w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow"
-        value={""}
+       
       >
         <option value="" disabled hidden>
           selecione

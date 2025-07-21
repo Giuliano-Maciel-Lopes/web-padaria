@@ -6,6 +6,7 @@ import { errorHandler } from "../../utils/errorHandler";
 
 export function useFile(setImageUrl: (url: string) => void) {
   const [file, setFile] = useState<File | null>(null);
+  const [category , setcategory] = useState<string | null>(null)
    const [error, setError] = useState< UploadFileError | null>(null);
 
   async function onSUbmit(category: string) {
@@ -48,5 +49,5 @@ export function useFile(setImageUrl: (url: string) => void) {
 }
 
 
-  return { file, setFile, onSUbmit , error};
+  return { file, setFile, onSUbmit , error , setcategory , category};
 }

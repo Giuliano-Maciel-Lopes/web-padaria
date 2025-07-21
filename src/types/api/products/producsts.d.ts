@@ -6,8 +6,8 @@ export type Product = {
   category: string;
   price: number;
   imageUrl?: string ;
-  isVitrine: boolean;
-   createdAt?: string;  // ou Date
-  updatedAt?: string;  // ou Date
+  isVitrine?: boolean;
+   createdAt?: string;  
+  updatedAt?: string;  
 };
 

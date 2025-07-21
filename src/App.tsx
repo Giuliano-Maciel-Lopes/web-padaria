@@ -1,4 +1,4 @@
-import { GlobalAuthModals } from "./components/global/globalauth";
+import { GlobalAuthModals } from "./components/global/globalAuth";
 import { AsideAuthProvider } from "./context/asideauth-context";
 import { AuthProvider } from "./context/auth-context";
 import { CartProvider } from "./context/cart-context";

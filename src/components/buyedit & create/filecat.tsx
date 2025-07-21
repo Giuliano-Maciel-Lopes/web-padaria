@@ -3,39 +3,35 @@ import { Fildinput } from "../index/inputfildset";
 
 
 type Props = { 
-   file: File | null;
-   onSetFile: (file: File | null) => void;
-  category: string;
-  onSetCategory: (value: string) => void;
-  errors?: string
+  file: File | null;
+  onSetFile: (file: File | null) => void;
+  
+  errors?: string;
+ 
 }
 
-export function File({ errors ,  category , onSetCategory ,file , onSetFile}:Props) {
-  
-
-
-
+export function File({ errors,  onSetFile }: Props) {
   return (
-   <div>
+    <div>
       <Fildinput
-      err={errors}
+        err={errors}
         type="file"
         legend="imagem"
         className="h-50 border-2 border-gray-400"
         onChange={(e) => {
-        onSetFile(e.target.files?.[0] || null)
+          onSetFile(e.target.files?.[0] || null);
         }}
-    
       />
-       <Fildinput
+      
+      {/* Se precisar desse input para category, use: */}
+      <Fildinput
+        className="hidden"
+     
        
-       className="hidden"
-        value={category}
-        onChange={(e) => onSetCategory(e.target.value)}
       />
-    
-
     </div>
- 
   );
 }
+
+ 
+  

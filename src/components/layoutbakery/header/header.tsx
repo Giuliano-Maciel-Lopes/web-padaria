@@ -30,6 +30,7 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
 
 
   useEffect(() => {
+     if (!session?.token) return;
     async function fetchOrder() {
       const { data } = await onViewOrders();
       if (data) {

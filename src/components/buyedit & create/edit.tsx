@@ -4,110 +4,92 @@ import { Button } from "../index/button";
 import { File } from "./filecat";
 import { categorie } from "../../utils/categorias";
 import type { Product } from "../../types/api/products/producsts";
-import type { UseProductHook } from "../../types/api/products/createEdit";
 import type { UploadFileError } from "../../types/erros/uploads";
+import { useCreateProduct } from "../../hooks/products/useCreateProduct";
 
 type Props = {
   onAside: () => void;
-  edit: UseProductHook
+  edit: ReturnType<typeof useCreateProduct>;
   file: File | null;
   onSetFile: (file: File | null) => void;
   product: Product | null;
-  isCreate: boolean
-  fileError: UploadFileError | null; // novo prop para erro do arquivo
+  isCreate: boolean;
+  fileError: UploadFileError | null;
+ oncategory: (value: string) => void;
 };
 
-export function Edit({ fileError, isCreate ,  product, file, onSetFile, edit, onAside }: Props) {
-  const {
-    error,
-    name,
-    description,
-    category,
-    price,
-    imageUrl,
-    isVitrine,
-    setImageUrl,
-    setName,
-    setCategory,
-    setDescription,
-    setPrice,
-    setIsVitrine,
-  } = edit;
-   console.log("Edit component props:");
-  console.log("isCreate:", isCreate);
-  console.log("product:", product);
-  console.log("edit states:", { name, description, category, price, imageUrl, isVitrine });
+export function Edit({
+  fileError,
+  isCreate,
+  product,
+  file,
+  onSetFile,
+  edit,
+  onAside,
+  oncategory,
+}: Props) {
+  const { errors, register, successMessage, watch } = edit;
   
+
   return (
     <div className="flex flex-col gap-6">
       <form className="border-2 rounded-3xl border-gray-400 flex flex-col py-4 px-4 gap-4 ">
         <div className="flex justify-end items-center ">
           <p>Adicionar a vitrine?</p>
           <Fildinput
-          err={error?.isVitrine}
+            err={errors?.isVitrine?.message}
             type="checkbox"
-            checked={isVitrine}
-            onChange={(e) => setIsVitrine(e.target.checked)}
+            {...register("isVitrine")}
             className="w-20"
-          
           />
         </div>
         <Fildinput
-        err={error?.name}
+          err={errors?.name?.message}
           legend="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          {...register("name")}
           placeholder={isCreate ? "Digite o nome do produto" : product?.name}
         />
         <Fildinput
-        err={error?.description}
+          err={errors?.description?.message}
           legend="descriçao"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          {...register("description")}
           placeholder={isCreate ? "Digite a descrição" : product?.description}
         />
         <div className="flex gap-4">
-          
           <Select
-            err={error?.category}
+            err={errors?.category?.message}
             legend="categoria"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            {...register("category")}
+            onChange={(e) => oncategory(e.target.value)}
           >
             {categorie.map((cat) => (
               <option key={cat}>{cat}</option>
             ))}
           </Select>
+          
           <Fildinput
-         err={error?.price}
+            err={errors?.price?.message}
             legend="valor"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-               placeholder={isCreate ? "Digite o valor" : product?.price?.toString()}
+            {...register("price", { valueAsNumber: true })}
+            placeholder={
+              isCreate ? "Digite o valor" : product?.price?.toString()
+            }
+          
           />
         </div>
-        <Fildinput
-          className="hidden"
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
+        <Fildinput className="hidden"  />
         <File
-        errors={[
-      fileError?.file,
-      fileError?.category,
-      fileError?.general,  
-        ].filter(Boolean)
-      .join(" | ")}
-          category={category}
-          onSetCategory={setCategory}
+          errors={[fileError?.file, fileError?.category, fileError?.general]
+            .filter(Boolean)
+            .join(" | ")}
+        
           file={file}
           onSetFile={onSetFile}
         />
 
         <Button type="button" onClick={onAside}>
-         {isCreate ? "CRIAR PRODUTO" : "ALTERAR"}
+          {isCreate ? "CRIAR PRODUTO" : "ALTERAR"}
         </Button>
-        
-        
       </form>
     </div>
   );

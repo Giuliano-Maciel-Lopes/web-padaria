@@ -31,11 +31,7 @@ export function useFile(setImageUrl: (url: string) => void) {
     }
     formData.append("category", category);
 
-    const response = await api.post("/uploads", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await api.post("/uploads", formData);
 
     const url = response.data.path;
     console.log("🚀 URL recebida:", response.data.path);

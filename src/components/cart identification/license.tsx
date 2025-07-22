@@ -4,16 +4,16 @@ import { useAuthModal } from "../../hooks/context/asideauth";
 type Props = {
   name?: string;
   email?: string;
-  addressRegistered?: string;
+
   auth?: boolean;
 
 };
 
-export function License({ name, email, addressRegistered, auth,  }: Props) {
+export function License({ name, email,  auth,  }: Props) {
   const {login}= useAuthModal()
   return (
     <div className="w-full md:w-[25rem] bg-green-100 h-44 border-2 border-green-400 rounded-2xl p-6 flex flex-col justify-between shadow-md items-center justify-center">
-      <h3 className="text-xl font-bold text-green-800 mb-4">UAI License</h3>
+      <h3 className="text-xl font-bold text-green-800 mb-4">UAI Carteirinha</h3>
 
       {!auth ? (
         <Button
@@ -35,12 +35,7 @@ export function License({ name, email, addressRegistered, auth,  }: Props) {
             </div>
           </div>
 
-          {addressRegistered && (
-            <div className="text-green-700 w-full">
-              <p className="font-semibold">Registered Address:</p>
-              <p>{addressRegistered}</p>
-            </div>
-          )}
+         
         </>
       )}
     </div>

@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
-  const { errors , isloading , onSubmit , register , successMessage } =
+  const { errors , isloading , onSubmit , register ,  } =
     useLogin(onclosed);
 
 
@@ -52,6 +52,7 @@ export function AsideLoguin({ onclosed, onRegister, oncloseAuth }: Props) {
          <GeneralErro message={errors.root.message}/>
           
         )}
+         {errors?.root && <GeneralErro message={errors.root.message} />}
         <Button  disabled={isloading} className="mt-4" type="submit">
           ENTRAR
         </Button>

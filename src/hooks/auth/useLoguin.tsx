@@ -6,11 +6,10 @@ import {
 import { api } from "../../services/api";
 import { useAuth } from "../context/useAuth";
 import { errorHandler } from "../../utils/errorHandler";
-import type { LoginErrors } from "../../types/erros/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { data } from "react-router";
-import { set } from "zod/v4-mini";
+import { useSuccessMessage } from "../sucessmensagem";
+
 
 export function useLogin(onSuccess?: () => void) {
   const {
@@ -22,23 +21,24 @@ export function useLogin(onSuccess?: () => void) {
     resolver: zodResolver(createSessionSchema),
   });
   const [isloading, setIsloading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const { session } = useAuth();
+const {setSuccessMessage} = useSuccessMessage()
+
 
   const auth = useAuth();
   const onSubmit = handleSubmit(async (data) => {
     setIsloading(true);
 
-    const { error: err } = await errorHandler(async () => {
-      const response = await api.post("/sessions", data);
+    const { error: err  , data:database} = await errorHandler(async () => {
+      const response = await api.post<ApiResponse>("/sessions", data);
       auth.save(response.data);
-
-      onSuccess?.();
+       onSuccess?.();
+      return response.data
+     
     });
     if(err){
       setError("root", {message:err.general})
     }else{
-      setSuccessMessage(`UAI SO  !!  que bom ter vc aqui de volta , ${session?.datauser.name}`)
+      setSuccessMessage(`UAI SO  !!  que bom ter vc aqui de volta , ${database?.datauser.name}`)
 
     }
 
@@ -50,6 +50,5 @@ export function useLogin(onSuccess?: () => void) {
     isloading,
     onSubmit, 
     errors, 
-    successMessage
   };
 }

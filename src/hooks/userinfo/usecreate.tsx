@@ -1,36 +1,52 @@
 import { errorHandler } from "../../utils/errorHandler";
 import { api } from "../../services/api";
-import { createUserInfoSchema } from "../../schema/userInfo/create";
-import React, { useState } from "react";
-import { useAuth } from "../context/useAuth";
+import {
+  createUserInfoSchema,
+  type CreateUserInfoInput,
+} from "../../schema/userInfo/create";
 
-
-useAuth;
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSuccessMessage } from "../sucessmensagem";
 
 export function useUserInfoCreate() {
-  const [userInfo, setUserInfo] = useState({
-    street: "",
-    houseNumber: "",
-    neighborhood: "",
-    city: "",
-    phone: "",
+  const { setSuccessMessage } = useSuccessMessage();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setError,
+  } = useForm<CreateUserInfoInput>({
+    resolver: zodResolver(createUserInfoSchema),
+    defaultValues: {
+      city: "",
+      // coloquei so esse aqui para aparecer o selicione do select da cidades que fazem entregas no vale do aço
+    },
   });
-  const { session } = useAuth();
 
-  function setField(field: keyof typeof userInfo, value: string) {
-    setUserInfo((prev) => ({ ...prev, [field]: value }));
-  }
+  const onCreateUserInfo = handleSubmit(async (data) => {
+    const { error, data: database } = await errorHandler(async () => {
+      const res = await api.post("/user_infos", data);
 
-  async function onCreateUserInfo(e: React.FormEvent) {
-    e.preventDefault()
-    const database = createUserInfoSchema.parse(userInfo);
-    const userId = session?.datauser.id;
-    const data = { userId, ...database };
-
-      await errorHandler(async () => {
-      await api.post("/user_infos", data);
+      return res.data;
     });
-  }
 
-  return { userInfo, setField, onCreateUserInfo };
+    if (error) {
+      setError("root", {
+        message: error.general || "Erro ao criar informaçao do usuário",
+      });
+    } else {
+      setSuccessMessage(database);
+      reset();
+    }
+  });
+
+  return {
+    register,
+
+    errors,
+    onCreateUserInfo,
+  };
 }

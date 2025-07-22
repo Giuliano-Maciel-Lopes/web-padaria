@@ -1,5 +1,6 @@
 import { Navigate, useOutletContext } from "react-router";
 import { License } from "../components/cart identification/license";
+import { LicenseInfo } from "../components/cart identification/licenseinfo";
 import { ProductImageCart } from "../components/cart identification/productidentification.";
 import { useAuth } from "../hooks/context/useAuth";
 import type { Orderview } from "../types/api/orders/ordersview";
@@ -34,14 +35,15 @@ export function CartIdentificationPage() {
         ))}
       </div>
 
-      <div className="md:w-1/3">
+      <div className="md:w-1/3 flex flex-col gap-4" >
         <h1 className="hidden md:block">informaçoes</h1>
         <License
           auth={!!auth}
           name={session?.datauser.name}
           email={session?.datauser.email}
-          addressRegistered="sim ou nao "
+          
         />
+        <LicenseInfo/>
       </div>
 
       <div className="md:w-1/3 p-5">

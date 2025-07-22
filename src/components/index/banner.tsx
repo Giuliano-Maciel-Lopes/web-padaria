@@ -1,24 +1,25 @@
 import React from "react";
 
 type TopBannerProps = {
-  message: string |null;
+  message: string | null;
 };
 
 export function TopBanner({ message }: TopBannerProps) {
+  if (!message) return null;
+
   return (
-      <div
+    <div
       className="
         fixed top-4 left-1/2 transform -translate-x-1/2
-        bg-white border-2 border-red-600
-        rounded-md
-        px-6 py-3
+        bg-green-100 border border-green-500
+        text-green-800
+        rounded-md px-6 py-3
         max-w-md w-full
-        text-center
-        text-red-700 font-semibold
-        shadow-lg z-50
+        text-center font-medium
+        shadow-md z-50
+        animate-fadeIn
       "
-      role="alert"
-      aria-live="assertive"
+      aria-live="polite"
     >
       {message}
     </div>

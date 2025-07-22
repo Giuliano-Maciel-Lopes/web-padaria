@@ -2,12 +2,17 @@ import { LayoutAuth } from "../../layouts/layout-auth";
 import { Fildinput } from "../../index/inputfildset";
 import { useUserInfoCreate } from "../../../hooks/userinfo/usecreate";
 import { Button } from "../../index/button";
-type Props ={
+import { Select } from "../../index/select";
+import { cityDelivered } from "../../../utils/delivered";
+import { GeneralErro } from "../../../utils/general";
+
+type Props = {
   onClosed: () => void;
-  onbutton2:() => void
-}
-export function AsideUserInfo({onClosed , onbutton2}: Props) {
-  const { userInfo, setField, onCreateUserInfo } = useUserInfoCreate();
+  onbutton2: () => void;
+};
+
+export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
+  const { errors, onCreateUserInfo, register } = useUserInfoCreate();
 
   return (
     <LayoutAuth
@@ -16,51 +21,51 @@ export function AsideUserInfo({onClosed , onbutton2}: Props) {
       title="Informações de Entrega"
       toggleAuth={onbutton2}
     >
-      <form onSubmit={onCreateUserInfo} className=" gap-4">
+      <form onSubmit={onCreateUserInfo} className="flex flex-col gap-4">
         <Fildinput
+          err={errors.street?.message}
           legend="Rua"
           placeholder="Digite sua rua"
           type="text"
-          value={userInfo.street}
-          onChange={(e) => setField("street", e.target.value)}
+          {...register("street")}
         />
 
         <Fildinput
+          err={errors.houseNumber?.message}
           legend="Número"
           placeholder="Digite o número da casa"
           type="text"
-          value={userInfo.houseNumber}
-          onChange={(e) => setField("houseNumber", e.target.value)}
+          {...register("houseNumber")}
         />
 
         <Fildinput
+          err={errors.neighborhood?.message}
           legend="Bairro"
           placeholder="Digite seu bairro"
           type="text"
-          value={userInfo.neighborhood}
-          onChange={(e) => setField("neighborhood", e.target.value)}
+          {...register("neighborhood")}
         />
 
-        <Fildinput
-          legend="Cidade"
-          placeholder="Digite sua cidade"
-          type="text"
-          value={userInfo.city}
-          onChange={(e) => setField("city", e.target.value)}
-        />
+        <Select legend="Cidade" {...register("city")} err={errors.city?.message}>
+          {cityDelivered.map((city) => (
+            <option key={city}>{city}</option>
+          ))}
+        </Select>
 
         <Fildinput
+          err={errors.phone?.message}
           legend="Telefone"
           placeholder="Digite seu telefone"
           type="tel"
-          value={userInfo.phone}
-          onChange={(e) => setField("phone", e.target.value)}
+          {...register("phone")}
         />
-        <Button type="submit" >
-          Salvar informaçoes
-        </Button>
-         
+
+        {errors?.root && <GeneralErro message={errors.root.message} />}
+
+        <Button type="submit">Salvar informações</Button>
       </form>
     </LayoutAuth>
   );
 }
+
+ 

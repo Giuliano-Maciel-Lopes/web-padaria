@@ -7,6 +7,11 @@
     "Veneza I",
     "Panorama"
   ];
-
- 
+  export const cityDelivered = [
+  "Ipatinga",
+  "Coronel Fabriciano",
+  "Timóteo",
+  "Santana do Paraíso",
+  "Mesquita", 
+];
 

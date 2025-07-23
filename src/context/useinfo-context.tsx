@@ -30,6 +30,7 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
     const data = await onviewUserInfo(userId);
     if (data) {
       setUserInfo({
+        id:data.id,
         street: data.street,
         houseNumber: data.houseNumber,
         neighborhood: data.neighborhood,

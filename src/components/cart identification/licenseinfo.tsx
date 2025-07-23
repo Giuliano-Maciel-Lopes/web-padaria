@@ -15,6 +15,7 @@ export function LicenseInfo() {
     );
   }
   const address = [
+
     { label: "Rua", value: userInfo.street },
     { label: "Número", value: userInfo.houseNumber },
     { label: "Bairro", value: userInfo.neighborhood },
@@ -30,7 +31,7 @@ export function LicenseInfo() {
 
       <div className="text-gray-700 flex flex-col gap-1">
         {address.map(({ label, value }) => (
-          <div className="flex justify-between">
+          <div key={label} className="flex justify-between">
             <span className="font-medium">{label}</span>
             <span>{value}</span>{" "}
           </div>

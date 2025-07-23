@@ -5,6 +5,7 @@ import { Button } from "../components/index/button";
 import { useNavigate } from "react-router";
 import { currencyBRL } from "../utils/currencyBRL";
 import { useOutletContext } from "react-router";
+import { Loading } from "../components/index/loading";
 
 export function CartbuyPage() { // mudar para rquivo separado vou dormir kkkkkk
   type OutletCartContext = {

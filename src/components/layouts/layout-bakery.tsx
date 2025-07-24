@@ -15,35 +15,30 @@ import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
+import { useSearchParams } from "react-router";
 
 export function LayoutBakery() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+   const category = params.get("category"); 
+  const { isLoading,  isError , data:products = [] } = useCategoryFilter({isCategory:category});
+  console.log(products);
+
   const menu = useToggle();
   const confirmLogout = useToggle();
   const { login, register } = useAuthModal();
   const { session, remove } = useAuth();
-  const { onClickCategory, products, isloading, activeCat } =
-    useCategoryFilter();
-  const location = useLocation();
+
   const slid =
     location.pathname === "/" &&
     (!session?.datauser.role || session.datauser.role === "CUSTOMER");
+
   const navigate = useNavigate();
 
   const [refreshProducts, setRefreshProducts] = useState(false);
   const [refreshOrders, setRefreshOrders] = useState(false); // vou chamar la no header
 
-  useEffect(() => {
-    const pathParts = location.pathname.split("/");
-
-    if (pathParts[1] === "category") {
-      const categoryName = decodeURIComponent(pathParts[2]);
-
-      // Chama sempre que mudar refreshProducts, independente do activeCat
-      onClickCategory(categoryName);
-    }
-  }, [location.pathname, refreshProducts]);
-
-  const categories = categorie;
+  useEffect(() => {}, [location.pathname, refreshProducts]);
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
@@ -84,18 +79,16 @@ export function LayoutBakery() {
                 active={location.pathname === "/"}
                 onActive={() => {
                   navigate("/");
-                  onClickCategory(""); // reset
                 }}
               />
-              {categories.map((cat) => (
+              {categorie.map((cat) => (
                 <Buttoncategory
-                  isloading={isloading}
                   name={cat}
                   key={cat}
                   onActive={() => {
-                    navigate(`/category/${cat}`);
+                   navigate(`/category?category=${cat}`);
                   }}
-                  active={activeCat === cat}
+                  active={category === cat}
                 />
               ))}
             </div>

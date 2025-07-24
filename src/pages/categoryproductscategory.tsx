@@ -16,7 +16,7 @@ export function CategoryProductsPage() {
   const {session}= useAuth()
   const isStock = session?.datauser.role === "STOCK"
   
-
+console.log("teste do cintext" , products)
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-6 mb-4">

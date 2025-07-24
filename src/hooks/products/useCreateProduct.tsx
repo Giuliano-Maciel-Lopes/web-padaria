@@ -24,12 +24,12 @@ export function useCreateProduct(product?: Product) {
   } = useForm<ProductFormInputs>({
     resolver: zodResolver(isEdit? updateProductBodySchema :createProductSchema),
     defaultValues: {
-      name: product?.name ?? "",
-      category: product?.category ?? "",
+      name: product?.name ?? undefined,
+      category: product?.category ?? undefined,
       price: product?.price ?? undefined,
       isVitrine: product?.isVitrine ?? false,
-      description: product?.description ?? "",
-      imageUrl: product?.imageUrl ?? "",
+      description: product?.description ?? undefined,
+      imageUrl: product?.imageUrl ?? undefined,
     },
   });
 

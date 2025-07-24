@@ -14,18 +14,7 @@ export function Fildinput({
   className = "",
   ...rest
 }: Props) {
-     if (type === "checkbox") {
-    return (
-      <label className="flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          className={`w-10 h-10 ${className}`}
-          {...rest}
-        />
-        {legend && <span>{legend}</span>}
-      </label>
-    );
-  }
+
   return (
     <Fieldset legend={legend}>
       <Input

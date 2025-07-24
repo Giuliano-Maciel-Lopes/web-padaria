@@ -31,7 +31,9 @@ export function Edit({
 }: Props) {
   const { errors, register, successMessage, watch } = edit;
   
+const isVitrineValue = watch("isVitrine");
 
+console.log("isVitrine:", isVitrineValue);
   return (
     <div className="flex flex-col gap-6">
       <form className="border-2 rounded-3xl border-gray-400 flex flex-col py-4 px-4 gap-4 ">

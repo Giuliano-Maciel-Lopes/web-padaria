@@ -1,33 +1,32 @@
-import { useState } from "react";
 import type { Product } from "../../types/api/products/producsts";
 import { indexProductQuerySchema } from "../../schema/products";
 import { api } from "../../services/api";
-import { errorHandler } from "../../utils/errorHandler";
+import { useQuery } from "@tanstack/react-query";
 
-export function useCategoryFilter() {
-  const [activeCat, setActiveCat] = useState<null | string>(null);
-  const [products, setproducts] = useState<Product[]>([]);
-  const [isloading, setisloading] = useState(false);
+type useFilter = {
+  isCategory?: string | null;
+  activeVitrine?: boolean | null;
+};
 
-  async function onClickCategory(params: string) {
-    setisloading(true);
+const fetchData = async (
+  category?: string | null,
+  isVitrine?: boolean | null
+): Promise<Product[]> => {
+  const params = indexProductQuerySchema.parse({ category, isVitrine });
 
-    const { error } = await errorHandler(async () => {
-      indexProductQuerySchema.parse({ category: params });
+  const response = await api.get<Product[]>("/products", { params });
 
-      const response = await api.get("/products", {
-        params: { category: params },
-      });
+  return response.data;
+};
 
-      setproducts(response.data);
-      setActiveCat(params);
-    });
+export function useCategoryFilter({ activeVitrine, isCategory }: useFilter) {
+  const enabled = !!isCategory || typeof activeVitrine === "boolean";
 
-    if (error) {
-      alert(error.general || "Erro ao carregar produtos");
-    }
-    setisloading(false);
-  }
+  const query = useQuery<Product[]>({
+    queryKey: ["productsCategory", isCategory, activeVitrine],
+    queryFn: () => fetchData(isCategory, activeVitrine),
+    enabled,
+  });
 
-  return { onClickCategory, products, isloading, activeCat };
+  return { ...query };
 }

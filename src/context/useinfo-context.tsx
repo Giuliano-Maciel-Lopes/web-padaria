@@ -20,12 +20,13 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
   const { onviewUserInfo } = useUserInfoIndex();
   const { session } = useAuth();
   const userId = session?.datauser.id;
+  const role = session?.datauser.role
  useEffect(() => {
   // curiosidade: caso eu chamar o  if (!userId) return onviwe reclama de tipagem 
 
 
   async function fetchUserInfo() {
-    if (!userId) return
+    if (!userId || role!=="CUSTOMER") return
  
     const data = await onviewUserInfo(userId);
     if (data) {

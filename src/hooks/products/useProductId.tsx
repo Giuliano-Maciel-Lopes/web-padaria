@@ -6,6 +6,7 @@ import { useState } from "react";
 import { idParamSchema } from "../../schema/products/remove";
 
 export function useProductId() {
+  
   const [products, setProduct] = useState<Product | null>(null);
   
 

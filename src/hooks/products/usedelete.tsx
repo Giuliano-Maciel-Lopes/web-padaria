@@ -1,39 +1,23 @@
 import { api } from "../../services/api";
-import { errorHandler } from "../../utils/errorHandler";
 import { idParamSchema } from "../../schema/products/remove";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import type { Product } from "../../types/api/products/producsts";
 
+async function deleteProduct(product:Product) {
+  const params = idParamSchema.parse({id: product.id });
+  const res = await api.delete(`products/${params.id}`);
 
-export function usedelete() {
-  const [isloading, setisloading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  return res.data;
+}
 
-  useEffect(() => {
-  if (!successMessage) return;
-  const timer = setTimeout(() => setSuccessMessage(null), 2000);
-  return () => clearTimeout(timer);
-}, [successMessage]);
+export function useDelete( ) {
+  const queryClient = useQueryClient();
 
-
-  async function onDelete(uuid: string) {
-    const data = idParamSchema.parse({ id: uuid });
-    setisloading(true);
-    const { error, data: responseData } = await errorHandler(async () => {
-      const res = await api.delete(`products/${data.id}`);
-
-      return res.data;
-    });
-    if (error) {
-      alert(
-        error.general ||
-          "Impossível deletar o produto. Tente novamente mais tarde."
-      );
-      return ;
-    }
-    setisloading(false);
-    return setSuccessMessage(responseData); // retorna os dados recebidos (ex: produto deletado)
-  }
-
-  return { onDelete, isloading, successMessage };
+  return useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: (_, product) => {
+      queryClient.invalidateQueries({ queryKey: ["productsCategory", ] });
+      queryClient.invalidateQueries({ queryKey: ["productsId", product.id] });
+    },
+  });
 }

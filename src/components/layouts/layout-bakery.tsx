@@ -35,10 +35,10 @@ export function LayoutBakery() {
 
   const navigate = useNavigate();
 
-  const [refreshProducts, setRefreshProducts] = useState(false);
+ 
   const [refreshOrders, setRefreshOrders] = useState(false); // vou chamar la no header
 
-  useEffect(() => {}, [location.pathname, refreshProducts]);
+  
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
@@ -96,8 +96,8 @@ export function LayoutBakery() {
             <Outlet
               context={{
                 products,
-                refreshProducts,
-                setRefreshProducts,
+                
+                
                 setRefreshOrders,
               }}
             />

@@ -4,6 +4,10 @@ import { ProductsView } from "../components/index/productsview";
 import type { Product } from "../types/api/products/producsts";
 import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/context/useAuth";
+import { useSuccessMessage } from "../hooks/sucessmensagem";
+import { TopBanner } from "../components/index/banner";
+TopBanner
+
 
 
 export function CategoryProductsPage() {
@@ -15,6 +19,9 @@ export function CategoryProductsPage() {
   const navigate = useNavigate()
   const {session}= useAuth()
   const isStock = session?.datauser.role === "STOCK"
+
+  const {setSuccessMessage, successMessage}=  useSuccessMessage()
+
   
 console.log("teste do cintext" , products)
   return (
@@ -25,7 +32,7 @@ console.log("teste do cintext" , products)
         {products.map((product) => {
           return (
             <ProductsView
-             onReloadDelete={()=>setRefreshProducts((prev)=> !prev)}
+            setMensagem={setSuccessMessage}
               onBuy={()=> navigate(`/products/${product.id}`)}
               key={product.id}
              product={product}
@@ -36,6 +43,8 @@ console.log("teste do cintext" , products)
         })}
         {isStock && <AddProductCard />}
       </div>
+          {successMessage && <TopBanner message={successMessage} />}
+
     </div>
   );
 }

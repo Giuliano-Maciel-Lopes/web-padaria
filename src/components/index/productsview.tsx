@@ -5,7 +5,7 @@ import remove from "../../assets/remove.svg";
 import { IconButton } from "../layoutbakery/header/iconButton";
 import { useToggle } from "../../hooks/useToggle";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
-import { usedelete } from "../../hooks/products/usedelete";
+import { useDelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/products/producsts";
 import { TopBanner } from "./banner";
 
@@ -13,25 +13,29 @@ import { TopBanner } from "./banner";
 type Props = {
   product: Product;
   onBuy?: () => void;
-  onReloadDelete:()=> void
+  setMensagem:(msg:string)=> void
 };
 
-export function ProductsView({ onReloadDelete , onBuy, product }: Props) {
+export function ProductsView({setMensagem ,  onBuy, product }: Props) {
   const { session } = useAuth();
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
-  const { onDelete, successMessage } = usedelete();
+  const { mutate } = useDelete();
   const baseUrl = import.meta.env.VITE_BASE_API;
 
 
-  async function handleconfirm() {
-    await onDelete(product.id);
-    asideDelete.closed();
-   
-    onReloadDelete()
-    
 
-
+  function handleconfirm(product: Product) {
+    mutate(product, {
+      onSuccess: (data) => {
+        setMensagem(data);
+      },
+      onError: (error) => {
+        if (error) {
+          setMensagem(error.message);
+        }
+      },
+    });
   }
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">
@@ -81,10 +85,13 @@ export function ProductsView({ onReloadDelete , onBuy, product }: Props) {
         <ConfirmLogout
           mensagem="tem certeza que deseja excluir"
           onCancel={asideDelete.closed}
-          onConfirm={handleconfirm}
+          onConfirm={() => {
+            handleconfirm(product);
+            asideDelete.closed();
+          }}
         />
       )}
-      {successMessage && <TopBanner message={successMessage} />}
+    
     </div>
   );
 }

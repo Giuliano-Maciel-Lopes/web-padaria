@@ -4,9 +4,10 @@ type Props = {
   onConfirm: () => void;
   onCancel: () => void ;
   mensagem:string
+  isloading?:boolean
 };
 
-export function ConfirmLogout({mensagem, onConfirm, onCancel }: Props) {
+export function ConfirmLogout({mensagem, onConfirm, onCancel , isloading }: Props) {
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -19,11 +20,12 @@ export function ConfirmLogout({mensagem, onConfirm, onCancel }: Props) {
           <Button onClick={onCancel} className="flex-1" colorVariant="secund">
             CANCELAR
           </Button>
-          <Button onClick={onConfirm } className="flex-1" colorVariant="primary">
+          <Button isloading={isloading} onClick={onConfirm } className="flex-1" colorVariant="primary">
             CONFIRMAR
           </Button>
         </div>
       </div>
+
     </div>
   );
 }

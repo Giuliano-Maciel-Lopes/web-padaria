@@ -16,6 +16,7 @@ const fetchData = async (
 
   const response = await api.get<Product[]>("/products", { params });
 
+
   return response.data;
 };
 
@@ -26,6 +27,8 @@ export function useCategoryFilter({ activeVitrine, isCategory }: useFilter) {
     queryKey: ["productsCategory", isCategory, activeVitrine],
     queryFn: () => fetchData(isCategory, activeVitrine),
     enabled,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000, 
   });
 
   return { ...query };

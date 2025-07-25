@@ -9,21 +9,25 @@ import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
 import { useSuccessMessage } from "../hooks/sucessmensagem";
 import { TopBanner } from "../components/index/banner";
 
-
 export function BakeryPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/"; // true dito isso
   const { setSuccessMessage, successMessage } = useSuccessMessage();
 
-  const { data: product = [] } = useCategoryFilter({
+  const { data: product = [], isLoading:isLoadingMain } = useCategoryFilter({
     activeVitrine: isHomePage,
   });
-  const { data: productCategory = [] } = useCategoryFilter({
+  const { data: productCategory = [], isLoading:isLoadingCategory } = useCategoryFilter({
     activeVitrine: isHomePage,
     isCategory: "doces",
   });
 
+   if(isLoadingMain || isLoadingCategory) {
+  return (
+    <div className="w-screen h-screen bg-white flex items-center justify-center"></div>
+  );
+}
   return (
     <div className="flex flex-col">
       <Carrossel
@@ -51,11 +55,9 @@ export function BakeryPage() {
             product={product}
             onBuy={() => navigate(`/products/${product.id}`)}
           />
-        
         ))}
       </div>
-        {successMessage && <TopBanner message={successMessage} />}
-
+      {successMessage && <TopBanner message={successMessage} />}
     </div>
   );
 }

@@ -7,32 +7,32 @@ import { useToggle } from "../../hooks/useToggle";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useDelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/products/producsts";
-import { TopBanner } from "./banner";
-
+import { Loading } from "./loading";
 
 type Props = {
   product: Product;
   onBuy?: () => void;
-  setMensagem:(msg:string)=> void
+  setMensagem: (msg: string) => void;
+  ispeding?:boolean
 };
 
-export function ProductsView({setMensagem ,  onBuy, product }: Props) {
+export function ProductsView({ setMensagem, onBuy, product }: Props) {
   const { session } = useAuth();
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
-  const { mutate } = useDelete();
+  const { mutate, isPending, error } = useDelete();
   const baseUrl = import.meta.env.VITE_BASE_API;
-
-
 
   function handleconfirm(product: Product) {
     mutate(product, {
       onSuccess: (data) => {
         setMensagem(data);
+                    asideDelete.closed();
       },
       onError: (error) => {
         if (error) {
           setMensagem(error.message);
+                      asideDelete.closed();
         }
       },
     });
@@ -83,15 +83,17 @@ export function ProductsView({setMensagem ,  onBuy, product }: Props) {
       </div>
       {asideDelete.isOpen && (
         <ConfirmLogout
+        isloading={isPending}
+
           mensagem="tem certeza que deseja excluir"
           onCancel={asideDelete.closed}
           onConfirm={() => {
             handleconfirm(product);
-            asideDelete.closed();
+           
           }}
         />
       )}
-    
+      
     </div>
   );
 }

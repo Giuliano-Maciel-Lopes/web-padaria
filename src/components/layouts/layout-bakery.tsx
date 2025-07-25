@@ -16,13 +16,19 @@ import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
 import { useSearchParams } from "react-router";
+import { Loading } from "../index/loading";
 
 export function LayoutBakery() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-   const category = params.get("category"); 
-  const { isLoading,  isError , data:products = [] } = useCategoryFilter({isCategory:category});
+  const category = params.get("category");
+  const {
+    isLoading,
+    isError,
+    data: products = [],
+  } = useCategoryFilter({ isCategory: category });
   console.log(products);
+ 
 
   const menu = useToggle();
   const confirmLogout = useToggle();
@@ -35,10 +41,8 @@ export function LayoutBakery() {
 
   const navigate = useNavigate();
 
- 
-  const [refreshOrders, setRefreshOrders] = useState(false); // vou chamar la no header
+  const [refreshOrders, setRefreshOrders] = useState(false); 
 
-  
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
@@ -86,7 +90,7 @@ export function LayoutBakery() {
                   name={cat}
                   key={cat}
                   onActive={() => {
-                   navigate(`/category?category=${cat}`);
+                    navigate(`/category?category=${cat}`);
                   }}
                   active={category === cat}
                 />
@@ -96,9 +100,7 @@ export function LayoutBakery() {
             <Outlet
               context={{
                 products,
-                
-                
-                setRefreshOrders,
+                isLoading,
               }}
             />
           </div>

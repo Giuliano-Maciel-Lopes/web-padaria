@@ -1,39 +1,36 @@
 import { Fildinput } from "../index/inputfildset";
 import { Select } from "../index/select";
 import { Button } from "../index/button";
-import { File } from "./filecat";
 import { categorie } from "../../utils/categorias";
+
 import type { Product } from "../../types/api/products/producsts";
-import type { UploadFileError } from "../../types/erros/uploads";
-import { useCreateProduct } from "../../hooks/products/useCreateProduct";
+import {
+  useCreateProductForm,
+  type UseCreateProductFormReturn,
+} from "../../hooks/products/useCreateEdit/form";
 
 type Props = {
   onAside: () => void;
-  edit: ReturnType<typeof useCreateProduct>;
-  file: File | null;
-  onSetFile: (file: File | null) => void;
+  editCreat: UseCreateProductFormReturn;
   product: Product | null;
   isCreate: boolean;
-  fileError: UploadFileError | null;
- oncategory: (value: string) => void;
- erroUpload:string 
+  fileError: string | undefined;
+  setFileChange: (file: File | null) => void; 
 };
 
 export function Edit({
- erroUpload,
   isCreate,
   product,
-  file,
-  onSetFile,
-  edit,
+  editCreat,
   onAside,
-  oncategory,
+  setFileChange,
+  fileError,
 }: Props) {
-  const { errors, register, successMessage, watch } = edit;
-  
-const isVitrineValue = watch("isVitrine");
+  const { errors, register, watch } = editCreat;
 
-console.log("isVitrine:", isVitrineValue);
+  const isVitrineValue = watch("isVitrine");
+
+  console.log("isVitrine:", isVitrineValue);
   return (
     <div className="flex flex-col gap-6">
       <form className="border-2 rounded-3xl border-gray-400 flex flex-col py-4 px-4 gap-4 ">
@@ -63,30 +60,32 @@ console.log("isVitrine:", isVitrineValue);
             err={errors?.category?.message}
             legend="categoria"
             {...register("category")}
-            onChange={(e) => oncategory(e.target.value)}
+            
           >
             {categorie.map((cat) => (
               <option key={cat}>{cat}</option>
             ))}
           </Select>
-          
+
           <Fildinput
             err={errors?.price?.message}
             legend="valor"
-            {...register("price", { valueAsNumber: true })}
+            {...register("price" , {valueAsNumber:true})}
             placeholder={
               isCreate ? "Digite o valor" : product?.price?.toString()
             }
-          
           />
         </div>
-        <Fildinput className="hidden"  />
-        <File
-          errors={erroUpload}
-           
-        
-          file={file}
-          onSetFile={onSetFile}
+
+        <Fildinput
+          err={fileError}
+          type="file"
+          legend="imagem"
+          className="h-50 border-2 border-gray-400"
+          onChange={(e) => {
+            const file = e.target.files?.[0] ?? null;
+            setFileChange(file);
+          }}
         />
 
         <Button type="button" onClick={onAside}>

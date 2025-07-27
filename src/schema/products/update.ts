@@ -13,14 +13,12 @@ export const updateProductBodySchema = z.object({
     .transform((val) => val.toLowerCase())
     .optional(),
 
-  price: z.preprocess(
-    (val) => {
-      if (val === "" || val === null || val === undefined) return undefined;
-      const number = Number(val);
-      return isNaN(number) ? undefined : number;
-    },
-    z.number().positive().optional()
-  ),
+price: z
+  .union([z.number().positive(), z.undefined()])
+  .refine((val) => val === undefined || (typeof val === "number" && val > 0), {
+    message: "O preço deve ser um número positivo",
+  }),
+
 
   imageUrl: z.string().optional(),
 

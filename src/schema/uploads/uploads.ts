@@ -1,5 +1,5 @@
 import { z } from "zod";
-import {ACCEPTED_IMAGE_TYPES ,MAX_FILE_SIZE} from "../../utils/uploadsutils.js"
+import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from "../../utils/uploadsutils.js";
 import { categorie } from "../../utils/categorias.js";
 
 const uploadFileSchema = z.object({
@@ -19,22 +19,19 @@ const uploadFileSchema = z.object({
     ),
 }).passthrough();
 
-const uploadCategorySchema = z
-  .string()
-  .min(1, "Categoria é obrigatória")
-  .refine((value) => categorie.includes(value), {
-    message: "Categoria inválida",
-  });
+const uploadCategorySchema = z.enum(categorie, {
+  errorMap: () => ({ message: "Categoria inválida/ categoria obrigatoria com imagem " }),
+});
 
 export const uploadCombinedSchema = z
   .object({
     file: uploadFileSchema.optional(),
-    category: z.string().optional(),
+    category: uploadCategorySchema.optional(),
   })
   .refine((data) => {
     // Se tem arquivo, categoria deve ser obrigatória e válida
     if (data.file) {
-      return data.category !== undefined && categorie.includes(data.category);
+      return data.category !== undefined;
     }
     // Se não tem arquivo, categoria pode ser opcional
     return true;

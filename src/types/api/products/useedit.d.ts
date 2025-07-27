@@ -2,7 +2,8 @@
   name?: string;
   description?: string;
   category?: string;
-  price?: unknown;
+  price?:number;
   imageUrl?: string;
   isVitrine?: boolean;
+  file?: File | null; 
 };

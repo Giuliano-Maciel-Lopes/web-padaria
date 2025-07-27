@@ -12,11 +12,11 @@ import { Loading } from "./loading";
 type Props = {
   product: Product;
   onBuy?: () => void;
-  setMensagem: (msg: string) => void;
+ 
   ispeding?:boolean
 };
 
-export function ProductsView({ setMensagem, onBuy, product }: Props) {
+export function ProductsView({  onBuy, product }: Props) {
   const { session } = useAuth();
   const isHomeStock = session?.datauser.role === "STOCK";
   const asideDelete = useToggle();
@@ -24,18 +24,7 @@ export function ProductsView({ setMensagem, onBuy, product }: Props) {
   const baseUrl = import.meta.env.VITE_BASE_API;
 
   function handleconfirm(product: Product) {
-    mutate(product, {
-      onSuccess: (data) => {
-        setMensagem(data);
-                    asideDelete.closed();
-      },
-      onError: (error) => {
-        if (error) {
-          setMensagem(error.message);
-                      asideDelete.closed();
-        }
-      },
-    });
+    mutate(product )
   }
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">

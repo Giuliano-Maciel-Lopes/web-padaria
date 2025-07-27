@@ -3,6 +3,7 @@ import { api } from "../../../services/api";
 import type { Product } from "../../../types/api/products/producsts";
 import type { CreateProductInput } from "../../../schema/products/creat";
 import type { UpdateInput } from "../../../schema/products/update";
+import { toast } from "react-toastify";
 
 type fetchData = {
   data: CreateProductInput | UpdateInput;
@@ -26,13 +27,23 @@ export function useCreateEdit(product?: Product) {
 
   return useMutation({
     mutationFn: creatEditProduct,
-    onSuccess() {
+
+    onSuccess(data, variables) {
       queryClient.invalidateQueries({ queryKey: ["productsCategory"] });
 
-      if (product?.id) {
-        queryClient.invalidateQueries({ queryKey: ["productsId", product.id] });
+      if (variables.product?.id) {
+        queryClient.invalidateQueries({
+          queryKey: ["productsId", variables.product.id],
+        });
       }
+    const action = variables.product?.id ? "alterado" : "criado";
+      toast.success(`Produto ${variables.data.name} ${action}`);
+      toast.success(data);
+    },
+
+    onError(error: any) {
+      const message = error?.message || "Erro ao salvar produto";
+      toast.error(message);
     },
   });
 }
-

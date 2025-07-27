@@ -26,37 +26,41 @@ export function BuyEditPage() {
   const { mutate, isPending } = useCreateEdit(product);
   const { error, file, onSubmit, setFile } = useFile();
 
-  const category = watch("category"); 
+  const category = watch("category");
 
-const handleConfirm = async () => {
-  console.log("➡️ Iniciando handleConfirm");
+  const handleConfirm = async () => {
+    console.log("➡️ Iniciando handleConfirm");
 
-  if (file) {
-    console.log("📁 File presente:", file);
-    console.log("📂 Categoria enviada para onSubmit:", category);
+    if (file) {
+      const resPath = await onSubmit(category);
 
-    const resPath = await onSubmit(category);
+      if (resPath) {
+        setValue("imageUrl", `/${resPath}`);
+      }
 
-    console.log("📸 Caminho da imagem retornado:", resPath);
-
-    if (resPath) {
-      setValue("imageUrl", `/${resPath}`);
-      console.log("✅ imageUrl setado no form:", resPath);
+      handleSubmit((dataForm) => {
+        mutate(
+          { data: dataForm, product },
+          {
+            onSettled() {
+              confEdit.closed();
+            },
+          }
+        );
+      })();
+    } else {
+      handleSubmit((dataForm) => {
+        mutate(
+          { data: dataForm, product },
+          {
+            onSettled() {
+              confEdit.closed();
+            },
+          }
+        );
+      })();
     }
-
-    handleSubmit((dataForm) => {
-      console.log("📤 Enviando form com file:", dataForm);
-      mutate({ data: dataForm, product });
-    })();
-  } else {
-    console.log("⚠️ Nenhum file presente. Submetendo form direto.");
-    handleSubmit((dataForm) => {
-      console.log("📤 Enviando form sem file:", dataForm);
-      mutate({ data: dataForm, product });
-    })();
-  }
-};
-
+  };
 
   return (
     <div className="px-5">

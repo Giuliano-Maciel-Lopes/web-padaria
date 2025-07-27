@@ -4,7 +4,6 @@ import { ProductsView } from "../components/index/productsview";
 import type { Product } from "../types/api/products/producsts";
 import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/context/useAuth";
-import { useSuccessMessage } from "../hooks/sucessmensagem";
 import { TopBanner } from "../components/index/banner";
 import { Loading } from "../components/index/loading";
 TopBanner;
@@ -19,7 +18,7 @@ export function CategoryProductsPage() {
   const { session } = useAuth();
   const isStock = session?.datauser.role === "STOCK";
 
-  const { setSuccessMessage, successMessage } = useSuccessMessage();
+
 
 if(isLoading){
   return <Loading/>
@@ -32,7 +31,7 @@ if(isLoading){
         {products.map((product) => {
           return (
             <ProductsView
-              setMensagem={setSuccessMessage}
+           
               onBuy={() => navigate(`/products/${product.id}`)}
               key={product.id}
               product={product}
@@ -41,7 +40,7 @@ if(isLoading){
         })}
         {isStock && <AddProductCard />}
       </div>
-      {successMessage && <TopBanner message={successMessage} />}
+     
     </div>
   );
 }

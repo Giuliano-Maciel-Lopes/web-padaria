@@ -5,6 +5,10 @@ import { AsideAuthProvider } from "./context/asideauth-context";
 import { AuthProvider } from "./context/auth-context";
 import { CartProvider } from "./context/cart-context";
 import { UserInfoProvider } from "./context/useinfo-context";
+import { ToastProvider } from "./services/toats";
+
+
+
 
 import { Routes } from "./routes";
 import { query } from "./services/reactquery";
@@ -18,6 +22,7 @@ export function App() {
             <AsideAuthProvider>
               <Routes />
               <GlobalAuthModals />
+             <ToastProvider/>
             </AsideAuthProvider>
           </CartProvider>
         </UserInfoProvider>

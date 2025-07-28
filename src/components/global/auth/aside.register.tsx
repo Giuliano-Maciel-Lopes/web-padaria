@@ -1,9 +1,11 @@
 import { LayoutAuth } from "../../layouts/layout-auth";
 import { Fildinput } from "../../index/inputfildset";
 import { Button } from "../../index/button";
-import { useRegister } from "../../../hooks/auth/useRegister";
+import { useRegisterForm } from "../../../hooks/auth/useregister/form";
+import { useRegister } from "../../../hooks/auth/useregister/query";
 
 import { GeneralErro } from "../../../utils/general";
+
 
 type Props = {
   onLoguin: () => void;
@@ -11,8 +13,14 @@ type Props = {
 };
 
 export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
-  const { onSubmit, errors, isLoading, register, successMessage } =
-    useRegister();
+  const {mutate ,isPending ,errorMessage }= useRegister()
+  const {handleSubmit , register ,reset , errors }= useRegisterForm()
+  const onSubmit = handleSubmit((data)=>{
+    mutate(data , {onSuccess:()=>reset()})
+
+    
+  })
+  
 
   return (
     <div className="">
@@ -27,7 +35,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             err={errors?.name?.message}
             legend="Name"
             placeholder="Infome seu nome"
-            required
+           
             {...register("name")}
           />
           <Fildinput
@@ -36,7 +44,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             legend="Email"
             placeholder="digite email... "
             type="email"
-            required
+          
           />
           <Fildinput
             {...register("password")}
@@ -44,7 +52,7 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             legend="senha"
             placeholder="senha "
             type="password"
-            required
+            
           />
           <Fildinput
             err={errors?.confirmPassword?.message}
@@ -52,10 +60,10 @@ export function AsideRegister({ oncloseAuth, onLoguin }: Props) {
             legend="confirme a senha "
             placeholder="confrme a senha  "
             type="password"
-            required
+           
           />
-          {errors?.root && <GeneralErro message={errors.root.message} />}
-          <Button disabled={isLoading} type="submit" className="mt-4">
+          {errorMessage && <GeneralErro  message={errorMessage} />}
+          <Button isloading={isPending} type="submit" className="mt-4">
             CADASTRAR
           </Button>
         </form>

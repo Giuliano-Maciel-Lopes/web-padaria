@@ -9,7 +9,7 @@ import { useCartContext } from "../../../hooks/context/cart";
 import { useNavigate, useOutlet, useOutletContext } from "react-router-dom";
 import { useAuth } from "../../../hooks/context/useAuth";
 import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
-import { useEffect, useState } from "react";
+import {  useMemo, useState } from "react";
 
 type Props = {
   onAsideMenu: () => void;
@@ -20,28 +20,26 @@ type Props = {
 export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
   const { items } = useCartContext();
   const { session } = useAuth();
-  const { onViewOrders } = useIndexOrders();
+  const { data:ordersData  } = useIndexOrders();
   const amountItens = items.length;
   const navigate = useNavigate();
    
-  const [amountItensApi , setAmountItensApi ]= useState <number| null>(null)
-  const quantityItems = session?.token ? amountItensApi : amountItens
+
+  
 
 
 
-  useEffect(() => {
-     if (!session?.token) return;
-    async function fetchOrder() {
-      const { data } = await onViewOrders();
-      if (data) {
-        const amountItens = data.reduce((acc, pedido) => acc + pedido.items.length, 0);
-      
-        
-        setAmountItensApi(amountItens)
-      }
+   const amountItensApi = useMemo(() => {
+    if (!session?.token || !ordersData) {
+       return null;
     }
-    fetchOrder();
-  }, [session?.token ,refreshOrders]);
+    
+    
+    
+    return ordersData.reduce((acc, pedido) => acc + pedido.items.length, 0);
+  }, [session?.token, ordersData]);
+
+    const quantityItems = session?.token ? amountItensApi ?? 0 : items.length;
 
   return (
     <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">

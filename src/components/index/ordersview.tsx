@@ -7,8 +7,8 @@ import { useAuth } from "../../hooks/context/useAuth";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { QuantityBuy } from "../buyedit & create/quantitybuy";
 import { UseUpdateQuantityOrdersItems } from "../../hooks/order.itens/UseUpdateQuantityOrdersItems";
-import { useEffect, useState } from "react";
 import { ProductImageCart } from "../cart identification/productidentification.";
+import { LoadingFull } from "./loadingfull";
 
 type Props = {
   id: string;
@@ -18,8 +18,6 @@ type Props = {
   imageUrl: string;
   category: string;
   priceTotal: number;
-  roloadQuantityorder:()=> void
-  setOrders: React.Dispatch<React.SetStateAction<Orderview[] | null>>;
 };
 
 export function Ordersview({
@@ -30,39 +28,23 @@ export function Ordersview({
   imageUrl,
   category,
   priceTotal,
-  setOrders,
-  roloadQuantityorder
+ 
 }: Props) {
-  const { UpdateQuantityOrders } = UseUpdateQuantityOrdersItems();
-  const { remove ,updateQuantity } = useCartContext();
-  const { onDelete } = useDeleteOrders();
-  const { session } = useAuth();
-  const [localQuantity, setLocalQuantity] = useState(quantity); // localquantity vai ser a quantidade que tem na api que quantity vai pegar
-
-  useEffect(() => {
-    setLocalQuantity(quantity);
-  }, [quantity]);
+  const { mutate, isPending  } = UseUpdateQuantityOrdersItems();
+  const { remove, updateQuantity } = useCartContext();
+  const { mutate: mutateRemove  , isPending:isPendingRemove} = useDeleteOrders();
+ 
 
   async function handleQuantityChange(newQuantity: number) {
-    setLocalQuantity(newQuantity);
-    await UpdateQuantityOrders(id, newQuantity);
-    roloadQuantityorder();
-    updateQuantity(id , newQuantity)
-
+    mutate({ data: { quantity: newQuantity }, params: { id } });
+    updateQuantity(id, newQuantity);
   }
 
   async function handleconfirm() {
-    if (session?.token) {
-      await onDelete(id);
-
-      setOrders((prev) => prev?.filter((item) => item.id !== id) || null);
-    }
+    mutateRemove({id});
     remove(id);
   }
-  useEffect(() => {
-    setLocalQuantity(quantity);
-  }, [quantity]);
-
+ if(isPending ||isPendingRemove) return <LoadingFull/>
   return (
     <div className="w-full border-b py-4 px-4 md:px-10 flex flex-col md:flex-row gap-4  text-sm relative ">
       {/* produtos */}
@@ -78,12 +60,7 @@ export function Ordersview({
       <div className="flex md:w-3/5 items-center">
         {/* Quantidade */}
         <div className="w-full  text-left md:text-center md:w-1/3">
-          {
-            <QuantityBuy
-              onChange={handleQuantityChange}
-              quantity={localQuantity}
-            />
-          }
+          {<QuantityBuy onChange={handleQuantityChange} quantity={quantity} />}
         </div>
 
         <div className="hidden md:block md:w-1/3">

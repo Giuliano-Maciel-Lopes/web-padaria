@@ -8,3 +8,6 @@ export const schemaBodyQuantity = z.object({
 export const orderItemIdParamsSchema = z.object({
   id: z.string().uuid(), 
 });
+
+export type schemaBodyQuantityInput= z.infer<typeof schemaBodyQuantity>;
+export type OrderItemIdParamsInput  = z.infer<typeof orderItemIdParamsSchema>;

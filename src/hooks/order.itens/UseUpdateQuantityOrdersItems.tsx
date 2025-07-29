@@ -1,18 +1,35 @@
 import { api } from "../../services/api";
 import { errorHandler } from "../../utils/errorHandler";
-import { schemaBodyQuantity } from "../../schema/orderItens/quantity";
-import { orderItemIdParamsSchema } from "../../schema/orderItens/quantity";
+import {
+  schemaBodyQuantity,
+  type OrderItemIdParamsInput,
+  type schemaBodyQuantityInput,
+  orderItemIdParamsSchema,
+} from "../../schema/orderItens/quantity";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { toastSuccessCutomer } from "../../styles/animations/toast/toastsucess";
+
+type Fetchdata = {
+  params: OrderItemIdParamsInput;
+  data: schemaBodyQuantityInput;
+};
+
+async function fetchdata({ params, data }: Fetchdata) {
+  orderItemIdParamsSchema.parse(params);
+  schemaBodyQuantity.parse(data);
+
+  await new Promise((r) => setTimeout(r, 2000));
+  await api.patch(`/orders_itens/items/${params.id}`, data);
+}
 
 export function UseUpdateQuantityOrdersItems() {
-  async function UpdateQuantityOrders(id:string , quantity:number) {
-     const data = orderItemIdParamsSchema.parse({id})
-        const databody = schemaBodyQuantity.parse({ quantity})
-        
-    await errorHandler(async () =>  {
-       
-        
-      await api.patch(`/orders_itens/items/${data.id}`, databody);
-    });
-  }
-  return { UpdateQuantityOrders };
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: fetchdata,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["orders", "processing"] });
+      toastSuccessCutomer("quantidade do produto modificada");
+    },
+  });
 }

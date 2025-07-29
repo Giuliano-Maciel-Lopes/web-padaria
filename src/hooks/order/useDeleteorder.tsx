@@ -1,21 +1,23 @@
+import { orderItemIdParamsSchema ,type OrderItemIdParamsInput } from "../../schema/orderItens/quantity";
+import { api } from "../../services/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toastSuccessCutomer } from "../../styles/animations/toast/toastsucess";
+toastSuccessCutomer
 
-import { orderItemIdParamsSchema } from "../../schema/orderItens/quantity"
-import { api } from "../../services/api"
-import { errorHandler } from "../../utils/errorHandler"
+async function deleteOrderItem(params: OrderItemIdParamsInput) {
+   orderItemIdParamsSchema.parse(params);
+  await api.delete(`/orders_itens/items/${params.id}`);
+}
 
 export function useDeleteOrders() {
+  const queryClient = useQueryClient();
 
-  async  function onDelete(id:string){
-  const data =  orderItemIdParamsSchema.parse({id})
-
-    const {error} =await  errorHandler(async ()=>{
-        
-
-        await api.delete(`/orders_itens/items/${data.id}`)
-
-        })
-        if(error){
-        console.log(error)}
-    }
- return{onDelete}
+  return useMutation({
+    mutationFn: deleteOrderItem,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["orders", "processing"] });
+      toastSuccessCutomer("item excluido");
+    },
+ 
+  });
 }

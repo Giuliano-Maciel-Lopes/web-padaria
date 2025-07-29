@@ -48,6 +48,7 @@ export function CartIdentificationPage() {
 
       <div className="md:w-1/3 p-5">
         <h2 className="text-xl font-semibold">Resumo do Pedido</h2>
+        
         {auth && dataOrdersfull && dataOrdersfull.length > 0 ? (
           <IsHomeResumo id={String(dataOrdersfull[0].id)} total={total} />
         ) : (

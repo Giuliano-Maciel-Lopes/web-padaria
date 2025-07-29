@@ -1,18 +1,25 @@
 import { api } from "../../services/api";
-import { errorHandler } from "../../utils/errorHandler";
-import { createOrderItemsSchema } from "../../schema/orderItens/create";
+
+import { createOrderItemsSchema , type CreateOrderItemsInput } from "../../schema/orderItens/create";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+type fetchdata ={
+   orderId: string,
+  data:CreateOrderItemsInput
+  
+}
+async function fetchData({ data , orderId }:fetchdata) {
+  createOrderItemsSchema.parse( data );
+  await api.post(`orders_itens/${orderId}`, data);
+}
+
 
 export function useCreateOrdersItens() {
-  async function onCreateOrderItens(
-    ordersId: string,
-    items: { productId: string; quantity: number }[]
-  ) {
-    const result = createOrderItemsSchema.parse({ items });
-
-    await errorHandler(async () => {
-      await api.post(`orders_itens/${ordersId}`, result);
-    });
+ const usequery = useQueryClient()
+ return useMutation({
+  mutationFn:fetchData,
+  onSuccess:()=>{ 
+    usequery.invalidateQueries({queryKey:["orders" , "processing"]})
   }
-
-  return { onCreateOrderItens };
+ })
+  
 }

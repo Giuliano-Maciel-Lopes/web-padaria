@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { data, useOutletContext } from "react-router-dom";
 import type { Product } from "../../types/api/products/producsts";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Button } from "../index/button";
@@ -15,12 +15,11 @@ import { QuantityBuy } from "./quantitybuy";
 import { useCreateOrders } from "../../hooks/order/useCreateOrders";
 import { useCreateOrdersItens } from "../../hooks/order.itens/useCreateOrdersItens";
 import { useAuth } from "../../hooks/context/useAuth";
-type Props={
-  onAside:()=> void
+type Props = {
+  onAside: () => void;
+};
 
-}
-
-export function Buy({onAside}:Props) {
+export function Buy({ onAside }: Props) {
   const { product, setRefreshOrders } = useOutletContext<{
     product: Product;
     setRefreshOrders: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,27 +28,20 @@ export function Buy({onAside}:Props) {
   const [amount, setAmount] = useState(1);
   const { save } = useCartContext();
   const { session } = useAuth();
-  const { onCreateOrder } = useCreateOrders();
-  const { onCreateOrderItens } = useCreateOrdersItens();
+  const { mutateAsync: mutateOrder } = useCreateOrders();
+  const { mutateAsync, isPending } = useCreateOrdersItens();
 
-  if (!product) {
-    return <div className="p-4 text-red-600">Carregando product</div>;
-  }
   const { isVitrine, description, createdAt, updatedAt, ...itemSave } = product;
 
   async function handleConfirm() {
     if (session?.token) {
-      // criei o pedido e o ID retornado
-      const orderId = await onCreateOrder();
-
+      const orderId = await mutateOrder();
+      console.log(orderId);
       if (orderId) {
-        await onCreateOrderItens(orderId, [
-          {
-            productId: product.id,
-            quantity: amount,
-          },
-        ]);
-        setRefreshOrders((prev)=> !prev);
+        await mutateAsync({
+          data: { items: [{ productId: product.id, quantity: amount }] },
+          orderId,
+        });
       }
     }
 
@@ -72,14 +64,17 @@ export function Buy({onAside}:Props) {
         <QuantityBuy quantity={amount} onChange={setAmount} />
 
         <Button
-          onClick={()=>{ handleConfirm(); onAside();}}
+          onClick={() => {
+            handleConfirm();
+            onAside();
+          }}
           className="text-white rounded-none  rounded-r-lg"
           colorVariant="primary"
           variant="buy"
+          isloading={isPending}
         >
           ADICIONAR AO CARRINHO
         </Button>
-
       </div>
       <div className=" flex flex-col w-[300px] gap-4">
         Agora realizamos entregas em sua cidade. Aproveite e faça seu pedido com

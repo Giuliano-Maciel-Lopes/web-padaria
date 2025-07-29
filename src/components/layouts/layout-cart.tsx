@@ -19,9 +19,6 @@ export function LayoutCartpage() {
   const { items } = useCartContext();
 
   const { data, isLoading, isError } = useIndexOrders();
-  
-
-   
 
   const orders = useMemo(() => {
     if (!auth || !data) return null;
@@ -39,18 +36,15 @@ export function LayoutCartpage() {
     );
   }, [auth, data]);
 
- 
   const DataApiContext = auth && orders ? orders : items;
 
-  
   const totalAmount = DataApiContext.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   const total = currencyBRL(totalAmount);
 
-  if(isLoading) return <Loading />
-  
+  if (isLoading) return <Loading />;
 
   return (
     <div className="bg-beige h-full min-h-screen flex flex-col">

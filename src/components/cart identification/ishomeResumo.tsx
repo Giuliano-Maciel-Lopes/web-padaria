@@ -4,6 +4,9 @@ import { Input } from "../index/input";
 import { useUpdateisHome } from "../../hooks/order/useUpdateisHome";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
+import { useUserInFocontext } from "../../hooks/context/userinfo";
+import { GeneralErro } from "../../utils/general";
+import { useNavigate } from "react-router";
 
 type Props = {
   total: number;
@@ -11,19 +14,34 @@ type Props = {
 };
 
 export function IsHomeResumo({ id, total }: Props) {
+  const [message, setMessage] = useState<string | null>(null);
+
   const { mutateAsync, isPending } = useUpdateisHome();
-  const { userInfo } = useAuthModal();
+  const { userInfo: userInfoModal } = useAuthModal();
+  const { userInfo } = useUserInFocontext();
   const [isHome, setishome] = useState<boolean | null>(null);
   const { session } = useAuth();
-
+  const hasAddress = !!(userInfo && userInfo.city);
+  const navigate = useNavigate()
+      
   async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (isHome === null) {
-      alert("Por favor, selecione uma opção de entrega.");
+      setMessage("Por favor, selecione uma opção de entrega.");
+
       return;
     }
-   await mutateAsync({ data:{isHome}, params: { id } });
+    if (isHome === true && !hasAddress) {
+      setMessage(
+        "Para receber em casa, você precisa cadastrar um endereço primeiro."
+      );
+      userInfoModal.open();
+      return;
+    }
+
+    await mutateAsync({ data: { isHome }, params: { id } });
+    navigate("../payment")
   }
 
   return (
@@ -71,13 +89,8 @@ export function IsHomeResumo({ id, total }: Props) {
               Retirar no local
             </label>
           </div>
-
-          <Button
-            onClick={userInfo.open}
-            type="submit"
-            className="mt-4"
-            disabled={!!session?.token}
-          >
+          {message && <GeneralErro message={message} />}
+          <Button type="submit" className="mt-4" >
             Finalizar Compra
           </Button>
         </form>

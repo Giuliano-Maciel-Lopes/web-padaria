@@ -10,12 +10,12 @@ export function CartbuyPage() {
   // mudar para rquivo separado vou dormir kkkkkk
   type OutletCartContext = {
     DataApiContext: Orderview[];
-    setOrders: React.Dispatch<React.SetStateAction<Orderview[] | null>>;
+
     total: number;
   };
   const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate();
-  const { DataApiContext, setOrders, total } =
+  const { DataApiContext, total } =
     useOutletContext<OutletCartContext>();
 
   if (!DataApiContext || DataApiContext.length === 0) {

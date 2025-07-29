@@ -8,3 +8,4 @@ export const paramsSchema = z.object({
 export const bodySchema = z.object({
   status: z.enum(["PROCESSING", "SHIPPED", "DELIVERED"]),
 });
+export type ParamsInput = z.infer<typeof paramsSchema>;

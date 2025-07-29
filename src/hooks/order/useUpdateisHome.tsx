@@ -1,19 +1,29 @@
-import { api } from "../../services/api"
-import { errorHandler } from "../../utils/errorHandler"
-import { paramsSchema } from "../../schema/orders/updatestaatus"
-import { updateBodySchemaIsHome } from "../../schema/orders/updateishome"
-import type { FormEvent } from "react"
+import { api } from "../../services/api";
 
-export function useUpdateisHome() {
-  async  function onUpdateisHomeOrders(  id:string , isHome:boolean){
-    
-    const data = paramsSchema.parse({id})
-    const databody = updateBodySchemaIsHome.parse({isHome})
+import {
+  paramsSchema,
+  type ParamsInput,
+} from "../../schema/orders/updatestaatus";
+import {
+  updateBodySchemaIsHome,
+  type UpdateInput,
+} from "../../schema/orders/updateishome";
+import { useMutation } from "@tanstack/react-query";
 
-      await errorHandler(async()=>{
-        await api.patch(`/orders/isHome/${data.id}`, databody)
-       })
-    }
- return{onUpdateisHomeOrders}
+type FetchData = {
+  params: ParamsInput;
+  data: UpdateInput;
+};
+
+async function fetchaData({params , data}:FetchData) {
+   paramsSchema.parse(params);
+  updateBodySchemaIsHome.parse(data);
+
+  await api.patch(`/orders/isHome/${params.id}`, data);
 }
 
+export function useUpdateisHome() {
+  return useMutation({
+    mutationFn: fetchaData,
+  });
+}

@@ -38,7 +38,7 @@ export function GlobalAuthModals() {
       {userInfo.isOpen && (
         <AsideUserInfo
         onClosed={userInfo.closed}
-        onbutton2={()=> userInfo.closed}
+        onbutton2={userInfo.closed}
         
           
         />

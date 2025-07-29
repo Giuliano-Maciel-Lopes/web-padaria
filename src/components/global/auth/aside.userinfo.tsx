@@ -16,7 +16,7 @@ export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
 
   return (
     <LayoutAuth
-      nameBtn2="voltar para o inicio"
+      nameBtn2="Voltar"
       onClosed={onClosed}
       title="Informações de Entrega"
       toggleAuth={onbutton2}

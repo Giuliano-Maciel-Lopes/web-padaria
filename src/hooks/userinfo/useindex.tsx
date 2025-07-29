@@ -1,23 +1,24 @@
-import { parasChemaUserInfo } from "../../schema/userInfo";
+import { useQuery } from "@tanstack/react-query";
+import {
+  parasChemaUserInfo,
+  type ParamsSchemaUserInfoInput,
+} from "../../schema/userInfo";
 import { api } from "../../services/api";
-import { errorHandler } from "../../utils/errorHandler";
 
-export function useUserInfoIndex() {    
-  async function onviewUserInfo(userId: string): Promise<UserInfo | null> {
-    const params = parasChemaUserInfo.parse({ userId });
+import { useAuth } from "../context/useAuth";
 
-    const { error, data } = await errorHandler(async () => {
-      const response = await api.get<UserInfo>(`/user_infos/${params.userId}`);
-      return response.data;
-    });
+async function fetchData(params: ParamsSchemaUserInfoInput) {
+  parasChemaUserInfo.parse(params);
+  const response = await api.get<UserInfo>(`/user_infos/${params.userId}`);
+  return response.data;
+}
 
-    if (error) {
-      alert(error.general || "Erro ao buscar informações do usuário");
-      return null
-    }
+export function useUserInfoIndex(userId: ParamsSchemaUserInfoInput) {
+  const query = useQuery({
+    queryFn: () => fetchData(userId),
+    queryKey: ["user_infos", userId],
+    enabled: !!userId,
+  });
 
-    return data ?? null;
-  }
-
-  return { onviewUserInfo };
+  return { ...query };
 }

@@ -1,8 +1,10 @@
+import { useAuthModal } from "../../hooks/context/asideauth";
 import { useUserInFocontext } from "../../hooks/context/userinfo";
 import { Button } from "../index/button";
 
 export function LicenseInfo() {
   const { userInfo } = useUserInFocontext();
+  const {userInfo:userInfoModal}=  useAuthModal()
 
   if (!userInfo) {
     return (
@@ -10,7 +12,7 @@ export function LicenseInfo() {
         <p className="text-gray-600">
           Nenhuma informação de endereço cadastrada.
         </p>
-        <Button>Adicionar endereço</Button>
+        <Button onClick={userInfoModal.open}>Adicionar endereço</Button>
       </div>
     );
   }

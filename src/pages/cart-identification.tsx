@@ -10,17 +10,19 @@ import type { Order } from "../types/api/orders/indexOrder";
 type DataApiContextType = {
   DataApiContext: Orderview[];
   total: number;
-  dataOrdersfull: Order[] | null;
+  ordersData: Order[] | null;
 };
 
 export function CartIdentificationPage() {
-  const { DataApiContext, total, dataOrdersfull } =
+  const { DataApiContext, total, ordersData } =
     useOutletContext<DataApiContextType>();
 
   const baseUrl = import.meta.env.VITE_BASE_API;
   const { session } = useAuth();
   const auth = session?.token;
 
+  {console.log("auth:", auth)} 
+{console.log("dataOrdersfull:", ordersData);}
   return (
     <div className="flex flex-col md:flex-row w-full">
       <div className="md:w-1/3 flex flex-col gap-5 ">
@@ -48,9 +50,10 @@ export function CartIdentificationPage() {
 
       <div className="md:w-1/3 p-5">
         <h2 className="text-xl font-semibold">Resumo do Pedido</h2>
-        
-        {auth && dataOrdersfull && dataOrdersfull.length > 0 ? (
-          <IsHomeResumo id={String(dataOrdersfull[0].id)} total={total} />
+      
+
+        {auth && ordersData &&ordersData.length > 0 ? (
+          <IsHomeResumo id={String(ordersData[0].id)} total={total} />
         ) : (
           <p className="text-gray-500 mt-4">
             {auth

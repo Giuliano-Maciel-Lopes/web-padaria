@@ -5,36 +5,27 @@ import { useUpdateisHome } from "../../hooks/order/useUpdateisHome";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
 
-
-
 type Props = {
   total: number;
-  id:string
-  
+  id: string;
 };
 
-export function IsHomeResumo({id ,  total }: Props) {
-  const {onUpdateisHomeOrders} = useUpdateisHome()
-  const {userInfo} = useAuthModal()
- const [isHome ,  setishome] = useState<boolean| null>(null)
- const {session} = useAuth()
+export function IsHomeResumo({ id, total }: Props) {
+  const { mutateAsync, isPending } = useUpdateisHome();
+  const { userInfo } = useAuthModal();
+  const [isHome, setishome] = useState<boolean | null>(null);
+  const { session } = useAuth();
 
-async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
+  async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  if (isHome === null) {
-    alert("Por favor, selecione uma opção de entrega.");
-    return;
+    if (isHome === null) {
+      alert("Por favor, selecione uma opção de entrega.");
+      return;
+    }
+   await mutateAsync({ data:{isHome}, params: { id } });
   }
-  
 
-  await onUpdateisHomeOrders(id, isHome);
-  console.log(id)
-  console.log(isHome)
-}
-
-
-  
   return (
     <div className="flex flex-col border-x-2 w-full h-auto">
       <div className="flex flex-col p-4">
@@ -44,8 +35,14 @@ async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
           </p>
 
           <div className="flex-col flex gap-4">
-           <p> Total do pedido: <span className="font-semibold"> {total}</span></p>
-           <p> Fret: <span className="font-semibold">a calcular</span></p>
+            <p>
+              {" "}
+              Total do pedido: <span className="font-semibold"> {total}</span>
+            </p>
+            <p>
+              {" "}
+              Fret: <span className="font-semibold">a calcular</span>
+            </p>
           </div>
 
           <span className="text-sm text-gray-500">
@@ -54,21 +51,33 @@ async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
           </span>
         </div>
 
-        <form  onSubmit={handleIsHomeChange} className="p-4">
-
+        <form onSubmit={handleIsHomeChange} className="p-4">
           <div className="flex gap-8 mt-2">
             <label className="flex items-center gap-2">
-              <Input type="radio" name="delivery" onChange={()=>setishome(true)}/>
+              <Input
+                type="radio"
+                name="delivery"
+                onChange={() => setishome(true)}
+              />
               Receber em casa
             </label>
 
             <label className="flex items-center gap-2">
-              <Input  type="radio" name="delivery" onChange={()=>setishome(false)} />
+              <Input
+                type="radio"
+                name="delivery"
+                onChange={() => setishome(false)}
+              />
               Retirar no local
             </label>
           </div>
 
-          <Button onClick={userInfo.open} type="submit" className="mt-4" disabled={!!session?.token}>
+          <Button
+            onClick={userInfo.open}
+            type="submit"
+            className="mt-4"
+            disabled={!!session?.token}
+          >
             Finalizar Compra
           </Button>
         </form>

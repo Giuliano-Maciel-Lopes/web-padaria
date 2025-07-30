@@ -1,7 +1,13 @@
+
+import { LayoutAdm } from "../components/layouts/layout-admin";
+
 export function AdminPage() {
   return (
-    <div>
-      adinnnHOME
+    <div className="min-h-screen w-full">
+      <div>
+        <LayoutAdm/>
+      </div>
+      
     </div>
   );
 }

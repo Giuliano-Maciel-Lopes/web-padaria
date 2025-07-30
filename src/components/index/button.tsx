@@ -5,7 +5,7 @@ import { StepCart } from "../layoutcart/stepcart";
 type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;
   isloading?: boolean;
-  variant?: "base" | "icon" | "add" | "square" | "buy" | "stepcart";
+  variant?: "base" | "icon" | "add" | "square" | "buy" | "stepcart"|"boxsession";
   colorVariant?: "primary" | "secund" | "bg" | "products" | "cart";
 };
 
@@ -17,6 +17,7 @@ const variants = {
     square: "w-12",
     buy: "w-80 h-12 ",
     stepcart: "h-15 md:w-[21.875rem]",
+    boxsession: "h-40 w-full max-w-xs"
   },
 
   color: {
@@ -44,10 +45,11 @@ export function Button({
       disabled={isloading}
       className={classMerge([
         `flex items-center w-full rounded-md
-        justify-center bg-button bg-amber-200  hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${className}`,
+        justify-center bg-button bg-amber-200  hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed `,
 
         variants.Size[variant],
         variants.color[colorVariant],
+        className
       ])}
     >
       {children}

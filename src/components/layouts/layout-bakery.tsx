@@ -15,8 +15,7 @@ import { useCategoryFilter } from "../../hooks/products/useCategoryfilter";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
-import { useSearchParams } from "react-router";
-import { Loading } from "../index/loading";
+
 
 export function LayoutBakery() {
   const location = useLocation();
@@ -34,10 +33,12 @@ export function LayoutBakery() {
   const confirmLogout = useToggle();
   const { login, register } = useAuthModal();
   const { session, remove } = useAuth();
+  const admin =session?.datauser.role ==="ADMIN"
 
   const slid =
     location.pathname === "/" &&
     (!session?.datauser.role || session.datauser.role === "CUSTOMER");
+    
 
   const navigate = useNavigate();
 
@@ -77,6 +78,7 @@ export function LayoutBakery() {
                 <Slid />
               </div>
             )}
+            {!admin &&(
             <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
               <Buttoncategory
                 name="inicio"
@@ -96,7 +98,7 @@ export function LayoutBakery() {
                 />
               ))}
             </div>
-
+                )  }
             <Outlet
               context={{
                 products,

@@ -7,6 +7,7 @@ import { useAuthModal } from "../../hooks/context/asideauth";
 import { useUserInFocontext } from "../../hooks/context/userinfo";
 import { GeneralErro } from "../../utils/general";
 import { useNavigate } from "react-router";
+import { useStripeCheckout } from "../../hooks/stripe/creat";
 
 type Props = {
   total: number;
@@ -22,8 +23,9 @@ export function IsHomeResumo({ id, total }: Props) {
   const [isHome, setishome] = useState<boolean | null>(null);
   const { session } = useAuth();
   const hasAddress = !!(userInfo && userInfo.city);
-  const navigate = useNavigate()
-      
+  const navigate = useNavigate();
+  const { mutate: mutateStripe } = useStripeCheckout();
+
   async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -40,8 +42,12 @@ export function IsHomeResumo({ id, total }: Props) {
       return;
     }
 
-    await mutateAsync({ data: { isHome }, params: { id } });
-    navigate("../payment")
+    try {
+      await mutateAsync({ data: { isHome }, params: { id } });
+      mutateStripe(); // aqui chama o Stripe e já redireciona
+    } catch {
+      setMessage("Erro ao finalizar a compra. Tente novamente.");
+    }
   }
 
   return (
@@ -90,7 +96,7 @@ export function IsHomeResumo({ id, total }: Props) {
             </label>
           </div>
           {message && <GeneralErro message={message} />}
-          <Button type="submit" className="mt-4" >
+          <Button type="submit" className="mt-4">
             Finalizar Compra
           </Button>
         </form>

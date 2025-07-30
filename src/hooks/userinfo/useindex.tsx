@@ -13,9 +13,9 @@ async function fetchData(params: ParamsSchemaUserInfoInput) {
   return response.data;
 }
 
-export function useUserInfoIndex(userId: ParamsSchemaUserInfoInput) {
+export function useUserInfoIndex(userId: ParamsSchemaUserInfoInput |undefined) {
   const query = useQuery({
-    queryFn: () => fetchData(userId),
+    queryFn: () => fetchData(userId!),
     queryKey: ["user_infos", userId],
     enabled: !!userId,
   });

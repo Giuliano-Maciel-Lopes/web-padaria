@@ -1,14 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext } from "react";
 import { useUserInfoIndex } from "../hooks/userinfo/useindex";
 import { useAuth } from "../hooks/context/useAuth";
 
-
-
 type UserInfoContextType = {
   userInfo: UserInfo | undefined;
-  isLoading:boolean
-
-  
+  isLoading: boolean;
 };
 
 export const UserInfoContext = createContext<UserInfoContextType | undefined>(
@@ -17,16 +13,23 @@ export const UserInfoContext = createContext<UserInfoContextType | undefined>(
 
 export function UserInfoProvider({ children }: { children: React.ReactNode }) {
   const { session } = useAuth();
- const userId = session?.datauser.id;
-  const role = session?.datauser.role
-  if (!userId || role!=="CUSTOMER") return null
- 
-  const { isLoading , data:userInfo } = useUserInfoIndex({userId});
-  
+  const userId = session?.datauser.id;
+  const role = session?.datauser.role;
+
+  const shouldFetch = !!userId && role === "CUSTOMER";
+
+  const { isLoading, data: userInfo } = useUserInfoIndex(
+    shouldFetch ? { userId } : undefined
+  );
+
   return (
-    <UserInfoContext.Provider value={{ userInfo , isLoading }}>
+    <UserInfoContext.Provider
+      value={{
+        userInfo: shouldFetch ? userInfo : undefined,
+        isLoading: shouldFetch ? isLoading : false,
+      }}
+    >
       {children}
     </UserInfoContext.Provider>
   );
 }
-

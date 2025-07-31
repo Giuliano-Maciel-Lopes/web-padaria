@@ -23,23 +23,20 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
   const { data:ordersData  } = useIndexOrders();
   const amountItens = items.length;
   const navigate = useNavigate();
+  const auth = session?.token
    
 
   
 
 
 
-   const amountItensApi = useMemo(() => {
-    if (!session?.token || !ordersData) {
-       return null;
-    }
-    
-    
-    
-    return ordersData.reduce((acc, pedido) => acc + pedido.items.length, 0);
-  }, [session?.token, ordersData]);
 
-    const quantityItems = session?.token ? amountItensApi ?? 0 : items.length;
+    
+    
+    
+ const total =ordersData?.reduce((acc, pedido) => acc + pedido.items.length, 0);
+  
+    const quantityItems = auth? total : items.length;
 
   return (
     <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">

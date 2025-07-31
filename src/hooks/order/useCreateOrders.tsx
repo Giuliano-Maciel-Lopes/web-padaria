@@ -13,7 +13,7 @@ export function useCreateOrders() {
   return useMutation({
     mutationFn: fetchData,
     onSuccess() {
-      Queryclient.invalidateQueries({ queryKey: ["orders", "processing"] });
+      Queryclient.invalidateQueries({ queryKey: ["orders", "PROCESSING"] });
     },
   });
 }

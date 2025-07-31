@@ -18,7 +18,7 @@ export function useCreateOrdersItens() {
  return useMutation({
   mutationFn:fetchData,
   onSuccess:()=>{ 
-    usequery.invalidateQueries({queryKey:["orders" , "processing"]})
+    usequery.invalidateQueries({queryKey:["orders" , "PROCESSING"]})
   }
  })
   

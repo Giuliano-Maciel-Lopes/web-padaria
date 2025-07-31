@@ -18,7 +18,7 @@ export function useIndexOrders() {
   const token = session?.token;
   const query = useQuery({
     queryFn: fecthData,
-    queryKey: ["orders", "processing"],
+    queryKey: ["orders", "PROCESSING"],
     staleTime: 1000 * 60 * 5,
     enabled: !!token,
   });

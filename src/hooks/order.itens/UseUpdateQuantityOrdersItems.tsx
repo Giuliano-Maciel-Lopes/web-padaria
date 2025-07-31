@@ -1,5 +1,4 @@
 import { api } from "../../services/api";
-import { errorHandler } from "../../utils/errorHandler";
 import {
   schemaBodyQuantity,
   type OrderItemIdParamsInput,
@@ -28,7 +27,7 @@ export function UseUpdateQuantityOrdersItems() {
   return useMutation({
     mutationFn: fetchdata,
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ["orders", "processing"] });
+      queryClient.invalidateQueries({ queryKey: ["orders", "PROCESSING"] });
       toastSuccessCutomer("quantidade do produto modificada");
     },
   });

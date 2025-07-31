@@ -15,7 +15,7 @@ export function useDeleteOrders() {
   return useMutation({
     mutationFn: deleteOrderItem,
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ["orders", "processing"] });
+      queryClient.invalidateQueries({ queryKey: ["orders", "PROCESSING"] });
       toastSuccessCutomer("item excluido");
     },
  

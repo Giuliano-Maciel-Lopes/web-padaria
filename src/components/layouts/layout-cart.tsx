@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { useMemo, useState } from "react";
 
 import { HeaderCart } from "../layoutcart/headercart";
 import { StepCart } from "../layoutcart/stepcart";
@@ -11,40 +10,43 @@ import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Loading } from "../index/loading";
 
-import type { Orderview } from "../../types/api/orders/ordersview";
-
 export function LayoutCartpage() {
   const { session } = useAuth();
   const auth = session?.token;
   const { items } = useCartContext();
-
+  
   const { data, isLoading, isError } = useIndexOrders();
 
-  const orders = useMemo(() => {
-    if (!auth || !data) return null;
+ if (isLoading) return <Loading />;
 
-    return data.flatMap((order) =>
-      order.items.map((item) => ({
-        id: item.id,
-        name: item.product.name,
-        category: item.product.category,
-        imageUrl: item.product.imageUrl,
-        price: item.unitPrice,
-        quantity: item.quantity,
-        priceTotal: order.totalAmount,
-      }))
-    );
-  }, [auth, data]);
 
-  const DataApiContext = auth && orders ? orders : items;
+const orders = data?.flatMap((order) =>
+  order.items.map((item) => ({
+    id: item.id,
+    name: item.product.name,
+    category: item.product.category,
+    imageUrl: item.product.imageUrl,
+    price: item.unitPrice,
+    quantity: item.quantity,
+    priceTotal: order.totalAmount,
+  }))
+);
+
+
+
+  const DataApiContext = auth ? orders ?? [] : items;
 
   const totalAmount = DataApiContext.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   const total = currencyBRL(totalAmount);
+console.log("Data:", data, "teste");
+console.log("total:", totalAmount, "teste");
+console.log("datapaicontext:", data, "teste");
 
-  if (isLoading) return <Loading />;
+
+
 
   return (
     <div className="bg-beige h-full min-h-screen flex flex-col">

@@ -13,7 +13,7 @@ const fetchData = async (
   isVitrine?: boolean | null
 ): Promise<Product[]> => {
   const params = indexProductQuerySchema.parse({ category, isVitrine });
- await new Promise(r => setTimeout(r, 2000));
+
   const response = await api.get<Product[]>("/products", { params });
 
 

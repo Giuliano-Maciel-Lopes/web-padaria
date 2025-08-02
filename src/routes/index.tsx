@@ -9,7 +9,8 @@ import { useAuth } from "../hooks/context/useAuth";
 
 
 export function Routes(){
-    const {session}=useAuth()
+    const {session }=useAuth()
+    if(!session?.token)return
 
    let RenderRoutes;
    console.log("Usuário logado:", session?.datauser.role)

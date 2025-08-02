@@ -16,7 +16,6 @@ import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
 
-
 export function LayoutBakery() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -27,33 +26,24 @@ export function LayoutBakery() {
     data: products = [],
   } = useCategoryFilter({ category });
   console.log(products);
- 
 
   const menu = useToggle();
   const confirmLogout = useToggle();
   const { login, register } = useAuthModal();
   const { session, remove } = useAuth();
-  const admin =session?.datauser.role ==="ADMIN"
+  const admin = session?.datauser.role === "ADMIN";
 
   const slid =
     location.pathname === "/" &&
     (!session?.datauser.role || session.datauser.role === "CUSTOMER");
-    
 
   const navigate = useNavigate();
-
-  const [refreshOrders, setRefreshOrders] = useState(false); 
-
 
   return (
     <div className="min-h-screen flex flex-col bg-beige">
       <div className="w-full flex grow justify-center ">
         <div className="max-w-[100rem] w-full flex flex-col flex-1">
-          <Header
-            refreshOrders={refreshOrders}
-            onAsideMenu={menu.open}
-            onAsideLoguin={login.open}
-          />
+          <Header onAsideMenu={menu.open} onAsideLoguin={login.open} />
           <div className="h-[9.5rem] md:h-20" />
 
           {menu.isOpen && (
@@ -78,27 +68,27 @@ export function LayoutBakery() {
                 <Slid />
               </div>
             )}
-            {!admin &&(
-            <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
-              <Buttoncategory
-                name="inicio"
-                active={location.pathname === "/"}
-                onActive={() => {
-                  navigate("/");
-                }}
-              />
-              {categorie.map((cat) => (
+            {!admin && (
+              <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
                 <Buttoncategory
-                  name={cat}
-                  key={cat}
+                  name="inicio"
+                  active={location.pathname === "/"}
                   onActive={() => {
-                    navigate(`/category?category=${cat}`);
+                    navigate("/");
                   }}
-                  active={category === cat}
                 />
-              ))}
-            </div>
-                )  }
+                {categorie.map((cat) => (
+                  <Buttoncategory
+                    name={cat}
+                    key={cat}
+                    onActive={() => {
+                      navigate(`/category?category=${cat}`);
+                    }}
+                    active={category === cat}
+                  />
+                ))}
+              </div>
+            )}
             <Outlet
               context={{
                 products,

@@ -10,8 +10,8 @@ export function AdminRoutes() {
 <Routes>
   <Route path="/" element={<LayoutBakery />}>
     <Route index element={<AdminPage />} />
-    <Route path="admin/orders" element={<AdmOrdersPage />} />
-    <Route path="admin/orders/:id" element={<AdminOrdersIdPage />} />
+    <Route path="/orders" element={<AdmOrdersPage />} />
+    <Route path="orders/:id" element={<AdminOrdersIdPage />} />
   </Route>
 </Routes>
 

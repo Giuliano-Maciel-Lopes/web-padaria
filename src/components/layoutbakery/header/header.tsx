@@ -6,37 +6,30 @@ import menu from "../../../assets/menu.svg";
 
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
-import { useNavigate, useOutlet, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/context/useAuth";
 import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
-import {  useMemo, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   onAsideMenu: () => void;
   onAsideLoguin: () => void;
-  refreshOrders: boolean
 };
 
-export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
+export function Header({ onAsideMenu, onAsideLoguin }: Props) {
+  const [name, setName] = useState<string>("");
   const { items } = useCartContext();
   const { session } = useAuth();
-  const { data:ordersData  } = useIndexOrders("PROCESSING");
-  const amountItens = items.length;
+  const { data: ordersData } = useIndexOrders("PROCESSING");
   const navigate = useNavigate();
-  const auth = session?.token
-   
+  const auth = session?.token;
 
-  
+  const total = ordersData?.reduce(
+    (acc, pedido) => acc + pedido.items.length,
+    0
+  );
 
-
-
-
-    
-    
-    
- const total =ordersData?.reduce((acc, pedido) => acc + pedido.items.length, 0);
-  
-    const quantityItems = auth? total : items.length;
+  const quantityItems = auth ? total : items.length;
 
   return (
     <header className=" w-full flex flex-col  px-2 md:px-8 bg-header fixed z-10 md:max-w-[100rem] h-[9.5rem] md:h-20">
@@ -47,7 +40,15 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
         <Logo />
 
         <div className="hidden md:block w-full ">
-          <Formsearch placeholder="procure seu pedido aqui" className="" />
+          <Formsearch
+            onSearch={(value) =>
+              navigate(`/search/?search=${encodeURIComponent(value)}`)
+            }
+            onSearchChange={(value) => setName(value)}
+            value={name}
+            placeholder="Procure seu pedido aqui"
+            className=""
+          />
         </div>
 
         <div className="flex gap-6 md:gap-6 ">
@@ -79,7 +80,15 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
       </div>
 
       <div className="md:hidden mt-4 w-full">
-        <Formsearch placeholder="procure seu pedido aqui"/>
+        <Formsearch
+          onSearch={(value) =>
+            navigate(`/search/?search=${encodeURIComponent(value)}`)
+          }
+          onSearchChange={(value) => setName(value)}
+          value={name}
+          placeholder="Procure seu pedido aqui"
+          className=""
+        />
       </div>
     </header>
   );

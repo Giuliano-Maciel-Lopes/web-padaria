@@ -33,6 +33,6 @@ export const BoxSessionUtils = [
     title: "Pedidos",
     description: "vizualize todos os pedidos",
     img: entregasImg,
-    path: "/admin/orders",
+    path: "/orders",
   },
 ];

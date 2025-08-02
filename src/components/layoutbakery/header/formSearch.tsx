@@ -7,23 +7,25 @@ import { useNavigate } from "react-router-dom"; // Use react-router-dom
 
 type Props = ComponentProps<"form"> & {
   placeholder?: string;
+  value: string;
+ onSearchChange: (value: string) => void;
+  onSearch: (value: string) => void;
 };
 
-export function Formsearch({ placeholder, ...rest }: Props) {
-  const [name, setName] = useState("");
-  const navigate = useNavigate();
+export function Formsearch({
+  placeholder,
+ onSearchChange,
+  onSearch,
+  value,
+  ...rest
+}: Props) {
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const trimmed = name.trim();
-
-    if (trimmed) {
-      navigate(`/search?search=${encodeURIComponent(trimmed)}`); //encode serve para evitar problema na url
-    } else {
-      navigate("/");
-    }
-    setName("");
+    const trimmed = value.trim();
+     if (!trimmed) return;
+    onSearch(trimmed);
   }
 
   return (
@@ -35,8 +37,8 @@ export function Formsearch({ placeholder, ...rest }: Props) {
       <div className="flex items-center border rounded-md overflow-hidden w-full h-10">
         <Input
           placeholder={placeholder}
-          onChange={(e) => setName(e.target.value)}
-          value={name}
+          onChange={(e) => onSearchChange(e.target.value)}
+          value={value}
         />
         <Button variant={"icon"} type={"submit"}>
           <img

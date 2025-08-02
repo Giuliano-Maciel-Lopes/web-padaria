@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import type { StatusType } from "../../hooks/order/userIndexOrder";
 import { PainelStatus } from "../../components/ADMorders/painelstatus";
 import { Formsearch } from "../../components/layoutbakery/header/formSearch";
+import { useState } from "react";
 
 export function AdmOrdersPage() {
   const orderStatus = [
@@ -15,12 +16,16 @@ export function AdmOrdersPage() {
     { label: "Enviado", value: "SHIPPED" },
     { label: "Entregue", value: "DELIVERED" },
   ];
+  const [searchOrders, setSearchOrrders] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const paramstatus = params.get("status") as StatusType | undefined;
   const paramserch = params.get("search") as string | undefined;
-  const { data: dataOrders, isLoading } = useIndexOrders(paramstatus,paramserch);
+  const { data: dataOrders, isLoading } = useIndexOrders(
+    paramstatus,
+    paramserch
+  );
 
   if (isLoading) return <Loading />;
 
@@ -30,7 +35,7 @@ export function AdmOrdersPage() {
         <div className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar md:justify-between">
           {orderStatus.map((status) => (
             <Button
-            isActive={paramstatus===status.value}
+              isActive={paramstatus === status.value}
               onClick={() => navigate(`?status=${status.value}`)}
               key={status.label}
               className="border-4 border-gray-500 bg-beige w-auto h-10 md:h-13 px-5 rounded-lg font-semibold text-sm"
@@ -42,13 +47,18 @@ export function AdmOrdersPage() {
         </div>
       </div>
       <div className="border-4 w-full h-auto px-6 py-6 flex flex-col gap-4">
-        <Formsearch placeholder="Buscar pelo nome do cliente" />
+        <Formsearch
+          placeholder="Buscar pelo nome do cliente"
+          onSearch={(value) => navigate(`?search=${encodeURIComponent(value)}`)}
+          onSearchChange={(value) => setSearchOrrders(value)}
+          value={searchOrders}
+        />
 
         {dataOrders?.flatMap((orders) => {
-         const teste = orderStatus.find((s)=>s.value === orders.status)
+          const teste = orderStatus.find((s) => s.value === orders.status);
           return orders.items.map((item) => (
             <PainelStatus
-          onclick={()=>navigate(`/admin/orders/${orders.id}`)}
+              onclick={() => navigate(`/orders/${orders.id}`)}
               key={orders.id}
               name={orders.user.name.slice(0, 15).toUpperCase()}
               pricetotal={orders.totalAmount}

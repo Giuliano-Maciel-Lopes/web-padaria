@@ -14,7 +14,8 @@ export function CategoryProductsPage() {
   const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate();
   const { session } = useAuth();
-  const isStock = session?.datauser.role === "STOCK";
+    const isHomeStock = session?.datauser.role === "STOCK" 
+  || session?.datauser.role === "ADMIN";
 
   if (isLoading) {
     return <Loading />;
@@ -32,7 +33,7 @@ export function CategoryProductsPage() {
             />
           );
         })}
-        {isStock && <AddProductCard />}
+        {isHomeStock && <AddProductCard />}
       </div>
     </div>
   );

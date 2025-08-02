@@ -13,7 +13,8 @@ import { useCreateEdit } from "../hooks/products/useCreateEdit/query";
 export function BuyEditPage() {
   const BaseUrl = import.meta.env.VITE_BASE_API;
   const { session } = useAuth();
-  const isHome = session?.datauser.role === "STOCK";
+  const isHomeStock =
+    session?.datauser.role === "STOCK" || session?.datauser.role === "ADMIN";
   const confEdit = useToggle();
   const Asidecartbuy = useToggle();
   const { product } = useOutletContext<{ product: Product }>();
@@ -64,7 +65,7 @@ export function BuyEditPage() {
 
   return (
     <div className="px-5">
-      {isHome ? (
+      {isHomeStock ? (
         <Edit
           setFileChange={setFile}
           editCreat={form}

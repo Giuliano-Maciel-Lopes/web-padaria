@@ -12,19 +12,21 @@ import { Loading } from "./loading";
 type Props = {
   product: Product;
   onBuy?: () => void;
- 
-  ispeding?:boolean
+
+  ispeding?: boolean;
 };
 
-export function ProductsView({  onBuy, product }: Props) {
+export function ProductsView({ onBuy, product }: Props) {
   const { session } = useAuth();
-  const isHomeStock = session?.datauser.role === "STOCK";
+  const isHomeStock = session?.datauser.role === "STOCK" 
+  || session?.datauser.role === "ADMIN";
+  
   const asideDelete = useToggle();
   const { mutate, isPending, error } = useDelete();
   const baseUrl = import.meta.env.VITE_BASE_API;
 
   function handleconfirm(product: Product) {
-    mutate(product )
+    mutate(product);
   }
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">
@@ -72,17 +74,14 @@ export function ProductsView({  onBuy, product }: Props) {
       </div>
       {asideDelete.isOpen && (
         <ConfirmLogout
-        isloading={isPending}
-
+          isloading={isPending}
           mensagem="tem certeza que deseja excluir"
           onCancel={asideDelete.closed}
           onConfirm={() => {
             handleconfirm(product);
-           
           }}
         />
       )}
-      
     </div>
   );
 }

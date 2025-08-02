@@ -10,13 +10,13 @@ import { useAuth } from "../hooks/context/useAuth";
 
 export function Routes(){
     const {session }=useAuth()
-    if(!session?.token)return
+  
+let RenderRoutes;
 
-   let RenderRoutes;
-   console.log("Usuário logado:", session?.datauser.role)
-
+if (!session?.token) {
+  RenderRoutes = <AppRoutes />;
+} else {
   switch (session?.datauser.role) {
-    
     case "ADMIN":
       RenderRoutes = <AdminRoutes />;
       break;
@@ -31,6 +31,7 @@ export function Routes(){
       RenderRoutes = <AppRoutes />;
       break;
   }
+}
 
   return (
     <BrowserRouter>

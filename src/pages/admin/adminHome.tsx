@@ -1,5 +1,5 @@
 
-import { LayoutAdm } from "../components/layouts/layout-admin";
+import { LayoutAdm } from "../../components/layouts/layout-admin";
 
 export function AdminPage() {
   return (

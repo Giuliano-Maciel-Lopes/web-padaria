@@ -6,31 +6,26 @@ import { AddProductCard } from "../components/index/addproductcard";
 import { useAuth } from "../hooks/context/useAuth";
 import { Loading } from "../components/index/loading";
 
-
 export function CategoryProductsPage() {
-  const { products , isLoading } = useOutletContext<{
+  const { products, isLoading } = useOutletContext<{
     products: Product[];
-    isLoading:boolean
+    isLoading: boolean;
   }>();
   const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate();
   const { session } = useAuth();
   const isStock = session?.datauser.role === "STOCK";
 
-
-
-if(isLoading){
-  return <Loading/>
-}
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col">
-      
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-6 mb-4">
         {products.map((product) => {
           return (
             <ProductsView
-           
               onBuy={() => navigate(`/products/${product.id}`)}
               key={product.id}
               product={product}
@@ -39,7 +34,6 @@ if(isLoading){
         })}
         {isStock && <AddProductCard />}
       </div>
-     
     </div>
   );
 }

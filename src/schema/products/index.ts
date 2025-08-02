@@ -6,16 +6,18 @@ export const indexProductQuerySchema = z.object({
     .string()
     .optional()
     .transform((val) => val?.toLowerCase())
-    .refine(
-      (val) => !val || schemaCategory.safeParse(val).success,
-      { message: "Categoria inválida" }
-    ),
-    isVitrine: z.preprocess((val) => {
+    .refine((val) => !val || schemaCategory.safeParse(val).success, {
+      message: "Categoria inválida",
+    }),
+  isVitrine: z.preprocess((val) => {
     if (val === "true") return true;
     if (val === "false") return false;
     return val;
   }, z.boolean().optional()),
+  search: z
+    .string()
+    .optional()
+    .transform((val) => val?.toLowerCase()),
 });
-
 
 export type IndexQueryInput = z.infer<typeof indexProductQuerySchema>;

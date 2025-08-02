@@ -20,7 +20,7 @@ type Props = {
 export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
   const { items } = useCartContext();
   const { session } = useAuth();
-  const { data:ordersData  } = useIndexOrders();
+  const { data:ordersData  } = useIndexOrders("PROCESSING");
   const amountItens = items.length;
   const navigate = useNavigate();
   const auth = session?.token
@@ -47,7 +47,7 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
         <Logo />
 
         <div className="hidden md:block w-full ">
-          <Formsearch className="" />
+          <Formsearch placeholder="procure seu pedido aqui" className="" />
         </div>
 
         <div className="flex gap-6 md:gap-6 ">
@@ -79,7 +79,7 @@ export function Header({ refreshOrders , onAsideMenu, onAsideLoguin }: Props) {
       </div>
 
       <div className="md:hidden mt-4 w-full">
-        <Formsearch />
+        <Formsearch placeholder="procure seu pedido aqui"/>
       </div>
     </header>
   );

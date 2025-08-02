@@ -15,7 +15,7 @@ export function LayoutCartpage() {
   const auth = session?.token;
   const { items } = useCartContext();
   
-  const { data, isLoading, isError } = useIndexOrders();
+  const { data, isLoading, isError } = useIndexOrders("PROCESSING");
 
  if (isLoading) return <Loading />;
 

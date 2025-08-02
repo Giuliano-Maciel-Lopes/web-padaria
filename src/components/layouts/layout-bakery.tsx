@@ -25,7 +25,7 @@ export function LayoutBakery() {
     isLoading,
     isError,
     data: products = [],
-  } = useCategoryFilter({ isCategory: category });
+  } = useCategoryFilter({ category });
   console.log(products);
  
 

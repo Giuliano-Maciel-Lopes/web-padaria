@@ -10,15 +10,15 @@ import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
 export function BakeryPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const isHomePage = location.pathname === "/"; // true dito isso
+  const isHomePage = location.pathname === "/"; // true dito isso na pag inicial isvitrine
 
   const { data: product = [], isLoading: isLoadingMain } = useCategoryFilter({
-    activeVitrine: isHomePage,
+    isVitrine: isHomePage,
   });
   const { data: productCategory = [], isLoading: isLoadingCategory } =
     useCategoryFilter({
-      activeVitrine: isHomePage,
-      isCategory: "doces",
+      isVitrine: isHomePage,
+      category: "doces",
     });
 
   if (isLoadingMain || isLoadingCategory) {

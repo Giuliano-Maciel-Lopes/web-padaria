@@ -4,31 +4,36 @@ import { api } from "../../services/api";
 import { useQuery } from "@tanstack/react-query";
 
 type useFilter = {
-  isCategory?: string | null;
-  activeVitrine?: boolean | null;
+  category?: string | null;
+  isVitrine?: boolean | null;
+  search?: string | null;
 };
 
-const fetchData = async (
-  category?: string | null,
-  isVitrine?: boolean | null
-): Promise<Product[]> => {
-  const params = indexProductQuerySchema.parse({ category, isVitrine });
+const fetchData = async ({
+  isVitrine,
+  category,
+  search,
+}: useFilter): Promise<Product[]> => {
+  const params = indexProductQuerySchema.parse({
+    category,
+    isVitrine,
+    search,
+  });
 
   const response = await api.get<Product[]>("/products", { params });
-
 
   return response.data;
 };
 
-export function useCategoryFilter({ activeVitrine, isCategory }: useFilter) {
-  const enabled = !!isCategory || typeof activeVitrine === "boolean";
+export function useCategoryFilter({ isVitrine, category, search }: useFilter={}) {
+  const enabled = !!category || typeof isVitrine === "boolean" || !!search;
 
   const query = useQuery<Product[]>({
-    queryKey: ["productsCategory", isCategory, activeVitrine],
-    queryFn: () => fetchData(isCategory, activeVitrine),
+    queryKey: ["productsCategory", category, isVitrine, search],
+    queryFn: () => fetchData({category, isVitrine, search}),
     enabled,
     staleTime: 5 * 60 * 1000,
-    gcTime: 10 * 60 * 1000, 
+    gcTime: 10 * 60 * 1000,
   });
 
   return { ...query };

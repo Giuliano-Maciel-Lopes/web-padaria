@@ -22,3 +22,4 @@ export function Buttoncategory({ isloading, active=false, onActive, name }: Prop
     </Button>
   );
 }
+// butao duplicado no inicio do projeto (ajeitar)

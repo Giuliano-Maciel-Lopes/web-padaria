@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { classMerge } from "../../utils/merge";
+import { classMerge } from "../../utils/libs/merge";
 import { StepCart } from "../layoutcart/stepcart";
 
 type Props = ComponentProps<"button"> & {

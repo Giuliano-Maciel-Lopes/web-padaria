@@ -7,7 +7,8 @@ import { CategoryProductsPage } from "../pages/categoryproductscategory";
 import { SearchProductPage } from "../pages/Searchchproducts";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
 import { BuyEditPage } from "../pages/BuyEdit";
-BuyEditPage;
+import { AdminReportPage } from "../pages/admin/adminReport";
+
 
 export function AdminRoutes() {
   return (
@@ -20,6 +21,7 @@ export function AdminRoutes() {
         <Route path="search/" element={<SearchProductPage />} />
 
         <Route path="category" element={<CategoryProductsPage />} />
+        <Route path="reports" element={<AdminReportPage />} />
 
         <Route path="products" element={<ProductLayoutPage />}>
           <Route path=":id" element={<BuyEditPage />} />

@@ -12,12 +12,6 @@ export const BoxSessionUtils = [
     path: "/users",
   },
   {
-    title: "Financeiro",
-    description: "Controle de vendas e pagamentos",
-    img: financeiroImg,
-    path: "/finance",
-  },
-  {
     title: "Relatórios",
     description: "graficos de vendas",
     img: relatorioImg,

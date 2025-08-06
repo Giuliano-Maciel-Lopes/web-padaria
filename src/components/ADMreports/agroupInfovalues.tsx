@@ -40,7 +40,7 @@ export function AgroupInfoValues({setSelectedDate , selectedDate , data }: Props
       <InfoValue
         img={money}
         colorClass="bg-green-500"
-        mensagem="vendas do dia anterior"
+        mensagem="vendas do dia "
       >
         <div className="text-center text-sm text-gray-700 space-y-1">
           <p>

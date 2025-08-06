@@ -7,15 +7,10 @@ import type { StatusType } from "../../hooks/order/userIndexOrder";
 import { PainelStatus } from "../../components/ADMorders/painelstatus";
 import { Formsearch } from "../../components/layoutbakery/header/formSearch";
 import { useState } from "react";
+import { orderStatus } from "../../utils/delivered";
 
 export function AdmOrdersPage() {
-  const orderStatus = [
-    { label: "Carrinhos", value: "PROCESSING" },
-    { label: "Itens sendo preparados", value: "ITENS_PROCESSING" },
-    { label: "Finalizado", value: "ORDER_FINISH" },
-    { label: "Enviado", value: "SHIPPED" },
-    { label: "Entregue", value: "DELIVERED" },
-  ];
+ 
   const [searchOrders, setSearchOrrders] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,9 +49,9 @@ export function AdmOrdersPage() {
           value={searchOrders}
         />
 
-        {dataOrders?.flatMap((orders) => {
+        {dataOrders?.map((orders) => {
           const teste = orderStatus.find((s) => s.value === orders.status);
-          return orders.items.map((item) => (
+          return  (
             <PainelStatus
               onclick={() => navigate(`/orders/${orders.id}`)}
               key={orders.id}
@@ -64,7 +59,7 @@ export function AdmOrdersPage() {
               pricetotal={orders.totalAmount}
               status={teste?.label as string}
             />
-          ));
+          );
         })}
       </div>
     </div>

@@ -2,6 +2,8 @@ import type { Product } from "../../types/api/products/producsts";
 import { indexProductQuerySchema } from "../../schema/products";
 import { api } from "../../services/api";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../context/useAuth";
+
 
 type useFilter = {
   category?: string | null;
@@ -26,10 +28,13 @@ const fetchData = async ({
 };
 
 export function useCategoryFilter({ isVitrine, category, search }: useFilter={}) {
-  const enabled = !!category || typeof isVitrine === "boolean" || !!search;
+ const {session}= useAuth()
+  const auth = session?.token 
+
+  const enabled = !!category || typeof isVitrine === "boolean" || !!search 
 
   const query = useQuery<Product[]>({
-    queryKey: ["productsCategory", category, isVitrine, search],
+    queryKey: ["productsCategory", category, isVitrine, search,auth ],
     queryFn: () => fetchData({category, isVitrine, search}),
     enabled,
     staleTime: 5 * 60 * 1000,

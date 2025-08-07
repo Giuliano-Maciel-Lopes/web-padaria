@@ -7,7 +7,9 @@ import { useToggle } from "../../hooks/useToggle";
 import { ConfirmLogout } from "../layoutbakery/asideMenu/confirmlogout";
 import { useDelete } from "../../hooks/products/usedelete";
 import type { Product } from "../../types/api/products/producsts";
-import { Loading } from "./loading";
+import { Input } from "./input";
+import { useState } from "react";
+import { useUpdateToggleActive } from "../../hooks/products/useupddateactive";
 
 type Props = {
   product: Product;
@@ -18,28 +20,55 @@ type Props = {
 
 export function ProductsView({ onBuy, product }: Props) {
   const { session } = useAuth();
-  const isHomeStock = session?.datauser.role === "STOCK" 
-  || session?.datauser.role === "ADMIN";
-  
+  const isHomeStock =
+    session?.datauser.role === "STOCK" || session?.datauser.role === "ADMIN";
+
   const asideDelete = useToggle();
-  const { mutate, isPending, error } = useDelete();
+  const asideUpdate = useToggle();
+  const { mutate, isPending } = useDelete();
   const baseUrl = import.meta.env.VITE_BASE_API;
 
-  function handleconfirm(product: Product) {
-    mutate(product);
+  const [isActiveLocal, setIsActiveLocal] = useState<boolean>(product.isActive);
+  const { mutate: mutateUpdate, isPending: ispedingUpdate } =
+    useUpdateToggleActive();
+
+  function handleupddate() {
+    mutateUpdate(
+      { product, isActive: !isActiveLocal },
+
+      {
+        onSuccess: () => {
+          setIsActiveLocal(!isActiveLocal); // muda o estado visual só depois do sucesso
+          asideUpdate.closed();
+        },
+      }
+    );
   }
+
   return (
     <div className="border-2 border-gray-300 rounded-xl shadow-md p-4 flex flex-col    w-full bg-white">
       {isHomeStock && (
-        <div className="flex justify-end">
-          <IconButton className="hover:scale-105 transition-transform">
-            <img
-              onClick={asideDelete.open}
-              src={remove}
-              alt="Remover"
-              className="w-6 h-6"
+        <div className="flex p-4 justify-between">
+          <div className="flex justify-end">
+            <IconButton className="hover:scale-105 transition-transform">
+              <img
+                onClick={asideDelete.open}
+                src={remove}
+                alt="Remover"
+                className="w-6 h-6"
+              />
+            </IconButton>
+          </div>
+          <div>
+            <Input
+              onChange={(e) => {
+                asideUpdate.open();
+              }}
+              checked={isActiveLocal}
+              type="checkbox"
+              className="w-10 h-6 rounded-full bg-gray-200 checked:bg-green-500 transition-colors duration-300"
             />
-          </IconButton>
+          </div>
         </div>
       )}
       <div className="flex flex-col items-center gap-4">
@@ -72,14 +101,23 @@ export function ProductsView({ onBuy, product }: Props) {
           </div>
         </Button>
       </div>
+
       {asideDelete.isOpen && (
         <ConfirmLogout
           isloading={isPending}
           mensagem="tem certeza que deseja excluir"
           onCancel={asideDelete.closed}
           onConfirm={() => {
-            handleconfirm(product);
+            mutate(product);
           }}
+        />
+      )}
+      {asideUpdate.isOpen && (
+        <ConfirmLogout
+          isloading={ispedingUpdate}
+          mensagem="tem certeza que deseja alterar o estado desse pedido"
+          onCancel={asideUpdate.closed}
+          onConfirm={() => handleupddate()}
         />
       )}
     </div>

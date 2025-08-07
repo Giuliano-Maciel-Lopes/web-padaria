@@ -24,6 +24,8 @@ export function useCreateProductForm(product?: Product) {
       isVitrine: product?.isVitrine ?? false,
       description: product?.description ?? "",
       imageUrl: product?.imageUrl ?? "",
+      stock: product?.stock ?? undefined,
+      
     },
   });
   return{register ,handleSubmit , reset , watch , errors , setValue}

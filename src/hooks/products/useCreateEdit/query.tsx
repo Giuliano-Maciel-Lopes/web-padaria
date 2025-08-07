@@ -22,7 +22,7 @@ async function creatEditProduct({ data, product }: fetchData) {
   }
 }
 
-export function useCreateEdit(product?: Product) {
+export function useCreateEdit() {
   const queryClient = useQueryClient();
 
   return useMutation({

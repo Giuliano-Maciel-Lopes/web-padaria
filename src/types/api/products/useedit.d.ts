@@ -6,4 +6,6 @@
   imageUrl?: string;
   isVitrine?: boolean;
   file?: File | null; 
+  stock?:number
+  isActive?: boolean
 };

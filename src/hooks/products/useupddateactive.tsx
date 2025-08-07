@@ -3,30 +3,35 @@ import { idParamSchema } from "../../schema/products/remove";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import type { Product } from "../../types/api/products/producsts";
 import { toast } from "react-toastify";
-import { AxiosError } from "axios";
 import { erroHandlerAxios } from "../../utils/ErrohandlederAxios";
-
-async function deleteProduct(product: Product) {
+import { bodySchemaUpdateACtive } from "../../schema/products/updateisactive";
+type fetchData = {
+  product: Product;
+  isActive: boolean;
+};
+async function fetchData({ product, isActive }: fetchData) {
   const params = idParamSchema.parse({ id: product.id });
-  const res = await api.delete(`products/${params.id}`);
+                bodySchemaUpdateACtive.parse({isActive})
+  const res = await api.patch(`products/active/${params.id}`, {isActive});
 
   return res.data;
 }
 
-export function useDelete() {
+export function useUpdateToggleActive() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteProduct,
-    onSuccess: (data, product) => {
+    mutationFn: fetchData,
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["productsCategory"] });
-      queryClient.invalidateQueries({ queryKey: ["productsId", product.id] });
-      toast.success(
-        typeof data === "string" ? data : "Produto excluído com sucesso!"
-      );
+      queryClient.invalidateQueries({
+        queryKey: ["productsId", variables.product.id],
+      });
+      toast.success(typeof data === "string" ? data : "Produto editado !");
     },
     onError(error) {
       toast.error(erroHandlerAxios(error));
+      console.log(error);
     },
   });
 }

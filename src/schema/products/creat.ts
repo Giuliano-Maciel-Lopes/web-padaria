@@ -19,6 +19,21 @@ export const createProductSchema = z.object({
 
     .optional(),
      isVitrine: z.boolean().optional().default(false),
+     
+      stock: z.coerce
+      .number({ message: "O estoque deve ser um número." })
+      .int({ message: "O estoque deve ser um número inteiro." })
+      .nonnegative({ message: "O estoque não pode ser negativo." }),
+
+    isActive: z.boolean().optional().default(true),
+  })
+  .transform((data) => {
+    //  se o estoque for 0, forçamos isActive para false
+    return {
+      ...data,
+      isActive: data.stock === 0 ? false : data.isActive,
+    };
+
 });
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;

@@ -3,6 +3,8 @@ import type { Product } from "../../types/api/products/producsts";
 
 import { idParamSchema } from "../../schema/products/remove";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../context/useAuth";
+
 
 async function fetchData(id: string | undefined): Promise<Product> {
   const params = idParamSchema.parse({ id });
@@ -12,9 +14,13 @@ async function fetchData(id: string | undefined): Promise<Product> {
 }
 
 export function useProductId(id: string | undefined) {
+   const { session } = useAuth();
+
+  const role = session?.token
+
   const query = useQuery<Product>({
     queryFn: () => fetchData(id),
-    queryKey: ["productsId", id],
+    queryKey: ["productsId", id , role],
     enabled: !!id,
   });
   return { ...query };

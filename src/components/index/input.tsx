@@ -5,26 +5,22 @@ type Props = ComponentProps<"input"> & {
 };
 
 export function Input({ err, className = "", type = "text", ...rest }: Props) {
-  if (type === "radio") {
-    return (
-      <input
-        type={type}
-        className={`w-5 h-5 accent-amber-700 ${className}`}
-        {...rest}
-      />
-    );
-  }
+    const baseClass =
+    type === "text"
+      ? `w-full h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${
+          err ? "border-red-500" : ""
+        }`
+      : "";
 
   return (
-    <div className="w-full">
+    <>
       <input
         type={type}
+        className={`${baseClass} ${className}`}
         {...rest}
-        className={`w-full text-amber-950 h-12 rounded-lg border border-amber-200 p-2 outline-none input-glow ${
-          err ? "border-red-500" : ""
-        } ${className}`}
       />
       {err && <span className="text-red-500 text-sm mt-1 block">{err}</span>}
-    </div>
+    </>
   );
+
 }

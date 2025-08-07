@@ -15,7 +15,7 @@ type Props = {
   product: Product | null;
   isCreate: boolean;
   fileError: string | undefined;
-  setFileChange: (file: File | null) => void; 
+  setFileChange: (file: File | null) => void;
 };
 
 export function Edit({
@@ -34,13 +34,13 @@ export function Edit({
   return (
     <div className="flex flex-col gap-6">
       <form className="border-2 rounded-3xl border-gray-400 flex flex-col py-4 px-4 gap-4 ">
-        <div className="flex justify-end items-center ">
+        <div className="flex justify-end items-center gap-3">
           <p>Adicionar a vitrine?</p>
           <Fildinput
             err={errors?.isVitrine?.message}
             type="checkbox"
             {...register("isVitrine")}
-            className="w-20"
+            className="w-5 h-5"
           />
         </div>
         <Fildinput
@@ -60,7 +60,6 @@ export function Edit({
             err={errors?.category?.message}
             legend="categoria"
             {...register("category")}
-            
           >
             {categorie.map((cat) => (
               <option key={cat}>{cat}</option>
@@ -70,9 +69,17 @@ export function Edit({
           <Fildinput
             err={errors?.price?.message}
             legend="valor"
-            {...register("price" , {valueAsNumber:true})}
+            {...register("price", { valueAsNumber: true })}
             placeholder={
               isCreate ? "Digite o valor" : product?.price?.toString()
+            }
+          />
+          <Fildinput
+            err={errors.stock?.message}
+            legend="stock"
+            {...register("stock", { valueAsNumber: true })}
+            placeholder={
+              isCreate ? "Digite o valor" : product?.stock?.toString()
             }
           />
         </div>

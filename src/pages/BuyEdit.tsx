@@ -24,7 +24,8 @@ export function BuyEditPage() {
 
   const form = useCreateProductForm(product);
   const { handleSubmit, setValue, watch } = form;
-  const { mutate, isPending } = useCreateEdit(product);
+
+  const { mutate, isPending } = useCreateEdit();
   const { error, file, onSubmit, setFile } = useFile();
 
   const category = watch("category");
@@ -79,7 +80,7 @@ export function BuyEditPage() {
       )}
       {confEdit.isOpen && (
         <ConfirmLogout
-          mensagem="tem certeza que deseja alterar"
+         mensagem={isCreate ? "tem certeza que deseja criar?" : "tem certeza que deseja alterar?"}
           onCancel={confEdit.closed}
           onConfirm={handleConfirm}
           isloading={isPending}

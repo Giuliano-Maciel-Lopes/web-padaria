@@ -51,6 +51,9 @@ export function Buy({ onAside }: Props) {
 
   return (
     <div className="min-h-screen w-full rounded-2xl border-2 border-amber-950 p-4 flex flex-col gap-7 text-gray-700">
+      <div className="flex justify-end">
+        <h1>quantidade disponivel: {product.stock}</h1>
+      </div>
       <h1 className="text-4xl font-semibold">
         {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
       </h1>

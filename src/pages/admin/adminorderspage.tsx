@@ -49,18 +49,20 @@ export function AdmOrdersPage() {
           value={searchOrders}
         />
 
-        {dataOrders?.map((orders) => {
-          const teste = orderStatus.find((s) => s.value === orders.status);
-          return  (
-            <PainelStatus
-              onclick={() => navigate(`/orders/${orders.id}`)}
-              key={orders.id}
-              name={orders.user.name.slice(0, 15).toUpperCase()}
-              pricetotal={orders.totalAmount}
-              status={teste?.label as string}
-            />
-          );
-        })}
+      {dataOrders
+  ?.filter(order => !paramstatus || order.status === paramstatus)
+  .map((orders) => {
+    const teste = orderStatus.find((s) => s.value === orders.status);
+    return (
+      <PainelStatus
+        onclick={() => navigate(`/orders/${orders.id}`)}
+        key={orders.id}
+        name={orders.user.name.slice(0, 15).toUpperCase()}
+        pricetotal={orders.totalAmount}
+        status={teste?.label as string}
+      />
+    );
+  })}
       </div>
     </div>
   );

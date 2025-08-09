@@ -5,8 +5,15 @@ import { StepCart } from "../layoutcart/stepcart";
 type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;
   isloading?: boolean;
-  isActive?:boolean
-  variant?: "base" | "icon" | "add" | "square" | "buy" | "stepcart"|"boxsession";
+  isActive?: boolean;
+  variant?:
+    | "base"
+    | "icon"
+    | "add"
+    | "square"
+    | "buy"
+    | "stepcart"
+    | "boxsession";
   colorVariant?: "primary" | "secund" | "bg" | "products" | "cart";
 };
 
@@ -18,7 +25,7 @@ const variants = {
     square: "w-12",
     buy: "w-80 h-12 ",
     stepcart: "h-15 md:w-[21.875rem]",
-    boxsession: "h-40 w-full max-w-xs"
+    boxsession: "h-40 w-full max-w-xs",
   },
 
   color: {
@@ -50,8 +57,14 @@ export function Button({
         justify-center bg-button bg-amber-200  hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed `,
         variants.Size[variant],
         variants.color[colorVariant],
-        isActive ? "ring-4 ring-yellow-400" : "", 
-        className
+        colorVariant === "primary" && "hover:bg-yellow-900 hover:text-white",
+        colorVariant === "secund" && "hover:bg-yellow-300 hover:text-white",
+        colorVariant === "bg" && "hover:bg-gray-300 hover:text-black",
+        colorVariant === "products" && "hover:bg-gray-200",
+        colorVariant === "cart" && "hover:bg-gray-100",
+
+        isActive ? "ring-4 ring-yellow-400" : "",
+        className,
       ])}
     >
       {children}

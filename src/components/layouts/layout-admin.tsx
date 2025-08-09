@@ -8,13 +8,16 @@ export function LayoutAdm() {
   return (
     <div className="flex flex-col md:px-4 gap-10">
       <div className="flex flex-col items-center px-4 mt-3">
-        <Painel />
+        <Painel
+          title=" Painel Administrativo da Padaria"
+          subTitle="Gerencie os pedidos, produtos e acompanhe as vendas do dia com facilidade. e analise o faturamneto mensal"
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
         {BoxSessionUtils.map((item) => (
           <BoxSessions
-          key={item.title}
+            key={item.title}
             description={item.description}
             img={item.img}
             title={item.title}

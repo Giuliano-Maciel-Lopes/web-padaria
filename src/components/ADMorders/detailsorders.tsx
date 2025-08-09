@@ -16,31 +16,37 @@ export function DetailsOrder({ setNewStatus, Onclick, OrderId }: Props) {
 
   return (
     <div>
-      <div className="md:w-1/2 p-6 border-2 rounded-xl flex flex-col gap-4 shadow-md">
+      <div className=" p-6 border-2 rounded-xl flex flex-col gap-4 shadow-md">
         <h2 className="text-2xl font-semibold">Detalhes do Pedido</h2>
+        
+<div className="flex">
+        <div className="flex flex-col gap-4 md:w-1/2">
+          <div className="flex items-center gap-2">
+            <p className="text-sm text-gray-500">Nome do cliente:</p>
+            <p className="text-lg font-medium">
+              {OrderId?.user?.name.toUpperCase() || "Sem nome"}
+            </p>
+          </div>
 
-        <div>
-          <p className="text-sm text-gray-500">Nome do cliente</p>
-          <p className="text-lg font-medium">
-            {OrderId?.user?.name || "Sem nome"}
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-gray-500">Status:</p>
+            <p>{statusLabel}</p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-gray-500">Total do pedido</p>
+            <p className="text-lg font-medium">
+              {OrderId && currencyBRL(OrderId.totalAmount)}
+            </p>
+          </div>
         </div>
 
-        <div>
-          <p className="text-sm text-gray-500">Status</p>
-          <p
-            className={`inline-block px-3 py-1 text-sm rounded-full font-medium "bg-yellow-100`}
-          >
-            {statusLabel}
-          </p>
+          <div className="flex flex-col gap-4 md:w-1/2">
+            teste
         </div>
 
-        <div>
-          <p className="text-sm text-gray-500">Total do pedido</p>
-          <p className="text-lg font-medium">
-            {OrderId && currencyBRL(OrderId.totalAmount)}
-          </p>
-        </div>
+</div>
+
 
         <div className="flex flex-col gap-4 ">
           <h2>Alterar status</h2>
@@ -58,6 +64,7 @@ export function DetailsOrder({ setNewStatus, Onclick, OrderId }: Props) {
             Alterar Status
           </Button>
         </div>
+
       </div>
     </div>
   );

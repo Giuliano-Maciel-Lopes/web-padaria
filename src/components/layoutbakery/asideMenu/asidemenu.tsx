@@ -38,7 +38,7 @@ export function AsideMenu({ oncloseMenu , onAsideConfirm}: Props) {
 
           <Logo  />
 
-          <Formsearch placeholder={"Buscar"}  />
+          
         </div>
 
         <nav>

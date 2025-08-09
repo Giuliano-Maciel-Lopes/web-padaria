@@ -32,6 +32,7 @@ export function LayoutBakery() {
   const { login, register } = useAuthModal();
   const { session, remove } = useAuth();
   const admin = session?.datauser.role === "ADMIN";
+  const del = session?.datauser.role === "DELIVERY_PERSON";
 
   const slid =
     location.pathname === "/" &&
@@ -68,7 +69,7 @@ export function LayoutBakery() {
                 <Slid />
               </div>
             )}
-            {(!admin || location.pathname.startsWith("/category")) && (
+            {(!admin &&  !del|| location.pathname.startsWith("/category")) && (
               <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
                 <Buttoncategory
                   name="inicio"

@@ -9,30 +9,28 @@ import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Loading } from "../index/loading";
+import { ToGoOut } from "../index/toGoOut";
 
 export function LayoutCartpage() {
   const { session } = useAuth();
   const auth = session?.token;
   const { items } = useCartContext();
-  
+
   const { data, isLoading, isError } = useIndexOrders("PROCESSING");
 
- if (isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
 
-
-const orders = data?.flatMap((order) =>
-  order.items.map((item) => ({
-    id: item.id,
-    name: item.product.name,
-    category: item.product.category,
-    imageUrl: item.product.imageUrl,
-    price: item.unitPrice,
-    quantity: item.quantity,
-    priceTotal: order.totalAmount,
-  }))
-);
-
-
+  const orders = data?.flatMap((order) =>
+    order.items.map((item) => ({
+      id: item.id,
+      name: item.product.name,
+      category: item.product.category,
+      imageUrl: item.product.imageUrl,
+      price: item.unitPrice,
+      quantity: item.quantity,
+      priceTotal: order.totalAmount,
+    }))
+  );
 
   const DataApiContext = auth ? orders ?? [] : items;
 
@@ -41,12 +39,9 @@ const orders = data?.flatMap((order) =>
     0
   );
   const total = currencyBRL(totalAmount);
-console.log("Data:", data, "teste");
-console.log("total:", totalAmount, "teste");
-console.log("datapaicontext:", data, "teste");
-
-
-
+  console.log("Data:", data, "teste");
+  console.log("total:", totalAmount, "teste");
+  console.log("datapaicontext:", data, "teste");
 
   return (
     <div className="bg-beige h-full min-h-screen flex flex-col">

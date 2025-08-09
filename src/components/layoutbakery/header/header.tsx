@@ -23,6 +23,7 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
   const { data: ordersData } = useIndexOrders("PROCESSING");
   const navigate = useNavigate();
   const auth = session?.token;
+  const role = session?.datauser.role;
 
   const total = ordersData?.reduce(
     (acc, pedido) => acc + pedido.items.length,
@@ -40,15 +41,17 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
         <Logo />
 
         <div className="hidden md:block w-full ">
-          <Formsearch
-            onSearch={(value) =>
-              navigate(`/search/?search=${encodeURIComponent(value)}`)
-            }
-            onSearchChange={(value) => setName(value)}
-            value={name}
-            placeholder="Procure seu pedido aqui"
-            className=""
-          />
+          {!["DELIVERY_PERSON"].includes(role ?? "") && (
+            <Formsearch
+              onSearch={(value) =>
+                navigate(`/search/?search=${encodeURIComponent(value)}`)
+              }
+              onSearchChange={(value) => setName(value)}
+              value={name}
+              placeholder="Procure seu pedido aqui"
+              className=""
+            />
+          )}
         </div>
 
         <div className="flex gap-6 md:gap-6 ">
@@ -59,26 +62,27 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
               className=" object-contain hover:opacity-60"
             />
           </IconButton>
-
-          <IconButton
-            onClick={() => navigate("/cart")}
-            animationbase
-            className="flex relative"
-          >
-            {(quantityItems ?? 0) > 0 && ( // c for null assume 0
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-xs font-bold text-amber-900 shadow-md">
-                {quantityItems}
-              </span>
-            )}
-            <img
-              src={cart}
-              alt="Cart icon"
-              className="object-contain hover:opacity-60  h-8"
-            />
-          </IconButton>
+          {!["ADMIN", "STOCK", "DELIVERY_PERSON"].includes(role ?? "") && (
+            <IconButton
+              onClick={() => navigate("/cart")}
+              animationbase
+              className="flex relative"
+            >
+              {(quantityItems ?? 0) > 0 && ( // c for null assume 0
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-xs font-bold text-amber-900 shadow-md">
+                  {quantityItems}
+                </span>
+              )}
+              <img
+                src={cart}
+                alt="Cart icon"
+                className="object-contain hover:opacity-60  h-8"
+              />
+            </IconButton>
+          )}
         </div>
       </div>
-
+      {}
       <div className="md:hidden mt-4 w-full">
         <Formsearch
           onSearch={(value) =>

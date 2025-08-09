@@ -26,7 +26,7 @@ export function useUpdateStatusOrders() {
       queryClient.invalidateQueries({ queryKey: ["orders", newStatus] });
       queryClient.invalidateQueries({ queryKey: ["orders", oldStatus] });
 
-      toast.success(data)
+      toast.success(data.message)
     },onError(er){
         console.log(er)
     }

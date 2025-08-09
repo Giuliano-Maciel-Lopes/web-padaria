@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { useOutletContext } from "react-router";
 import { Loading } from "../../components/index/loading";
+import { NotOrders } from "../../components/index/NotOrders";
 
 export function CartbuyPage() {
   // mudar para rquivo separado vou dormir kkkkkk
@@ -15,19 +16,15 @@ export function CartbuyPage() {
   };
   const baseUrl = import.meta.env.VITE_BASE_API;
   const navigate = useNavigate();
-  const { DataApiContext, total } =
-    useOutletContext<OutletCartContext>();
+  const { DataApiContext, total } = useOutletContext<OutletCartContext>();
 
   if (!DataApiContext || DataApiContext.length === 0) {
     return (
-      <div className="w-full min-h-[60vh] flex flex-col items-center justify-center p-8 gap-6">
-        <p className="text-center text-gray-500 text-3xl md:text-5xl font-semibold">
-          Nenhum pedido encontrado
-        </p>
+      <NotOrders msg="Nenhum pedido encontrado">
         <Button variant="stepcart" onClick={() => navigate("/")}>
           voltar
         </Button>
-      </div>
+      </NotOrders>
     );
   }
 
@@ -36,7 +33,6 @@ export function CartbuyPage() {
       <div className="w-full">
         {DataApiContext.map((item) => (
           <Ordersview
-           
             id={item.id}
             category={item.category}
             imageUrl={`${baseUrl}${item.imageUrl}`}

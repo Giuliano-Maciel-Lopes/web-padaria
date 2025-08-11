@@ -1,8 +1,7 @@
 import { Painel } from "../../components/layoutadmin/painel";
 import { Button } from "../../components/index/button";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useIndexOrders } from "../../hooks/order/userIndexOrder";
-import { Loading } from "../../components/index/loading";
 import { PainelStatus } from "../../components/ADMorders/painelstatus";
 import { NotOrders } from "../../components/index/NotOrders";
 import { LoadingFull } from "../../components/index/loadingfull";
@@ -15,7 +14,7 @@ export function DelivreyOrdersAcepptPage() {
   if (isLoading) return <LoadingFull />;
 
   return (
-     <div className="min-h-screen flex flex-col  items-center mt-4">
+    <div className="min-h-screen flex flex-col  items-center mt-4">
       <Painel title="Corridas Aceitas ">
         <Button onClick={() => navigate("/")} variant="stepcart">
           voltar

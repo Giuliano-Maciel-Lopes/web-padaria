@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { bodySchemaStatus } from "../../schema/orders/updatestaatus";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import { data } from "react-router";
+
 
 type UseUpdateParams = {
   newStatus: string;

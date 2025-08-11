@@ -3,6 +3,8 @@ import { LayoutBakery } from "../components/layouts/layout-bakery";
 import { Deliverypage } from "../pages/delivered/deliveryhome";
 import { DelivreyOrdersAcepptPage } from "../pages/delivered/delivreyOrdersAceppt";
 import { DelivreyOrdersIdAcepptPage } from "../pages/delivered/delivreyOrdersIdAceppt copy";
+import { Notfound } from "../pages/notfound";
+
 
 
 export function DeliveryRoutes() {
@@ -15,6 +17,7 @@ export function DeliveryRoutes() {
       
 
       </Route>
+       <Route path="*" element={< Notfound/>}/>
     </Routes>
   );
 }

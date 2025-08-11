@@ -8,6 +8,8 @@ import { SearchProductPage } from "../pages/Searchchproducts";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
 import { BuyEditPage } from "../pages/BuyEdit";
 import { AdminReportPage } from "../pages/admin/adminReport";
+import { Notfound } from "../pages/notfound";
+
 
 
 export function AdminRoutes() {
@@ -28,6 +30,7 @@ export function AdminRoutes() {
         </Route>
         
       </Route>
+       <Route path="*" element={< Notfound/>}/>
     </Routes>
   );
 }

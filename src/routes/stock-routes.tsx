@@ -4,6 +4,8 @@ import { BakeryPage } from "../pages/bakery";
 import { CategoryProductsPage } from "../pages/categoryproductscategory";
 import { BuyEditPage } from "../pages/BuyEdit";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
+import { Notfound } from "../pages/notfound";
+
 
 export function StockRoutes() {
   return (
@@ -19,6 +21,7 @@ export function StockRoutes() {
         </Route>
 
       </Route>
+       <Route path="*" element={< Notfound/>}/>
     </Routes>
   );
 }

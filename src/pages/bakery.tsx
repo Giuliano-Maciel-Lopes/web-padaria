@@ -1,11 +1,13 @@
 import { useNavigate, useOutletContext, useLocation } from "react-router-dom";
 
-import img1 from "../assets/rosquinhas - Copia.png";
+import img1 from "../assets/LOGO.png";
 import img2 from "../assets/torta_de_frutas-removebg-preview - Copia.png";
 
 import { Carrossel } from "../components/bakeryshowcase/corrosel";
 import { ProductsView } from "../components/index/productsview";
 import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
+import { ProductsViewConditional } from "../components/bakeryshowcase/Productsviweimagem";
+import { PainelFodd } from "../components/bakeryshowcase/painelFodd";
 
 export function BakeryPage() {
   const location = useLocation();
@@ -27,23 +29,23 @@ export function BakeryPage() {
     );
   }
   return (
-    <div className="flex flex-col">
-      <Carrossel
-        img={img1}
-        img2={img1}
-        name="Nossas Delícias peça do conforto de sua casa"
-      />
+    <div className="flex flex-col h-auto">
+      <h1 className="text-xl md:text-3xl font-extrabold text-amber-700 text-center my-8">
+        Festival da Jabuticaba
+      </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="flex overflow-x-auto scroll-smooth gap-2 md:grid md:grid-cols-3 md:gap-6 hide-scrollbar  ">
         {product.map((product) => (
-          <ProductsView
+          <ProductsViewConditional
             key={product.id}
             product={product}
             onBuy={() => navigate(`/products/${product.id}`)}
           />
         ))}
       </div>
-      <Carrossel img={img2} img2={img2} name="Doces pra adoçar seu dia!" />
+
+      <PainelFodd />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {productCategory.map((product) => (
           <ProductsView

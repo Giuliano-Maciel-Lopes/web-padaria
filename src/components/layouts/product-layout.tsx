@@ -12,8 +12,8 @@ export function ProductLayoutPage() {
 if(isLoading)return <Loading/> 
   
   return (
-    <div className="flex flex-col md:flex-row w-full min-h-screen">
-      <div className="h-auto flex items-center justify-center md:w-1/2">
+    <div className="flex flex-col md:flex-row w-full min-h-screen gap-2">
+      <div className="max-h-screen flex items-center justify-center md:w-1/2">
         <img
           src={`${baseUrl}${products?.imageUrl}`}
           alt={products?.name}

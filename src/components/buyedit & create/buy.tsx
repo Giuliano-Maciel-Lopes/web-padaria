@@ -18,9 +18,8 @@ type Props = {
 };
 
 export function Buy({ onAside }: Props) {
-  const { product,  } = useOutletContext<{
+  const { product } = useOutletContext<{
     product: Product;
-    setRefreshOrders: React.Dispatch<React.SetStateAction<boolean>>;
   }>();
 
   const [amount, setAmount] = useState(1);

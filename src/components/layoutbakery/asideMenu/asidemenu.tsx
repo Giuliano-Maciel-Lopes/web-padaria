@@ -5,6 +5,7 @@ import { IconButton } from "../header/iconButton";
 import x from "../../../assets/x.svg";
 import logout from "../../../assets/sair.svg";
 import { useAuth } from "../../../hooks/context/useAuth";
+import { Nav } from "./nav";
 
 
 type Props = {
@@ -41,14 +42,9 @@ export function AsideMenu({ oncloseMenu , onAsideConfirm}: Props) {
           
         </div>
 
-        <nav>
-          <ul className="flex flex-col gap-4 justify-center ">
-            <Li href="#sobre">SOBRE NÓS</Li>
-            <Li href="#cardapio">ADICIONAR ENDREÇO PARA ENTREGA</Li>
-            <Li href="#contato">CONTATO</Li>
-            <Li href="#promocoes">PROMOÇÕES DO DIA</Li>
-          </ul>
-        </nav>
+        <Nav/>
+         
+      
       </aside>
     </div>
   );

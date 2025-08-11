@@ -8,15 +8,13 @@ import { SearchProductPage } from "../pages/Searchchproducts";
 import { ProductLayoutPage } from "../components/layouts/product-layout";
 import { BuyEditPage } from "../pages/BuyEdit";
 import { AdminReportPage } from "../pages/admin/adminReport";
-import { Notfound } from "../pages/notfound";
-
-
+import { Notfound } from "../pages/PageUtils/notfound";
+import { PageInfo } from "../pages/PageUtils/PageInfo";
 
 export function AdminRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LayoutBakery />}>
-
         <Route index element={<AdminPage />} />
         <Route path="orders" element={<AdmOrdersPage />} />
         <Route path="orders/:id" element={<AdminOrdersIdPage />} />
@@ -28,9 +26,9 @@ export function AdminRoutes() {
         <Route path="products" element={<ProductLayoutPage />}>
           <Route path=":id" element={<BuyEditPage />} />
         </Route>
-        
+        <Route path="info" element={<PageInfo />} />
       </Route>
-       <Route path="*" element={< Notfound/>}/>
+      <Route path="*" element={<Notfound />} />
     </Routes>
   );
 }

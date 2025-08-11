@@ -9,8 +9,8 @@ import { LayoutCartpage } from "../components/layouts/layout-cart";
 import { CartIdentificationPage } from "../pages/cart/cart-identification";
 import { CartpaymentPage } from "../pages/cart/cartpayment";
 import { SearchProductPage } from "../pages/Searchchproducts";
-import { Notfound } from "../pages/notfound";
-
+import { Notfound } from "../pages/PageUtils/notfound";
+import { PageInfo } from "../pages/PageUtils/PageInfo";
 
 export function AppRoutes() {
   return (
@@ -23,6 +23,7 @@ export function AppRoutes() {
         <Route path="products" element={<ProductLayoutPage />}>
           <Route path=":id" element={<BuyEditPage />} />
         </Route>
+        <Route path="info" element={<PageInfo />} />
       </Route>
 
       <Route path="/cart" element={<LayoutCartpage />}>
@@ -30,7 +31,7 @@ export function AppRoutes() {
         <Route path="identification" element={<CartIdentificationPage />} />
         <Route path="payment" element={<CartpaymentPage />} />
       </Route>
-       <Route path="*" element={< Notfound/>}/>
+      <Route path="*" element={<Notfound />} />
     </Routes>
   );
 }

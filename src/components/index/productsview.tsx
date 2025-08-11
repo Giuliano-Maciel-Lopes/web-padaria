@@ -72,7 +72,7 @@ export function ProductsView({ onBuy, product }: Props) {
         </div>
       )}
       <div className="flex flex-col items-center gap-4">
-        <a href="#" className="w-full flex justify-center">
+        <a href="#"  onClick={onBuy} className="w-full flex justify-center">
           <img
             src={`${baseUrl}${product.imageUrl}`}
             alt={`Imagem do produto ${product.name}`}

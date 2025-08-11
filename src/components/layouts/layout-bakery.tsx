@@ -69,7 +69,7 @@ export function LayoutBakery() {
                 <Slid />
               </div>
             )}
-            {(!admin &&  !del|| location.pathname.startsWith("/category")) && (
+            {location.pathname!== "/info" &&(!admin &&  !del|| location.pathname.startsWith("/category")) && (
               <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
                 <Buttoncategory
                   name="inicio"

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { Button } from "../components/index/button";
-import fundo from "../assets/notfound.jpg";
+import { Button } from "../../components/index/button";
+import fundo from "../../assets/notfound.jpg";
 
 export function Notfound() {
   const navigate = useNavigate();

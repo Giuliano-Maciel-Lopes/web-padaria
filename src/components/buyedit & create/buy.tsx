@@ -7,11 +7,9 @@ import local from "../../assets/local.svg";
 import { Socials } from "../layoutbakery/fotter/socials";
 import Facebook from "../../assets/Facebook.svg";
 import twwiter from "../../assets/Twitter.svg";
-import email from "../../assets/Email.svg";
 import insta from "../../assets/Instagram.svg";
 import { useCartContext } from "../../hooks/context/cart";
 import { QuantityBuy } from "./quantitybuy";
-
 import { useCreateOrders } from "../../hooks/order/useCreateOrders";
 import { useCreateOrdersItens } from "../../hooks/order.itens/useCreateOrdersItens";
 import { useAuth } from "../../hooks/context/useAuth";
@@ -20,7 +18,7 @@ type Props = {
 };
 
 export function Buy({ onAside }: Props) {
-  const { product, setRefreshOrders } = useOutletContext<{
+  const { product,  } = useOutletContext<{
     product: Product;
     setRefreshOrders: React.Dispatch<React.SetStateAction<boolean>>;
   }>();

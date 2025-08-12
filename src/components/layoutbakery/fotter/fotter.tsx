@@ -10,7 +10,7 @@ import phone from "../../../assets/call.svg";
 export function Fotter() {
   return (
     <footer className="bg-footer w-full flex flex-col h-auto md:h-100 px-8 text-[#F5EDE3]">
-      <div className="max-w-[100rem] w-full mx-auto md:flex  gap-8">
+      <div className="max-w-[100rem] w-full mx-auto flex  flex-col md:flex-row gap-8">
         <div className="py-8  flex flex-col gap-8 md:w-1/3">
           <LogoEscrita />
           <p>
@@ -22,12 +22,12 @@ export function Fotter() {
             amor e respeito pela cultura mineira.
           </p>
           <div className="flex gap-6 ">
-            <Socials logo={Facebook} href="" />
-            <Socials logo={insta} href="" />
-            <Socials logo={twwiter} href="" />
+            <Socials logo={Facebook} href="https://www.instagram.com/giulianomaciel/" />
+            <Socials logo={insta} href="https://www.instagram.com/giulianomaciel/" />
+            <Socials logo={twwiter} href="https://www.instagram.com/giulianomaciel/" />
           </div>
         </div>
-        <div className="flex  justify-between items-center md:px-10 py-8 ">
+        <div className="flex flex-col md:flex-row md:gap-2 gap-6 justify-between items-center md:px-10 py-8 ">
           <div className="flex flex-col  gap-20 ">
             <div>
               <h2 className="text-lg font-semibold">

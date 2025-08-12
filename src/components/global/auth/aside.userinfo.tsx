@@ -6,7 +6,9 @@ import { Select } from "../../index/select";
 import { cityDelivered } from "../../../utils/delivered";
 import { GeneralErro } from "../../../utils/general";
 import { useUserInfoCreateForm } from "../../../hooks/userinfo/usecreat/form";
-import { data } from "react-router";
+import { useUserInFocontext } from "../../../hooks/context/userinfo";
+import { Loading } from "../../index/loading";
+import { useAuth } from "../../../hooks/context/useAuth";
 
 type Props = {
   onClosed: () => void;
@@ -14,11 +16,19 @@ type Props = {
 };
 
 export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
-  const { mutate , isPending} = useUserInfoCreate();
-  const {errors , handleSubmit , register , }=useUserInfoCreateForm()
- const onSubmit = handleSubmit((data)=>{
-  mutate(data)
- })
+  const { session } = useAuth();
+
+   const { mutate, isPending } = useUserInfoCreate(session?.datauser.id);
+
+  const { isLoading, userInfo } = useUserInFocontext();
+
+  if (isLoading) return <Loading />;
+
+  const { errors, handleSubmit, register } = useUserInfoCreateForm(userInfo);
+
+  const onSubmit = handleSubmit((data) => {
+    mutate({ data, isUpdate: !!userInfo });
+  });
 
   return (
     <LayoutAuth
@@ -52,7 +62,11 @@ export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
           {...register("neighborhood")}
         />
 
-        <Select legend="Cidade" {...register("city")} err={errors.city?.message}>
+        <Select
+          legend="Cidade"
+          {...register("city")}
+          err={errors.city?.message}
+        >
           {cityDelivered.map((city) => (
             <option key={city}>{city}</option>
           ))}
@@ -68,10 +82,10 @@ export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
 
         {errors?.root && <GeneralErro message={errors.root.message} />}
 
-        <Button type="submit" isloading={isPending}>Salvar informações</Button>
+        <Button type="submit" isloading={isPending}>
+          Salvar informações
+        </Button>
       </form>
     </LayoutAuth>
   );
 }
-
- 

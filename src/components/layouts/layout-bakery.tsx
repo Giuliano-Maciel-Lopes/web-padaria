@@ -69,27 +69,30 @@ export function LayoutBakery() {
                 <Slid />
               </div>
             )}
-            {location.pathname!== "/info" &&(!admin &&  !del|| location.pathname.startsWith("/category")) && (
-              <div className="flex gap-4  my-5 md:my-10 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
-                <Buttoncategory
-                  name="inicio"
-                  active={location.pathname === "/"}
-                  onActive={() => {
-                    navigate("/");
-                  }}
-                />
-                {categorie.map((cat) => (
+            {location.pathname !== "/info" &&
+            location.pathname !== "/userinfo" &&
+              ((!admin && !del) ||
+                location.pathname.startsWith("/category")) && (
+                <div className="flex gap-4 px-5 my-3 md:my-5 overflow-x-auto scroll-smooth md:px-8 hide-scrollbar">
                   <Buttoncategory
-                    name={cat}
-                    key={cat}
+                    name="inicio"
+                    active={location.pathname === "/"}
                     onActive={() => {
-                      navigate(`/category?category=${cat}`);
+                      navigate("/");
                     }}
-                    active={category === cat}
                   />
-                ))}
-              </div>
-            )}
+                  {categorie.map((cat) => (
+                    <Buttoncategory
+                      name={cat}
+                      key={cat}
+                      onActive={() => {
+                        navigate(`/category?category=${cat}`);
+                      }}
+                      active={category === cat}
+                    />
+                  ))}
+                </div>
+              )}
             <Outlet
               context={{
                 products,

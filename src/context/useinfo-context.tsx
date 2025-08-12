@@ -18,9 +18,7 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
 
   const shouldFetch = !!userId && role === "CUSTOMER";
 
-  const { isLoading, data: userInfo } = useUserInfoIndex(
-    shouldFetch ? { userId } : undefined
-  );
+  const { isLoading, data: userInfo } = useUserInfoIndex(userId);
 
   return (
     <UserInfoContext.Provider

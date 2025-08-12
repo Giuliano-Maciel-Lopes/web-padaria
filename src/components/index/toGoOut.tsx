@@ -10,11 +10,14 @@ export function ToGoOut() {
   return (
     <div>
       <IconButton onClick={() => confModal.open()}>
-        <img src={togoout} alt="sair" />
+        <div className=" flex flex-col items-center">
+          <img src={togoout} alt="sair" />
+          <span>voltar para o inicio</span>
+        </div>
       </IconButton>
       {confModal.isOpen && (
         <ConfirmLogout
-          mensagem="Tem Certeza que deseja sair"
+          mensagem="Tem Certeza que deseja voltar ao inicio"
           onCancel={confModal.closed}
           onConfirm={() => {
             navigate("/");

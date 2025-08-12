@@ -21,7 +21,7 @@ export function Graphics({data ,dataYears}:Props) {
   
   return (
    <div className="flex flex-col md:flex-row">
-         <div className="h-64 w-1/2  mt-20">
+         <div className="h-64 md:w-1/2  mt-20">
            <ResponsiveContainer width="100%" height="100%">
              <BarChart data={data.weekSales}>
                <XAxis dataKey="day" />
@@ -31,7 +31,7 @@ export function Graphics({data ,dataYears}:Props) {
            </ResponsiveContainer>
          </div>
    
-         <div  className="h-64 w-1/2  mt-20">
+         <div  className="h-64 md:w-1/2  mt-20">
          <ResponsiveContainer width="100%" height="100%">
          <AreaChart
            width={500}

@@ -11,6 +11,8 @@ import { CartpaymentPage } from "../pages/cart/cartpayment";
 import { SearchProductPage } from "../pages/Searchchproducts";
 import { Notfound } from "../pages/PageUtils/notfound";
 import { PageInfo } from "../pages/PageUtils/PageInfo";
+import { UserInfoPage } from "../pages/custumer/userinfo";
+
 
 export function AppRoutes() {
   return (
@@ -24,6 +26,7 @@ export function AppRoutes() {
           <Route path=":id" element={<BuyEditPage />} />
         </Route>
         <Route path="info" element={<PageInfo />} />
+        <Route path="userinfo" element={<UserInfoPage/>} />
       </Route>
 
       <Route path="/cart" element={<LayoutCartpage />}>

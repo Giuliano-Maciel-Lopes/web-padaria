@@ -1,13 +1,9 @@
 import { useNavigate, useOutletContext, useLocation } from "react-router-dom";
-
-import img1 from "../assets/LOGO.png";
-import img2 from "../assets/torta_de_frutas-removebg-preview - Copia.png";
-
-import { Carrossel } from "../components/bakeryshowcase/corrosel";
 import { ProductsView } from "../components/index/productsview";
 import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
 import { ProductsViewConditional } from "../components/bakeryshowcase/Productsviweimagem";
 import { PainelFodd } from "../components/bakeryshowcase/painelFodd";
+import { StepOrders } from "../components/bakeryshowcase/steporders";
 
 export function BakeryPage() {
   const location = useLocation();
@@ -45,6 +41,7 @@ export function BakeryPage() {
       </div>
 
       <PainelFodd />
+      <StepOrders />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {productCategory.map((product) => (

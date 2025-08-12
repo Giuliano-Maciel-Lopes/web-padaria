@@ -94,9 +94,9 @@ export function Buy({ onAside }: Props) {
           Qualquer duvida entre em contato na nossas redes
         </h3>
         <div className="flex gap-6 ">
-          <Socials logo={Facebook} href="" />
-          <Socials logo={insta} href="" />
-          <Socials logo={twwiter} href="" />
+          <Socials logo={Facebook} href="https://www.instagram.com/giulianomaciel/" />
+          <Socials logo={insta} href="https://www.instagram.com/giulianomaciel/" />
+          <Socials logo={twwiter} href="https://www.instagram.com/giulianomaciel/" />
         </div>
       </div>
     </div>

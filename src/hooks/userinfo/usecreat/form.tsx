@@ -4,8 +4,9 @@ import {
   type CreateUserInfoInput,
   createUserInfoSchema,
 } from "../../../schema/userInfo/create";
+import type { UserInfo } from "../../../types/api/orders/indexOrder";
 
-export function useUserInfoCreateForm() {
+export function useUserInfoCreateForm(UserInfo?: UserInfo) {
   const {
     register,
     handleSubmit,
@@ -14,7 +15,11 @@ export function useUserInfoCreateForm() {
   } = useForm<CreateUserInfoInput>({
     resolver: zodResolver(createUserInfoSchema),
     defaultValues: {
-      city: "",
+      city: UserInfo?.city ?? "",
+      houseNumber: UserInfo?.houseNumber ?? "",
+      neighborhood: UserInfo?.neighborhood ?? "",
+      phone: UserInfo?.phone ?? "",
+      street: UserInfo?.street ?? "",
     },
   });
 

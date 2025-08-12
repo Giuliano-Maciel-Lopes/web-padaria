@@ -1,9 +1,11 @@
+import { ToGoOut } from "../../components/index/toGoOut";
 import { Painel } from "../../components/layoutadmin/painel";
+
 
 export function PageInfo() {
   return (
     <div className="flex flex-col min-h-screen items-center gap-6 p-6 ">
-      <Painel title="SEJA BEM-VINDO ÀS INFORMAÇÕES DA PADARIA" />
+      <Painel  title="SEJA BEM-VINDO ÀS INFORMAÇÕES DA PADARIA" />
       <div className="text-justify leading-relaxed text-gray-700">
         <p>
           Este projeto é uma aplicação fictícia desenvolvida para fins de portfólio, 

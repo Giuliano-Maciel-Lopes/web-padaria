@@ -1,10 +1,14 @@
 import { useAuthModal } from "../../hooks/context/asideauth";
+import { useAuth } from "../../hooks/context/useAuth";
 import { useUserInFocontext } from "../../hooks/context/userinfo";
 import { Button } from "../index/button";
 
+
 export function LicenseInfo() {
+  const user = useAuth()
   const { userInfo } = useUserInFocontext();
   const {userInfo:userInfoModal}=  useAuthModal()
+  if(!user.session?.token) return
 
   if (!userInfo) {
     return (
@@ -31,7 +35,7 @@ export function LicenseInfo() {
         Informações de Endereço
       </h3>
 
-      <div className="text-gray-700 flex flex-col gap-1">
+      <div className="text-gray-700 flex flex-col gap-1 mb-5">
         {address.map(({ label, value }) => (
           <div key={label} className="flex justify-between">
             <span className="font-medium">{label}</span>
@@ -39,6 +43,7 @@ export function LicenseInfo() {
           </div>
         ))}
       </div>
+     <Button onClick={userInfoModal.open}>Mudar localidade</Button>
     </div>
   );
 }

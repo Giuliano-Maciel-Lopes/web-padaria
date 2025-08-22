@@ -4,6 +4,7 @@ import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
 import { ProductsViewConditional } from "../components/bakeryshowcase/Productsviweimagem";
 import { PainelFodd } from "../components/bakeryshowcase/painelFodd";
 import { StepOrders } from "../components/bakeryshowcase/steporders";
+import { SweetsAndSavories } from "../components/bakeryshowcase/SweetsAndSavories";
 
 export function BakeryPage() {
   const location = useLocation();
@@ -41,7 +42,7 @@ export function BakeryPage() {
       </div>
 
       <PainelFodd />
-      <StepOrders />
+      <StepOrders /> 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {productCategory.map((product) => (
@@ -51,6 +52,9 @@ export function BakeryPage() {
             onBuy={() => navigate(`/products/${product.id}`)}
           />
         ))}
+      </div>
+      <div>
+        <SweetsAndSavories/>
       </div>
     </div>
   );

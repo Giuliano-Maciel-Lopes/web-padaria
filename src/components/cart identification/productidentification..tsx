@@ -11,7 +11,7 @@ export function ProductImageCart({ imageUrl, name, quantity, category }: Product
     <div className="flex flex-col-reverse md:flex-row gap-4">
       <div className="md:w-28 md:h-28 h-60  rounded overflow-hidden">
         <img
-          src={imageUrl}
+          src={encodeURI(imageUrl)}
           alt={name}
           className="w-full h-full object-contain bg-gray-100"
         />

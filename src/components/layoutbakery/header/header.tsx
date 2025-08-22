@@ -3,10 +3,11 @@ import { IconButton } from "./iconButton";
 import cart from "../../../assets/carrinho.png";
 import loguin from "../../../assets/LOGUIN.png";
 import menu from "../../../assets/menu.svg";
+import left from "../../../assets/setaleft.png";
 
 import { Formsearch } from "./formSearch";
 import { useCartContext } from "../../../hooks/context/cart";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../../hooks/context/useAuth";
 import { useIndexOrders } from "../../../hooks/order/userIndexOrder";
 import { useState } from "react";
@@ -22,6 +23,10 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
   const { session } = useAuth();
   const { data: ordersData } = useIndexOrders("PROCESSING");
   const navigate = useNavigate();
+  const location = useLocation(); 
+ const backButtonRoutes = ["/info", "/orders", "/reports"];
+const showBackButton = backButtonRoutes.includes(location.pathname);
+
   const auth = session?.token;
   const role = session?.datauser.role;
 
@@ -49,7 +54,6 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
               onSearchChange={(value) => setName(value)}
               value={name}
               placeholder="Procure seu pedido aqui"
-              className=""
             />
           )}
         </div>
@@ -68,7 +72,7 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
               animationbase
               className="flex relative"
             >
-              {(quantityItems ?? 0) > 0 && ( // c for null assume 0
+              {(quantityItems ?? 0) > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-xs font-bold text-amber-900 shadow-md">
                   {quantityItems}
                 </span>
@@ -82,17 +86,30 @@ export function Header({ onAsideMenu, onAsideLoguin }: Props) {
           )}
         </div>
       </div>
-      {}
+
+ <div className="hidden md:block mt-2">
+  {showBackButton && (
+    <IconButton onClick={() => navigate(-1)}>
+      <img src={left} alt="Voltar" className="h-6 w-6 filter invert" />
+    </IconButton>
+  )}
+</div>
+    
       <div className="md:hidden mt-4 w-full">
-        <Formsearch
-          onSearch={(value) =>
-            navigate(`/search/?search=${encodeURIComponent(value)}`)
-          }
-          onSearchChange={(value) => setName(value)}
-          value={name}
-          placeholder="Procure seu pedido aqui"
-          className=""
-        />
+        {showBackButton  ? (
+          <IconButton onClick={() => navigate(-1)}>
+            <img src={left} alt="Voltar" />
+          </IconButton>
+        ) : (
+          <Formsearch
+            onSearch={(value) =>
+              navigate(`/search/?search=${encodeURIComponent(value)}`)
+            }
+            onSearchChange={(value) => setName(value)}
+            value={name}
+            placeholder="Procure seu pedido aqui"
+          />
+        )}
       </div>
     </header>
   );

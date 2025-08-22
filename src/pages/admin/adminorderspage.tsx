@@ -25,7 +25,7 @@ export function AdmOrdersPage() {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-5 min-h-screen">
       <div className="bg-[#d6bfa2] p-6 rounded-xl shadow-md  my-6">
         <div className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar md:justify-between">
           {orderStatus.map((status) => (

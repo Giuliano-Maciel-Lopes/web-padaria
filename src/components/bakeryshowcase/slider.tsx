@@ -1,14 +1,13 @@
 import slid1 from "../../assets/slid1.png";
 import slid2 from "../../assets/slid2.png";
 import slid3 from "../../assets/slid3.png";
-import slid4 from "../../assets/slid4.png";
 import arrowleft from "../../assets/Forward.svg";
 import arrowrigth from "../../assets/Back.svg";
 import { useState } from "react";
 import { Button } from "../index/button";
 
 export function Slid() {
-  const img = [slid1, slid2, slid3, slid4];
+  const img = [slid1, slid2, slid3, ];
   const [slid, setslid] = useState(0);
 
   function next() {

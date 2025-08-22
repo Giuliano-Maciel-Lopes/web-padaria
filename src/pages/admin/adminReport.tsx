@@ -24,7 +24,7 @@ export function AdminReportPage() {
   console.log(JSON.stringify(dataYears.months, null, 2));
 
   return (
-    <div className="min-h-screen p-6 flex flex-col">
+    <div className="min-h-screen p-6 flex flex-col mt-5 ">
       <AgroupInfoValues
         data={data}
         selectedDate={selectedDate}

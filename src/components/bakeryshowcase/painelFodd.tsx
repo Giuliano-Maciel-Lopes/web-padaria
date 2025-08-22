@@ -5,7 +5,7 @@ import { Button } from "../index/button";
 export function PainelFodd() {
   const navigate = useNavigate();
   return (
-    <div className="h-auto md:h-[400px] w-full bg-amber-50 flex flex-col md:flex-row mt-6 md:my-12">
+    <section className="h-auto md:h-[400px] w-full bg-amber-50 flex flex-col md:flex-row mt-6 md:my-12">
       <div className="w-full md:w-1/2 bg-white md:relative">
         <img
           src={queijo}
@@ -40,6 +40,6 @@ export function PainelFodd() {
           Venha conferir
         </Button>
       </div>
-    </div>
+    </section>
   );
 }

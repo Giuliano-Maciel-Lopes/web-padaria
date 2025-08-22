@@ -2,14 +2,15 @@ import { License } from "../../components/cart identification/license";
 import { LicenseInfo } from "../../components/cart identification/licenseinfo";
 import { useAuth } from "../../hooks/context/useAuth";
 import { Painel } from "../../components/layoutadmin/painel";
+import { ToGoOut } from "../../components/index/toGoOut";
 
 export function UserInfoPage() {
   const { session } = useAuth();
   const auth = session?.token
 
   return (
-    <div className="flex items-center flex-col gap-4 mt-5">
-      
+    <div className="flex items-center flex-col gap-4 mt-5 relative">
+       <ToGoOut />
       <Painel 
 
         title="Informações do usuário" 

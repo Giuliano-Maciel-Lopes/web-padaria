@@ -1,10 +1,10 @@
-import { ToGoOut } from "../../components/index/toGoOut";
+
 import { Painel } from "../../components/layoutadmin/painel";
 
 
 export function PageInfo() {
   return (
-    <div className="flex flex-col min-h-screen items-center gap-6 p-6 ">
+    <div className="flex flex-col min-h-screen items-center gap-6 p-6 relative mt-5">
       <Painel  title="SEJA BEM-VINDO ÀS INFORMAÇÕES DA PADARIA" />
       <div className="text-justify leading-relaxed text-gray-700">
         <p>

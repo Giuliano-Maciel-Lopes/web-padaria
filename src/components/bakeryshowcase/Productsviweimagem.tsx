@@ -1,4 +1,3 @@
-import car from "../../assets/carrinho.png";
 import { useAuth } from "../../hooks/context/useAuth";
 import { Button } from "../index/button";
 import remove from "../../assets/remove.svg";
@@ -62,7 +61,7 @@ export function ProductsViewConditional({ onBuy, product }: Props) {
             </div>
             <div>
               <Input
-                onChange={(e) => {
+                onChange={() => {
                   asideUpdate.open();
                 }}
                 checked={isActiveLocal}

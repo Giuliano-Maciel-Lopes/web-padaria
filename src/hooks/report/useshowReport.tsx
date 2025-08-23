@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
 
-import type { ApiResponseReportIndex } from "../../types/api/report";
 import type { ApiresponseShow } from "../../types/api/report/show";
 
 async function fetchData() {

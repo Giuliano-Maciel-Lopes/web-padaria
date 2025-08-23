@@ -1,6 +1,5 @@
 import type { ComponentProps } from "react";
 import { classMerge } from "../../utils/libs/merge";
-import { StepCart } from "../layoutcart/stepcart";
 
 type Props = ComponentProps<"button"> & {
   children?: React.ReactNode;
@@ -42,7 +41,6 @@ export function Button({
   colorVariant = "primary",
   variant = "base",
   isloading,
-  disabled,
   isActive,
 
   children,

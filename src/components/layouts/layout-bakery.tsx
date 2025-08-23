@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { useToggle } from "../../hooks/useToggle";
@@ -22,14 +21,13 @@ export function LayoutBakery() {
   const category = params.get("category");
   const {
     isLoading,
-    isError,
     data: products = [],
   } = useCategoryFilter({ category });
   console.log(products);
 
   const menu = useToggle();
   const confirmLogout = useToggle();
-  const { login, register } = useAuthModal();
+  const { login,  } = useAuthModal();
   const { session, remove } = useAuth();
   const admin = session?.datauser.role === "ADMIN";
   const del = session?.datauser.role === "DELIVERY_PERSON";

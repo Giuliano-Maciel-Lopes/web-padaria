@@ -5,7 +5,6 @@ import { categorie } from "../../utils/categorias";
 
 import type { Product } from "../../types/api/products/producsts";
 import {
-  useCreateProductForm,
   type UseCreateProductFormReturn,
 } from "../../hooks/products/useCreateEdit/form";
 

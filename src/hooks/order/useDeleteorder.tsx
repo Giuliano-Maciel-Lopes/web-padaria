@@ -2,7 +2,7 @@ import { orderItemIdParamsSchema ,type OrderItemIdParamsInput } from "../../sche
 import { api } from "../../services/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toastSuccessCutomer } from "../../styles/animations/toast/toastsucess";
-toastSuccessCutomer
+
 
 async function deleteOrderItem(params: OrderItemIdParamsInput) {
    orderItemIdParamsSchema.parse(params);

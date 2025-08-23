@@ -2,11 +2,9 @@ import { useState } from "react";
 import { Button } from "../index/button";
 import { Input } from "../index/input";
 import { useUpdateisHome } from "../../hooks/order/useUpdateisHome";
-import { useAuth } from "../../hooks/context/useAuth";
 import { useAuthModal } from "../../hooks/context/asideauth";
 import { useUserInFocontext } from "../../hooks/context/userinfo";
 import { GeneralErro } from "../../utils/general";
-import { useNavigate } from "react-router";
 import { useStripeCheckout } from "../../hooks/stripe/creat";
 
 type Props = {
@@ -17,13 +15,11 @@ type Props = {
 export function IsHomeResumo({ id, total }: Props) {
   const [message, setMessage] = useState<string | null>(null);
 
-  const { mutateAsync, isPending } = useUpdateisHome();
+  const { mutateAsync } = useUpdateisHome();
   const { userInfo: userInfoModal } = useAuthModal();
   const { userInfo } = useUserInFocontext();
   const [isHome, setishome] = useState<boolean | null>(null);
-  const { session } = useAuth();
   const hasAddress = !!(userInfo && userInfo.city);
-  const navigate = useNavigate();
   const { mutate: mutateStripe } = useStripeCheckout();
 
   async function handleIsHomeChange(e: React.FormEvent<HTMLFormElement>) {

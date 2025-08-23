@@ -4,7 +4,6 @@ import { Button } from "../../components/index/button";
 import { useNavigate } from "react-router";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { useOutletContext } from "react-router";
-import { Loading } from "../../components/index/loading";
 import { NotOrders } from "../../components/index/NotOrders";
 
 export function CartbuyPage() {

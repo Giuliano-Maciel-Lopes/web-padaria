@@ -1,9 +1,7 @@
 import { useCartContext } from "../../hooks/context/cart";
-import type { Orderview } from "../../types/api/orders/ordersview";
 import { IconButton } from "../layoutbakery/header/iconButton";
 import trash from "../../assets/trash-2.svg";
 import { useDeleteOrders } from "../../hooks/order/useDeleteorder";
-import { useAuth } from "../../hooks/context/useAuth";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { QuantityBuy } from "../buyedit & create/quantitybuy";
 import { UseUpdateQuantityOrdersItems } from "../../hooks/order.itens/UseUpdateQuantityOrdersItems";

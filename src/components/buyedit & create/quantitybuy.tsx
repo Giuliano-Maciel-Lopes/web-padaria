@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "../index/button";
 import menos from "../../assets/menos.svg";
 import mais from "../../assets/mais.svg";

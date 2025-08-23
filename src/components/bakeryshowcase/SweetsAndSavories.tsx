@@ -13,8 +13,6 @@ export function SweetsAndSavories() {
       </h1>
 
       <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 px-4 md:px-0">
-        
-        {/* Doces */}
         <div className="flex flex-col items-center gap-4">
           <img
             src={Sweets}
@@ -28,8 +26,9 @@ export function SweetsAndSavories() {
             Confira
           </Button>
         </div>
-
-        {/* Salgados */}
+        <div className="hidden md:flex items-center justify-center text-red-600 text-6xl font-bold">
+          ✖
+        </div>
         <div className="flex flex-col items-center gap-4">
           <img
             src={Savories}
@@ -43,7 +42,6 @@ export function SweetsAndSavories() {
             Confira
           </Button>
         </div>
-
       </div>
     </section>
   );

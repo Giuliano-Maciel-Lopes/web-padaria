@@ -1,4 +1,3 @@
-import financeiroImg from "../../assets/finançass.avif"
 import estoqueImg from "../../assets/estoque.avif";
 import relatorioImg from "../../assets/relatorio.avif";
 import entregasImg from "../../assets/entregas.png";

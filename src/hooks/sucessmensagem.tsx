@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { TopBanner } from "../components/index/banner";
 
 
 export function useSuccessMessage(timeout = 2000) {

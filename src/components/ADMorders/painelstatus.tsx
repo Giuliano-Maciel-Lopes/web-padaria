@@ -1,5 +1,3 @@
-import { Formsearch } from "../layoutbakery/header/formSearch";
-import { Select } from "../index/select";
 import { Button } from "../index/button";
 
 type Props = {

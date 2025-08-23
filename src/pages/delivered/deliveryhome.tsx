@@ -8,7 +8,7 @@ import { useUpdateStatusOrders } from "../../hooks/order/useUpdateStatusOrder";
 import { useState } from "react";
 import { NotOrders } from "../../components/index/NotOrders";
 import { Button } from "../../components/index/button";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export function Deliverypage() {
   const navigate = useNavigate();

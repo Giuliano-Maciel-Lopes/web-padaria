@@ -9,14 +9,13 @@ import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Loading } from "../index/loading";
-import { ToGoOut } from "../index/toGoOut";
 
 export function LayoutCartpage() {
   const { session } = useAuth();
   const auth = session?.token;
   const { items } = useCartContext();
 
-  const { data, isLoading, isError } = useIndexOrders("PROCESSING");
+  const { data, isLoading,  } = useIndexOrders("PROCESSING");
 
   if (isLoading) return <Loading />;
 

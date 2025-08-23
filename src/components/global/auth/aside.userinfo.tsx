@@ -22,9 +22,9 @@ export function AsideUserInfo({ onClosed, onbutton2 }: Props) {
 
   const { isLoading, userInfo } = useUserInFocontext();
 
-  if (isLoading) return <Loading />;
-
   const { errors, handleSubmit, register } = useUserInfoCreateForm(userInfo);
+
+  if (isLoading) return <Loading />;
 
   const onSubmit = handleSubmit((data) => {
     mutate({ data, isUpdate: !!userInfo });

@@ -1,6 +1,6 @@
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Li } from "./li";
-import React, { type ReactNode } from "react";
+import  { type ReactNode } from "react";
 import { useAuth } from "../../../hooks/context/useAuth";
 type Props ={
 children?:ReactNode

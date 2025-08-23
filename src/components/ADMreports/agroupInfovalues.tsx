@@ -2,7 +2,6 @@ import cart from "../../assets/carrinho.png";
 import encomenda from "../../assets/package.svg";
 import money from "../../assets/money.svg";
 import calendar from "../../assets/calendar.svg";
-import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { InfoValue } from "../../components/ADMreports/infovalues";

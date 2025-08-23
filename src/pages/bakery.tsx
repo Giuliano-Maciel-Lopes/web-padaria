@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ProductsView } from "../components/index/productsview";
 import { useCategoryFilter } from "../hooks/products/useCategoryfilter";
 import { ProductsViewConditional } from "../components/bakeryshowcase/Productsviweimagem";

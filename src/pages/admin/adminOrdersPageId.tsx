@@ -1,4 +1,4 @@
-import { data, useParams } from "react-router";
+import { useParams } from "react-router";
 import { ProductImageCart } from "../../components/cart identification/productidentification.";
 import { useShowOrderID } from "../../hooks/order/useshowOrderId";
 import { LoadingFull } from "../../components/index/loadingfull";

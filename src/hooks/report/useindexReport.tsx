@@ -8,7 +8,7 @@ async function fetchData(date?: string | null) {
   const res = await api.get<ApiResponseReportIndex>("report_day", {
     params: { date },
   });
- //await new Promise(resolve => setTimeout(resolve, 2000));
+
   return res.data;
 }
 

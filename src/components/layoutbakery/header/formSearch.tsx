@@ -2,8 +2,7 @@ import type { ComponentProps } from "react";
 import search from "../../../assets/lupa.png";
 import { Button } from "../../index/button";
 import { Input } from "../../index/input";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Use react-router-dom
+// Use react-router-dom
 
 type Props = ComponentProps<"form"> & {
   placeholder?: string;

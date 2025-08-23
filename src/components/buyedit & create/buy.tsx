@@ -1,4 +1,4 @@
-import { data, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import type { Product } from "../../types/api/products/producsts";
 import { currencyBRL } from "../../utils/currencyBRL";
 import { Button } from "../index/button";
@@ -28,7 +28,7 @@ export function Buy({ onAside }: Props) {
   const { mutateAsync: mutateOrder } = useCreateOrders();
   const { mutateAsync, isPending } = useCreateOrdersItens();
 
-  const { isVitrine, description, createdAt, updatedAt, ...itemSave } = product;
+  const { ...itemSave } = product;
 
   async function handleConfirm() {
     if (session?.token) {

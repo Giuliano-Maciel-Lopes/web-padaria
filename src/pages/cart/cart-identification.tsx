@@ -1,4 +1,4 @@
-import { Navigate, useOutletContext } from "react-router";
+import { useOutletContext } from "react-router";
 import { License } from "../../components/cart identification/license";
 import { LicenseInfo } from "../../components/cart identification/licenseinfo";
 import { ProductImageCart } from "../../components/cart identification/productidentification.";

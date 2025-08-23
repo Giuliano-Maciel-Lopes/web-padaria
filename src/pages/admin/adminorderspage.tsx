@@ -1,4 +1,4 @@
-import { data, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Button } from "../../components/index/button";
 import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 import { Loading } from "../../components/index/loading";

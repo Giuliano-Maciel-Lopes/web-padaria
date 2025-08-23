@@ -61,7 +61,7 @@ export function ProductsView({ onBuy, product }: Props) {
           </div>
           <div>
             <Input
-              onChange={(e) => {
+              onChange={() => {
                 asideUpdate.open();
               }}
               checked={isActiveLocal}

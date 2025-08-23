@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   parasChemaUserInfo,
-  type ParamsSchemaUserInfoInput,
 } from "../../schema/userInfo";
 import { api } from "../../services/api";
 

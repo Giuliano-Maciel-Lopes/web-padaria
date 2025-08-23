@@ -15,7 +15,7 @@ export function InfoValue({
   mensagem,
   img,
   colorClass = "bg-blue-500",
-  classname
+
 }: Props) {
   return (
     <div className="bg-white w-full h-40 rounded-2xl flex overflow-hidden shadow-md pr-5">

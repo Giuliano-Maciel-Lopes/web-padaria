@@ -3,7 +3,7 @@ import { Buy } from "../components/buyedit & create/buy";
 import { Edit } from "../components/buyedit & create/edit";
 import { ConfirmLogout } from "../components/layoutbakery/asideMenu/confirmlogout";
 import { useToggle } from "../hooks/useToggle";
-import { data, useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import type { Product } from "../types/api/products/producsts";
 import { AsidebuyCart } from "../components/cart buy/asidebuyCart";
 import { useCreateProductForm } from "../hooks/products/useCreateEdit/form";

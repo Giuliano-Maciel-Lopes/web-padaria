@@ -18,7 +18,7 @@ export function useStripeCheckout() {
     onSuccess: (data) => {
       window.location.href = data;
     },
-    onError: (error, variables, context) => {
+    onError: (error, ) => {
       toast.error(erroHandlerAxios(error));
     },
   });

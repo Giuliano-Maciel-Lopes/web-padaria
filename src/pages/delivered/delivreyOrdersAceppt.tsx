@@ -5,7 +5,6 @@ import { useIndexOrders } from "../../hooks/order/userIndexOrder";
 import { PainelStatus } from "../../components/ADMorders/painelstatus";
 import { NotOrders } from "../../components/index/NotOrders";
 import { LoadingFull } from "../../components/index/loadingfull";
-PainelStatus;
 
 export function DelivreyOrdersAcepptPage() {
   const navigate = useNavigate();

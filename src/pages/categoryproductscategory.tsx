@@ -11,7 +11,7 @@ export function CategoryProductsPage() {
     products: Product[];
     isLoading: boolean;
   }>();
-  const baseUrl = import.meta.env.VITE_BASE_API;
+
   const navigate = useNavigate();
   const { session } = useAuth();
     const isHomeStock = session?.datauser.role === "STOCK" 

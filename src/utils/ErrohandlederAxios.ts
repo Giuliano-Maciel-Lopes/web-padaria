@@ -8,7 +8,7 @@ export function erroHandlerAxios(error: unknown): string {
     if (typeof data === "string") return data;
 
     if (data && typeof data === "object" && "message" in data) {
-      return (data as any).message;
+      return (data as { message: string }).message;
     }
   }
 

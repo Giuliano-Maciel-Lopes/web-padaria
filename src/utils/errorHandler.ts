@@ -9,7 +9,7 @@ export async function errorHandler<T>(
   try {
     const data = await fn();
     return { data };
-  } catch (err: any) {
+  } catch (err: unknown) {
     const isDev = import.meta.env.MODE === "development";
 
     if (isDev && err instanceof ZodError) {

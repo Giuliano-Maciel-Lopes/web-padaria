@@ -55,7 +55,8 @@ export function LayoutBakery() {
             <ConfirmLogout
               mensagem="Tem certeza que deseja sair?"
               onConfirm={() => {
-                remove(), confirmLogout.closed();
+                remove();
+                confirmLogout.closed();
               }}
               onCancel={confirmLogout.closed}
             />

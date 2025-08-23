@@ -4,6 +4,7 @@ import type { Product } from "../../../types/api/products/producsts";
 import type { CreateProductInput } from "../../../schema/products/creat";
 import type { UpdateInput } from "../../../schema/products/update";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 type fetchData = {
   data: CreateProductInput | UpdateInput;
@@ -41,7 +42,7 @@ export function useCreateEdit() {
       toast.success(data);
     },
 
-    onError(error: any) {
+    onError(error: AxiosError) {
       const message = error?.message || "Erro ao salvar produto";
       toast.error(message);
     },

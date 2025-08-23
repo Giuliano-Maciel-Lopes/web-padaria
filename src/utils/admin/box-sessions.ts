@@ -1,15 +1,8 @@
 import estoqueImg from "../../assets/estoque.avif";
 import relatorioImg from "../../assets/relatorio.avif";
 import entregasImg from "../../assets/entregas.png";
-import usuariosImg from "../../assets/lupa.png"; // Crie ou ajuste essa imagem se não tiver
 
 export const BoxSessionUtils = [
-  {
-    title: "Usuários",
-    description: "Controle de usuários",
-    img: usuariosImg,
-    path: "/users",
-  },
   {
     title: "Relatórios",
     description: "graficos de vendas",

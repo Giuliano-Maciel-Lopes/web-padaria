@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { LayoutBakery } from "../components/layouts/layout-bakery";
 import { AdminPage } from "../pages/admin/adminHome";
-import { AdmOrdersPage } from "../pages/admin/adminOrderspage";
+import { AdmOrdersPage } from "../pages/admin/adminorderspage";
 import { AdminOrdersIdPage } from "../pages/admin/adminOrdersPageId";
 import { CategoryProductsPage } from "../pages/categoryproductscategory";
 import { SearchProductPage } from "../pages/Searchchproducts";
